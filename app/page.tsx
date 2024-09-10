@@ -10,7 +10,9 @@ export default function StartScreen() {
       </div>
       <div className="flex flex-col">
         <Link href="/tutorial/intro/001">Tutorial</Link>
-        <Link href="/game">Play</Link>
+        <Link href="/game/easy">Easy</Link>
+        <Link href="/game/hard">Hard</Link>
+        <Link href="/game/expert">Expert</Link>
       </div>
     </div>
   );
