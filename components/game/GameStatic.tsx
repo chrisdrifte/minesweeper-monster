@@ -1,7 +1,7 @@
 "use client";
 
 import { BoardWrapper } from "./BoardWrapper";
-import { RenderCell } from "./RenderCell";
+import { RenderCell } from "../cells/RenderCell";
 import { loadGameState } from "@/helpers/loadGameState";
 import { useMemo } from "react";
 

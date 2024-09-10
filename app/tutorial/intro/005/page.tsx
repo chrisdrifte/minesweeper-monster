@@ -1,4 +1,4 @@
-import { GamePlay } from "@/components/GamePlay";
+import { GamePlay } from "@/components/game/GamePlay";
 import Link from "next/link";
 
 export default function TutorialIntro006() {

@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { Action } from "@/types/Action";
 import { BoardWrapper } from "./BoardWrapper";
 import { CellId } from "@/types/CellId";
-import { RenderCell } from "./RenderCell";
+import { RenderCell } from "../cells/RenderCell";
 import { createCellId } from "@/helpers/createCellId";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";

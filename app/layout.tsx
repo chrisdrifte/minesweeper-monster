@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import { Center } from "@/components/Center";
+import { Center } from "@/components/layout/Center";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { spaceMono } from "./fonts";
@@ -22,7 +22,7 @@ export default function RootLayout({
           <header className="m-8">
             <hgroup>
               <h1 className={spaceMono.className}>
-                <Link href="/">Minesweeper</Link>
+                <Link href="/">MINESWEEPER</Link>
               </h1>
             </hgroup>
           </header>

@@ -31,7 +31,7 @@ export function CellWrapper({
           "size-full rounded-sm flex items-center justify-center"
         )}
       >
-        <span>{children}</span>
+        {children}
       </div>
     </div>
   );

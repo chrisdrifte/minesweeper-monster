@@ -1,4 +1,4 @@
-import { GameReplay } from "@/components/GameReplay";
+import { GameReplay } from "@/components/game/GameReplay";
 import Link from "next/link";
 
 export default function TutorialIntro001() {

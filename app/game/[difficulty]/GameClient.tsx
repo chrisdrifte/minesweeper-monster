@@ -1,7 +1,8 @@
 "use client";
 
-import { GamePlay } from "@/components/GamePlay";
+import { GamePlay } from "@/components/game/GamePlay";
 import Link from "next/link";
+import { RestartIcon } from "@/components/icons/RestartIcon";
 import { useState } from "react";
 
 export type GameClientProps = {
@@ -40,9 +41,11 @@ export default function GameClient({ difficulty }: GameClientProps) {
   return (
     <>
       <GamePlay key={key} settings={getSettings()} />
-      <div className="flex flex-col items-start">
-        <button onClick={restart}>Restart</button>
-        <Link href="/">Back to home</Link>
+
+      <div className="flex flex-col items-center m-8">
+        <button onClick={restart} title="Restart">
+          <RestartIcon fill="white" className="size-8" />
+        </button>
       </div>
     </>
   );

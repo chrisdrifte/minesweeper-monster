@@ -1,10 +1,10 @@
 "use client";
 
 import { BoardWrapper } from "./BoardWrapper";
-import { Center } from "./Center";
+import { Center } from "../layout/Center";
 import { GameSettings } from "@/types/GameSettings";
-import { Paragraph } from "./Paragraph";
-import { RenderCell } from "./RenderCell";
+import { Paragraph } from "../layout/Paragraph";
+import { RenderCell } from "../cells/RenderCell";
 import { SelectActionType } from "./SelectActionType";
 import { createGameState } from "@/helpers/createGameState";
 import { dig } from "@/game/actions/dig";
@@ -95,20 +95,21 @@ export function GamePlay(props: GamePlayProps) {
             <RenderCell
               key={cell.id}
               cell={cell}
+              action={gameState.action}
               onClick={() => {
-                if (hasNotStarted) {
-                  setGameState((prevGameState) =>
-                    generate(prevGameState, cell)
-                  );
-                  return;
-                }
-
                 if (!isPlaying) {
                   return;
                 }
 
                 switch (gameState.action) {
                   case "dig":
+                    if (hasNotStarted) {
+                      setGameState((prevGameState) =>
+                        generate(prevGameState, cell)
+                      );
+                      return;
+                    }
+
                     setGameState((prevGameState) => dig(prevGameState, cell));
                     return;
 
@@ -124,9 +125,17 @@ export function GamePlay(props: GamePlayProps) {
         <SelectActionType
           actionType={gameState.action}
           onSelectDig={() => {
+            if (hasNotStarted || !isPlaying) {
+              return;
+            }
+
             setGameState((prevGameState) => selectDig(prevGameState));
           }}
           onSelectFlag={() => {
+            if (hasNotStarted || !isPlaying) {
+              return;
+            }
+
             setGameState((prevGameState) => selectFlag(prevGameState));
           }}
         />

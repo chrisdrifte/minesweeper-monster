@@ -1,12 +1,12 @@
 "use client";
 
-import { Center } from "@/components/Center";
-import { ContentBlock } from "@/components/ContentBlock";
-import { GameStatic } from "@/components/GameStatic";
-import { Learn } from "@/components/Learn";
-import { MenuButton } from "@/components/MenuButton";
-import { MenuWrapper } from "@/components/MenuWrapper";
-import { Paragraph } from "@/components/Paragraph";
+import { Center } from "@/components/layout/Center";
+import { ContentBlock } from "@/components/layout/ContentBlock";
+import { GameStatic } from "@/components/game/GameStatic";
+import { LearnIcon } from "@/components/icons/LearnIcon";
+import { MenuButton } from "@/components/navigation/MenuButton";
+import { MenuWrapper } from "@/components/navigation/MenuWrapper";
+import { Paragraph } from "@/components/layout/Paragraph";
 import { useRouter } from "next/navigation";
 
 export default function IndexPage() {
@@ -42,7 +42,7 @@ export default function IndexPage() {
 
       <ContentBlock>
         <Center>
-          <Learn fill="white" className="size-8" />
+          <LearnIcon fill="white" className="size-8" />
         </Center>
 
         <Paragraph>Or learn how to play via interactive tutorials.</Paragraph>

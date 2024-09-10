@@ -1,4 +1,4 @@
-import { GameTour } from "@/components/GameTour";
+import { GameTour } from "@/components/game/GameTour";
 import Link from "next/link";
 
 export default function TutorialIntro003() {

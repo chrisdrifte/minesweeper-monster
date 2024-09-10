@@ -1,18 +1,20 @@
 import { Cell } from "@/types/Cell";
 import { CellWrapper } from "./CellWrapper";
 import { Count } from "./Count";
-import { Flag } from "./Flag";
+import { FlagIcon } from "../icons/FlagIcon";
 import { Mine } from "./Mine";
 import { noop } from "@/helpers/noop";
 
 export type RenderCellProps = {
   cell: Cell;
+  action?: "dig" | "flag";
   isHighlighted?: boolean;
   onClick?: VoidFunction;
 };
 
 export function RenderCell({
   cell,
+  action,
   isHighlighted = false,
   onClick = noop,
 }: RenderCellProps) {
@@ -23,7 +25,19 @@ export function RenderCell({
           isHighlighted={isHighlighted}
           background="white"
           onClick={onClick}
-        ></CellWrapper>
+        >
+          {action === "dig" && (
+            <div className="size-full hover:bg-red-500 active:bg-rad-500" />
+          )}
+          {action === "flag" && (
+            <div className="size-full opacity-50 group">
+              <FlagIcon
+                fill="black"
+                className="hidden group-hover:block group-active:block"
+              />
+            </div>
+          )}
+        </CellWrapper>
       );
 
     case "flagged":
@@ -33,7 +47,7 @@ export function RenderCell({
           background="white"
           onClick={onClick}
         >
-          <Flag />
+          <FlagIcon />
         </CellWrapper>
       );
 

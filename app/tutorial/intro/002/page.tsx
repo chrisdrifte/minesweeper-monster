@@ -1,5 +1,5 @@
-import { GameStatic } from "@/components/GameStatic";
-import { GameTour } from "@/components/GameTour";
+import { GameStatic } from "@/components/game/GameStatic";
+import { GameTour } from "@/components/game/GameTour";
 import Link from "next/link";
 
 export default function TutorialIntro002() {
