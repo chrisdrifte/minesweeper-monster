@@ -1,0 +1,22 @@
+import classNames from "classnames";
+import { noop } from "@/helpers/noop";
+import { spaceMono } from "@/app/fonts";
+
+export type MenuButtonProps = {
+  text: string;
+  onClick?: VoidFunction;
+};
+
+export function MenuButton({ text, onClick = noop }: MenuButtonProps) {
+  return (
+    <button
+      className={classNames(
+        spaceMono.className,
+        "border-2 border-white text-white rounded-sm px-4 py-2 text-center text-sm hover:bg-white hover:text-black active:bg-white active:text-black"
+      )}
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
+}

@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Center } from "@/components/Center";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { spaceMono } from "./fonts";
@@ -16,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` antialiased bg-black text-white`}>
+      <body className="antialiased bg-black text-white">
         <main className="flex flex-col items-center">
           <header className="m-8">
             <hgroup>
@@ -26,8 +27,11 @@ export default function RootLayout({
             </hgroup>
           </header>
 
-          <div className="w-96">{children}</div>
+          <div className="max-w-96">{children}</div>
         </main>
+        <footer className="text-gray-500 text-xs mt-32 mb-16 mx-8">
+          <Center>Built by Chris Drifte</Center>
+        </footer>
       </body>
     </html>
   );

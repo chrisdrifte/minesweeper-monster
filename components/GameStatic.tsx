@@ -22,7 +22,7 @@ export function GameStatic({ levelData }: GameStaticProps) {
   }, [levelData]);
 
   return (
-    <div>
+    <div className="pointer-events-none">
       <BoardWrapper width={gameState.width} height={gameState.height}>
         {gameState.cells.map((cell) => (
           <RenderCell key={cell.id} cell={cell} />
