@@ -26,9 +26,11 @@ export function dig(gameState: GameState, target: Target): GameState {
       }
 
       if (isLoseState(nextGameState)) {
-        nextGameState.cells.forEach((cell) => {
-          cell.state = "visible";
-        });
+        nextGameState.cells
+          .filter((cell) => cell.state !== "flagged")
+          .forEach((cell) => {
+            cell.state = "visible";
+          });
       }
 
       if (!targetCell.count) {

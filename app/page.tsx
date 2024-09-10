@@ -9,7 +9,7 @@ export default function StartScreen() {
         Play the classic minesweeper game in your browser!
       </div>
       <div className="flex flex-col">
-        <Link href="/tutorial/intro">Tutorial</Link>
+        <Link href="/tutorial/intro/001">Tutorial</Link>
         <Link href="/game">Play</Link>
       </div>
     </div>

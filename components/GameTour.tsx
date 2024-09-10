@@ -6,7 +6,7 @@ import { Action } from "@/types/Action";
 import { BoardWrapper } from "./BoardWrapper";
 import { CellId } from "@/types/CellId";
 import { RenderCell } from "./RenderCell";
-import { RenderControls } from "./RenderControls";
+import { SelectActionType } from "./SelectActionType";
 import { createCellId } from "@/helpers/createCellId";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
@@ -113,8 +113,10 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
         ))}
       </BoardWrapper>
 
-      <RenderControls
+      <SelectActionType
         actionType={gameState.action}
+        isHighlightedDig={requiredAction?.type === "select-dig"}
+        isHighlightedFlag={requiredAction?.type === "select-flag"}
         onSelectDig={() => {
           if (requiredAction?.type !== "select-dig") {
             return;

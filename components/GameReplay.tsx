@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 
 import { Action } from "@/types/Action";
 import { BoardWrapper } from "./BoardWrapper";
+import { CellId } from "@/types/CellId";
 import { RenderCell } from "./RenderCell";
+import { createCellId } from "@/helpers/createCellId";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
 import { loadGameState } from "@/helpers/loadGameState";
@@ -46,13 +48,35 @@ export function GameReplay({ levelData, steps = [] }: GameReplayProps) {
     return _gameState;
   }, [levelData, currentStep]);
 
+  const getHighlightedCellId = (action?: Action): CellId | undefined => {
+    switch (action?.type) {
+      case undefined:
+      case "select-dig":
+      case "select-flag":
+        return;
+
+      case "dig":
+      case "flag":
+        return createCellId(action.target);
+    }
+  };
+
+  const nextAction = steps[currentStep + 1];
+  const highlightedCellId = getHighlightedCellId(nextAction);
+
   return (
     <div>
-      <BoardWrapper width={gameState.width} height={gameState.height}>
-        {gameState.cells.map((cell) => (
-          <RenderCell key={cell.id} cell={cell} />
-        ))}
-      </BoardWrapper>
+      <div onClick={nextStep}>
+        <BoardWrapper width={gameState.width} height={gameState.height}>
+          {gameState.cells.map((cell) => (
+            <RenderCell
+              key={cell.id}
+              cell={cell}
+              isHighlighted={highlightedCellId === cell.id}
+            />
+          ))}
+        </BoardWrapper>
+      </div>
       {hasSteps && (
         <div>
           <div>

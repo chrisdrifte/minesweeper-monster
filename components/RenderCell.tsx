@@ -1,5 +1,8 @@
 import { Cell } from "@/types/Cell";
 import { CellWrapper } from "./CellWrapper";
+import { Count } from "./Count";
+import { Flag } from "./Flag";
+import { Mine } from "./Mine";
 import { noop } from "@/helpers/noop";
 
 export type RenderCellProps = {
@@ -16,29 +19,39 @@ export function RenderCell({
   switch (cell.state) {
     case "hidden":
       return (
-        <CellWrapper isHighlighted={isHighlighted} onClick={onClick}>
-          X
-        </CellWrapper>
+        <CellWrapper
+          isHighlighted={isHighlighted}
+          background="white"
+          onClick={onClick}
+        ></CellWrapper>
       );
 
     case "flagged":
       return (
-        <CellWrapper isHighlighted={isHighlighted} onClick={onClick}>
-          F
+        <CellWrapper
+          isHighlighted={isHighlighted}
+          background="white"
+          onClick={onClick}
+        >
+          <Flag />
         </CellWrapper>
       );
 
     case "visible":
       if (cell.hasMine) {
         return (
-          <CellWrapper isHighlighted={isHighlighted} onClick={onClick}>
-            M
+          <CellWrapper
+            isHighlighted={isHighlighted}
+            background="red"
+            onClick={onClick}
+          >
+            <Mine />
           </CellWrapper>
         );
       } else {
         return (
           <CellWrapper isHighlighted={isHighlighted} onClick={onClick}>
-            {cell.count}
+            <Count count={cell.count ?? 0} />
           </CellWrapper>
         );
       }

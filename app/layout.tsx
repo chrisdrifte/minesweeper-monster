@@ -2,18 +2,7 @@ import "./globals.css";
 
 import Link from "next/link";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { spaceMono } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Minesweeper Tutorial",
@@ -27,13 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
-      >
+      <body className={` antialiased bg-black text-white`}>
         <main className="flex flex-col items-center">
           <header className="m-8">
             <hgroup>
-              <h1>
+              <h1 className={spaceMono.className}>
                 <Link href="/">Minesweeper</Link>
               </h1>
             </hgroup>

@@ -3,7 +3,7 @@
 import { BoardWrapper } from "./BoardWrapper";
 import { GameSettings } from "@/types/GameSettings";
 import { RenderCell } from "./RenderCell";
-import { RenderControls } from "./RenderControls";
+import { SelectActionType } from "./SelectActionType";
 import { createGameState } from "@/helpers/createGameState";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
@@ -105,7 +105,7 @@ export function GamePlay(props: GamePlayProps) {
         ))}
       </BoardWrapper>
 
-      <RenderControls
+      <SelectActionType
         actionType={gameState.action}
         onSelectDig={() => {
           setGameState((prevGameState) => selectDig(prevGameState));
