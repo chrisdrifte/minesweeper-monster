@@ -130,6 +130,7 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
       />
 
       <div className="my-8">{message}</div>
+
       {hasSteps && (
         <div>
           <div>
