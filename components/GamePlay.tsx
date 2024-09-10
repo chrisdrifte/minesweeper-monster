@@ -1,10 +1,14 @@
 "use client";
 
 import { BoardWrapper } from "./BoardWrapper";
+import { GameSettings } from "@/types/GameSettings";
 import { RenderCell } from "./RenderCell";
 import { RenderControls } from "./RenderControls";
+import { createGameState } from "@/helpers/createGameState";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
+import { generate } from "@/game/actions/generate";
+import { isInitialState } from "@/helpers/isInitialState";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
 import { loadGameState } from "@/helpers/loadGameState";
@@ -12,12 +16,26 @@ import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
 import { useState } from "react";
 
-export type GamePlayProps = {
-  levelData: string;
-};
+export type GamePlayProps =
+  | {
+      levelData: string;
+    }
+  | {
+      settings: GameSettings;
+    };
 
-export function GamePlay({ levelData }: GamePlayProps) {
-  const [gameState, setGameState] = useState(() => loadGameState(levelData));
+export function GamePlay(props: GamePlayProps) {
+  const [gameState, setGameState] = useState(() => {
+    if ("levelData" in props) {
+      return loadGameState(props.levelData);
+    }
+
+    if ("settings" in props) {
+      return createGameState(props.settings);
+    }
+
+    throw new Error("Invalid game props");
+  });
 
   const numMines = gameState.cells.filter((cell) => cell.hasMine).length;
   const numFlags = gameState.cells.filter(
@@ -25,6 +43,7 @@ export function GamePlay({ levelData }: GamePlayProps) {
   ).length;
   const numRemaining = numMines - numFlags;
 
+  const hasNotStarted = isInitialState(gameState);
   const hasWon = isWinState(gameState);
   const hasLost = isLoseState(gameState);
   const isPlaying = !hasWon && !hasLost;
@@ -42,6 +61,14 @@ export function GamePlay({ levelData }: GamePlayProps) {
       return `Too many flags!`;
     }
 
+    if (!numMines) {
+      return "Dig anywhere to start";
+    }
+
+    if (!numFlags) {
+      return "Place a flag on suspected mines";
+    }
+
     return `${numRemaining} mines left`;
   };
 
@@ -52,8 +79,14 @@ export function GamePlay({ levelData }: GamePlayProps) {
       <BoardWrapper width={gameState.width} height={gameState.height}>
         {gameState.cells.map((cell) => (
           <RenderCell
+            key={cell.id}
             cell={cell}
             onClick={() => {
+              if (hasNotStarted) {
+                setGameState((prevGameState) => generate(prevGameState, cell));
+                return;
+              }
+
               if (!isPlaying) {
                 return;
               }

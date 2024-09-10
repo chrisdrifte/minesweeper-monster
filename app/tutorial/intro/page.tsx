@@ -3,7 +3,7 @@ import { GameReplay } from "@/components/GameReplay";
 import { GameStatic } from "@/components/GameStatic";
 import { GameTour } from "@/components/GameTour";
 
-export default function Home() {
+export default function TutorialIntro() {
   return (
     <div>
       Minesweeper consists of a grid of cells, like the one below. Some cells

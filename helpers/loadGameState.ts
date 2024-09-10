@@ -89,6 +89,7 @@ export function loadGameState(levelData: string): GameState {
     width,
     height,
     cells,
+    numMines: cells.filter((cell) => cell.hasMine).length,
     action: "dig",
   };
 

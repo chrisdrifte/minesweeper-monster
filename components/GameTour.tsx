@@ -96,6 +96,7 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
       <BoardWrapper width={gameState.width} height={gameState.height}>
         {gameState.cells.map((cell) => (
           <RenderCell
+            key={cell.id}
             cell={cell}
             isHighlighted={cell.id === highlightedCellId}
             onClick={() => {

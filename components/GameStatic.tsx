@@ -25,7 +25,7 @@ export function GameStatic({ levelData }: GameStaticProps) {
     <div>
       <BoardWrapper width={gameState.width} height={gameState.height}>
         {gameState.cells.map((cell) => (
-          <RenderCell cell={cell} />
+          <RenderCell key={cell.id} cell={cell} />
         ))}
       </BoardWrapper>
     </div>
