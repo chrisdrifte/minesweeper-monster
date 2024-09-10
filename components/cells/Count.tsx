@@ -19,7 +19,7 @@ export function Count({ count }: CountProps) {
         "text-blue-500": count === 1,
       })}
     >
-      {count}
+      {count || null}
     </div>
   );
 }

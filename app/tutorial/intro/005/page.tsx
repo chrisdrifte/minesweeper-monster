@@ -1,39 +1,41 @@
-"use client";
-
+import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { GamePlay } from "@/components/game/GamePlay";
+import { GameReplay } from "@/components/game/GameReplay";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
-import { RestartIcon } from "@/components/icons/RestartIcon";
-import { useState } from "react";
 
-export default function TutorialIntro006() {
-  const [key, setKey] = useState(0);
-  const restart = () => setKey((prevKey) => prevKey + 1);
-
+export default function TutorialIntro005() {
   return (
     <>
       <ContentBlock>
-        <Paragraph>Complete this game to practice your new skills.</Paragraph>
+        <Paragraph>
+          Win the game by revealing all the cells that do not contain mines
+        </Paragraph>
 
-        <GamePlay
-          key={key}
-          levelData={`
-            111XXX
-            1M2XXX
-            112MXX
-            XXXXXX        
-          `}
-        />
-
-        <div className="flex flex-col items-center m-8">
-          <button onClick={restart} title="Restart">
-            <RestartIcon fill="white" className="size-8" />
-          </button>
-        </div>
+        <Center>
+          <GameReplay
+            levelData={`
+              111XXX
+              1M2XXX
+              112MXX
+              XXXXXX        
+            `}
+            steps={[
+              { type: "flag", target: { x: 1, y: 1 } },
+              { type: "dig", target: { x: 0, y: 3 } },
+              { type: "dig", target: { x: 3, y: 0 } },
+              { type: "flag", target: { x: 3, y: 2 } },
+              { type: "dig", target: { x: 3, y: 3 } },
+            ]}
+          />
+        </Center>
       </ContentBlock>
 
-      <PageMenu prev="/tutorial/intro/004" next="/" nextText="Finish" />
+      <PageMenu
+        prev="/tutorial/intro/004"
+        next="/tutorial/intro/006"
+        nextText="Next Lesson"
+      />
     </>
   );
 }
