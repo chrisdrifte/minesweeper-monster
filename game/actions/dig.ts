@@ -27,7 +27,7 @@ export function dig(gameState: GameState, target: Target): GameState {
 
       if (isLoseState(nextGameState)) {
         nextGameState.cells
-          .filter((cell) => cell.state !== "flagged")
+          .filter((cell) => cell.state === "hidden" || cell.hasMine)
           .forEach((cell) => {
             cell.state = "visible";
           });

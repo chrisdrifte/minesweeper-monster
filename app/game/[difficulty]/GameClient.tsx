@@ -26,14 +26,14 @@ export default function GameClient({ difficulty }: GameClientProps) {
         return {
           width: 11,
           height: 15,
-          numMines: 40,
+          numMines: 30,
         };
 
       case "expert":
         return {
           width: 11,
           height: 15,
-          numMines: 60,
+          numMines: 40,
         };
     }
   };
