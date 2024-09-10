@@ -66,16 +66,19 @@ export function GameReplay({ levelData, steps = [] }: GameReplayProps) {
 
   return (
     <div>
-      <div onClick={nextStep}>
-        <BoardWrapper width={gameState.width} height={gameState.height}>
-          {gameState.cells.map((cell) => (
-            <RenderCell
-              key={cell.id}
-              cell={cell}
-              isHighlighted={highlightedCellId === cell.id}
-            />
-          ))}
-        </BoardWrapper>
+      <div onClick={nextStep} className="cursor-pointer">
+        <div className="pointer-events-none">
+          <BoardWrapper width={gameState.width} height={gameState.height}>
+            {gameState.cells.map((cell) => (
+              <RenderCell
+                key={cell.id}
+                cell={cell}
+                action={nextAction?.type}
+                isHighlighted={highlightedCellId === cell.id}
+              />
+            ))}
+          </BoardWrapper>
+        </div>
       </div>
       {hasSteps && (
         <div>

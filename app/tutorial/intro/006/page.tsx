@@ -2,6 +2,7 @@
 
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GamePlay } from "@/components/game/GamePlay";
+import Link from "next/link";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { RestartIcon } from "@/components/icons/RestartIcon";
@@ -35,6 +36,19 @@ export default function TutorialIntro006() {
           </button>
         </div>
       </ContentBlock>
+
+      <Paragraph>
+        Congratulations! You now have all the skills required to play
+        minesweeper.
+      </Paragraph>
+
+      <Paragraph>
+        Why not{" "}
+        <Link href="/game/easy" className="underline hover:no-underline">
+          play a real game
+        </Link>
+        ?
+      </Paragraph>
 
       <PageMenu prev="/tutorial/intro/005" next="/" nextText="Finish" />
     </>

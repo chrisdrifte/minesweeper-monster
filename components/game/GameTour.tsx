@@ -102,6 +102,7 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
           <RenderCell
             key={cell.id}
             cell={cell}
+            action={requiredAction?.type}
             isHighlighted={cell.id === highlightedCellId}
             onClick={() => {
               if (

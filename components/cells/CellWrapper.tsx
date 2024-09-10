@@ -27,8 +27,11 @@ export function CellWrapper({
     >
       <div
         className={classNames(
-          { "bg-orange-500 motion-safe:animate-ping": isHighlighted },
-          "size-full rounded-sm flex items-center justify-center"
+          {
+            "before:bg-orange-500 before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping relative":
+              isHighlighted,
+          },
+          "size-full flex items-center justify-center"
         )}
       >
         {children}

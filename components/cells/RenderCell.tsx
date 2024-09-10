@@ -3,11 +3,12 @@ import { CellWrapper } from "./CellWrapper";
 import { Count } from "./Count";
 import { FlagIcon } from "../icons/FlagIcon";
 import { Mine } from "./Mine";
+import classNames from "classnames";
 import { noop } from "@/helpers/noop";
 
 export type RenderCellProps = {
   cell: Cell;
-  action?: "dig" | "flag";
+  action?: "dig" | "flag" | "select-dig" | "select-flag";
   isHighlighted?: boolean;
   onClick?: VoidFunction;
 };
@@ -27,13 +28,26 @@ export function RenderCell({
           onClick={onClick}
         >
           {action === "dig" && (
-            <div className="size-full hover:bg-red-500 active:bg-rad-500" />
+            <div
+              className={classNames(
+                {
+                  "bg-red-500": isHighlighted,
+                },
+                "size-full hover:bg-red-500 active:bg-rad-500"
+              )}
+            />
           )}
           {action === "flag" && (
             <div className="size-full opacity-50 group">
               <FlagIcon
                 fill="black"
-                className="hidden group-hover:block group-active:block"
+                className={classNames(
+                  {
+                    hidden: !isHighlighted,
+                    block: isHighlighted,
+                  },
+                  "group-hover:block group-active:block"
+                )}
               />
             </div>
           )}
