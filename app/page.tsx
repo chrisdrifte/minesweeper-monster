@@ -50,7 +50,7 @@ export default function Home() {
       <GamePlay
         levelData={`
         111XXX
-        1M1XXX
+        1M2XXX
         112MXX
         XXXXXX        
       `}

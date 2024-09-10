@@ -1,6 +1,7 @@
 import { Cell } from "@/types/Cell";
 import { GameState } from "@/types/GameState";
 import { createCellId } from "./createCellId";
+import { getCount } from "./getCount";
 
 export function loadGameState(levelData: string): GameState {
   const parsedLevelData = levelData
@@ -84,10 +85,30 @@ export function loadGameState(levelData: string): GameState {
     }
   }
 
-  return {
+  const gameState: GameState = {
     width,
     height,
     cells,
     action: "dig",
   };
+
+  // detect counts
+  for (const cell of cells) {
+    if (cell.hasMine) {
+      continue;
+    }
+
+    const assignedCount = cell.count;
+    const realCount = getCount(gameState, cell);
+
+    if (typeof assignedCount === "number" && assignedCount !== realCount) {
+      throw new Error(
+        `Invalid level data: cell ${cell.id} should be "${realCount}" not "${assignedCount}`
+      );
+    }
+
+    cell.count = realCount;
+  }
+
+  return gameState;
 }
