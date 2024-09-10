@@ -7,6 +7,7 @@ import { GameSettings } from "@/types/GameSettings";
 import { Paragraph } from "../layout/Paragraph";
 import { RenderCell } from "../cells/RenderCell";
 import { SelectActionType } from "./SelectActionType";
+import classNames from "classnames";
 import { createGameState } from "@/helpers/createGameState";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
@@ -83,7 +84,7 @@ export function GamePlay(props: GamePlayProps) {
   const message = getMessage();
 
   return (
-    <div>
+    <div className={classNames({ "pointer-events-none": !isPlaying })}>
       <Center>
         <Caption>{message}</Caption>
 
