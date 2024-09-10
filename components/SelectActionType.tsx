@@ -1,4 +1,6 @@
 import { Action } from "@/types/Action";
+import { Flag } from "./Flag";
+import { SelectActionButton } from "./SelectActionButton";
 import classNames from "classnames";
 import { noop } from "@/helpers/noop";
 
@@ -17,38 +19,23 @@ export function SelectActionType({
   onSelectDig = noop,
   onSelectFlag = noop,
 }: SelectActionType) {
-  const highlightedStyles =
-    "before:bg-orange-500 before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping relative";
   return (
-    <div className="flex my-4 space-x-4">
-      <button
-        className={actionType === "dig" ? "underline" : ""}
+    <div className="flex p-1 pt-0 items-center space-x-2 bg-white text-black w-full rounded-b">
+      <SelectActionButton
+        isHighlighted={isHighlightedDig}
+        isActive={actionType === "dig"}
         onClick={onSelectDig}
       >
-        <div
-          className={classNames(
-            { [highlightedStyles]: isHighlightedDig },
-            "size-full"
-          )}
-        >
-          Dig
-        </div>
-      </button>
-      <button
-        className={actionType === "flag" ? "underline" : ""}
+        Dig
+      </SelectActionButton>
+
+      <SelectActionButton
+        isHighlighted={isHighlightedFlag}
+        isActive={actionType === "flag"}
         onClick={onSelectFlag}
       >
-        <div
-          className={classNames(
-            {
-              [highlightedStyles]: isHighlightedFlag,
-            },
-            "size-full"
-          )}
-        >
-          Flag
-        </div>
-      </button>
+        Flag
+      </SelectActionButton>
     </div>
   );
 }

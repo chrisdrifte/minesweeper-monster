@@ -93,7 +93,11 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
 
   return (
     <div>
-      <BoardWrapper width={gameState.width} height={gameState.height}>
+      <BoardWrapper
+        width={gameState.width}
+        height={gameState.height}
+        hasControls
+      >
         {gameState.cells.map((cell) => (
           <RenderCell
             key={cell.id}

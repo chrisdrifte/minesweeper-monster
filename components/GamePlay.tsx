@@ -1,7 +1,9 @@
 "use client";
 
 import { BoardWrapper } from "./BoardWrapper";
+import { Center } from "./Center";
 import { GameSettings } from "@/types/GameSettings";
+import { Paragraph } from "./Paragraph";
 import { RenderCell } from "./RenderCell";
 import { SelectActionType } from "./SelectActionType";
 import { createGameState } from "@/helpers/createGameState";
@@ -14,6 +16,7 @@ import { isWinState } from "@/helpers/isWinState";
 import { loadGameState } from "@/helpers/loadGameState";
 import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
+import { spaceMono } from "@/app/fonts";
 import { useState } from "react";
 
 export type GamePlayProps =
@@ -49,18 +52,6 @@ export function GamePlay(props: GamePlayProps) {
   const isPlaying = !hasWon && !hasLost;
 
   const getMessage = () => {
-    if (hasWon) {
-      return "You win!";
-    }
-
-    if (hasLost) {
-      return "You lose";
-    }
-
-    if (numRemaining < 0) {
-      return `Too many flags!`;
-    }
-
     if (!numMines) {
       return "Dig anywhere to start";
     }
@@ -69,53 +60,77 @@ export function GamePlay(props: GamePlayProps) {
       return "Place a flag on suspected mines";
     }
 
-    return `${numRemaining} mines left`;
+    if (hasWon) {
+      return "Winner!";
+    }
+
+    if (hasLost) {
+      return "You lost :(";
+    }
+
+    if (numRemaining < 0) {
+      return `${Math.abs(numRemaining)} incorrect flags...`;
+    }
+
+    if (numRemaining === 0) {
+      return `Dig the remaining cells`;
+    }
+
+    return `${numRemaining} mines left...`;
   };
 
   const message = getMessage();
 
   return (
-    <div>
-      <BoardWrapper width={gameState.width} height={gameState.height}>
-        {gameState.cells.map((cell) => (
-          <RenderCell
-            key={cell.id}
-            cell={cell}
-            onClick={() => {
-              if (hasNotStarted) {
-                setGameState((prevGameState) => generate(prevGameState, cell));
-                return;
-              }
+    <div className={spaceMono.className}>
+      <Center>
+        <Paragraph>{message}</Paragraph>
 
-              if (!isPlaying) {
-                return;
-              }
-
-              switch (gameState.action) {
-                case "dig":
-                  setGameState((prevGameState) => dig(prevGameState, cell));
+        <BoardWrapper
+          width={gameState.width}
+          height={gameState.height}
+          hasControls
+        >
+          {gameState.cells.map((cell) => (
+            <RenderCell
+              key={cell.id}
+              cell={cell}
+              onClick={() => {
+                if (hasNotStarted) {
+                  setGameState((prevGameState) =>
+                    generate(prevGameState, cell)
+                  );
                   return;
+                }
 
-                case "flag":
-                  setGameState((prevGameState) => flag(prevGameState, cell));
+                if (!isPlaying) {
                   return;
-              }
-            }}
-          />
-        ))}
-      </BoardWrapper>
+                }
 
-      <SelectActionType
-        actionType={gameState.action}
-        onSelectDig={() => {
-          setGameState((prevGameState) => selectDig(prevGameState));
-        }}
-        onSelectFlag={() => {
-          setGameState((prevGameState) => selectFlag(prevGameState));
-        }}
-      />
+                switch (gameState.action) {
+                  case "dig":
+                    setGameState((prevGameState) => dig(prevGameState, cell));
+                    return;
 
-      <div className="my-8">{message}</div>
+                  case "flag":
+                    setGameState((prevGameState) => flag(prevGameState, cell));
+                    return;
+                }
+              }}
+            />
+          ))}
+        </BoardWrapper>
+
+        <SelectActionType
+          actionType={gameState.action}
+          onSelectDig={() => {
+            setGameState((prevGameState) => selectDig(prevGameState));
+          }}
+          onSelectFlag={() => {
+            setGameState((prevGameState) => selectFlag(prevGameState));
+          }}
+        />
+      </Center>
     </div>
   );
 }
