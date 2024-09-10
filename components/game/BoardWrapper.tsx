@@ -28,7 +28,7 @@ export function BoardWrapper({
           "w-full": hasControls,
           "w-min": !hasControls,
         },
-        "relative border-4 rounded-lg border-white h-min p-2 flex justify-center"
+        "relative border-4 rounded-lg border-white h-min p-2 flex justify-center select-none"
       )}
     >
       <div

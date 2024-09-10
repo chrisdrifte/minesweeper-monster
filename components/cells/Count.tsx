@@ -7,7 +7,7 @@ export type CountProps = {
 
 export function Count({ count }: CountProps) {
   return (
-    <div
+    <span
       className={classNames(spaceMono.className, "font-bold", {
         "text-violet-500": count === 8,
         "text-lime-500": count === 7,
@@ -20,6 +20,6 @@ export function Count({ count }: CountProps) {
       })}
     >
       {count || null}
-    </div>
+    </span>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { BoardWrapper } from "./BoardWrapper";
+import { Caption } from "../layout/Caption";
 import { Center } from "../layout/Center";
 import { GameSettings } from "@/types/GameSettings";
 import { Paragraph } from "../layout/Paragraph";
@@ -82,9 +83,9 @@ export function GamePlay(props: GamePlayProps) {
   const message = getMessage();
 
   return (
-    <div className={spaceMono.className}>
+    <div>
       <Center>
-        <Paragraph>{message}</Paragraph>
+        <Caption>{message}</Caption>
 
         <BoardWrapper
           width={gameState.width}

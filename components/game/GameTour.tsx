@@ -4,9 +4,12 @@ import { useMemo, useState } from "react";
 
 import { Action } from "@/types/Action";
 import { BoardWrapper } from "./BoardWrapper";
+import { Caption } from "../layout/Caption";
 import { CellId } from "@/types/CellId";
+import { Center } from "../layout/Center";
 import { RenderCell } from "../cells/RenderCell";
 import { SelectActionType } from "./SelectActionType";
+import { Slider } from "../slider/Slider";
 import { createCellId } from "@/helpers/createCellId";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
@@ -15,9 +18,11 @@ import { loadGameState } from "@/helpers/loadGameState";
 import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
 
+type Step = Action & { description?: string };
+
 export type GameTourProps = {
   levelData: string;
-  steps?: Action[];
+  steps?: Step[];
 };
 
 export function GameTour({ levelData, steps = [] }: GameTourProps) {
@@ -27,11 +32,14 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
   const maxStep = steps.length;
 
   const [currentStep, setStep] = useState(minStep);
-  const prevStep = () => setStep((step) => Math.max(minStep, step - 1));
   const nextStep = () => setStep((step) => Math.min(maxStep, step + 1));
 
-  const getMessage = (action?: Action) => {
-    switch (action?.type) {
+  const getMessage = (step?: Step) => {
+    if (step?.description) {
+      return step.description;
+    }
+
+    switch (step?.type) {
       case undefined:
         return isWinState(gameState) ? "Winner!" : "Done!";
 
@@ -42,8 +50,10 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
         return "Click the 'flag' button";
 
       case "dig":
+        return "Dig the highlighted cell";
+
       case "flag":
-        return "Click the highlighted cell";
+        return "Flag the highlighted cell";
     }
   };
 
@@ -92,7 +102,9 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
   const message = getMessage(requiredAction);
 
   return (
-    <div>
+    <Center>
+      <Caption>{message}</Caption>
+
       <BoardWrapper
         width={gameState.width}
         height={gameState.height}
@@ -117,7 +129,6 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
           />
         ))}
       </BoardWrapper>
-
       <SelectActionType
         actionType={gameState.action}
         isHighlightedDig={requiredAction?.type === "select-dig"}
@@ -137,17 +148,17 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
           nextStep();
         }}
       />
-
-      <div className="my-8">{message}</div>
-
       {hasSteps && (
-        <div>
-          <div>
-            Step {currentStep + 2}/{maxStep + 1}
-          </div>
-          {currentStep > minStep && <button onClick={prevStep}>⏪</button>}
+        <div className="mt-8">
+          <Slider
+            min={minStep}
+            max={maxStep - 1}
+            value={currentStep}
+            onValueChange={setStep}
+            onValueCommit={setStep}
+          />
         </div>
       )}
-    </div>
+    </Center>
   );
 }

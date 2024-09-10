@@ -27,7 +27,7 @@ export default function RootLayout({
             </hgroup>
           </header>
 
-          <div className="max-w-96">{children}</div>
+          <div className="max-w-[450px]">{children}</div>
         </main>
         <footer className="text-gray-500 text-xs mt-32 mb-16 mx-8">
           <Center>Built by Chris Drifte</Center>

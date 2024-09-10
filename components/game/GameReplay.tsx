@@ -5,7 +5,9 @@ import { useMemo, useState } from "react";
 import { Action } from "@/types/Action";
 import { BoardWrapper } from "./BoardWrapper";
 import { CellId } from "@/types/CellId";
+import { Center } from "../layout/Center";
 import { RenderCell } from "../cells/RenderCell";
+import { Slider } from "../slider/Slider";
 import { createCellId } from "@/helpers/createCellId";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
@@ -24,10 +26,7 @@ export function GameReplay({ levelData, steps = [] }: GameReplayProps) {
 
   const [currentStep, setStep] = useState(minStep);
 
-  const firstStep = () => setStep(minStep);
-  const prevStep = () => setStep((step) => Math.max(minStep, step - 1));
   const nextStep = () => setStep((step) => Math.min(maxStep, step + 1));
-  const lastStep = () => setStep(maxStep);
 
   const gameState = useMemo(() => {
     let _gameState = loadGameState(levelData);
@@ -65,7 +64,7 @@ export function GameReplay({ levelData, steps = [] }: GameReplayProps) {
   const highlightedCellId = getHighlightedCellId(nextAction);
 
   return (
-    <div>
+    <Center>
       <div onClick={nextStep} className="cursor-pointer">
         <div className="pointer-events-none">
           <BoardWrapper width={gameState.width} height={gameState.height}>
@@ -80,17 +79,18 @@ export function GameReplay({ levelData, steps = [] }: GameReplayProps) {
           </BoardWrapper>
         </div>
       </div>
+
       {hasSteps && (
-        <div>
-          <div>
-            Step {currentStep + 2}/{maxStep + 2}
-          </div>
-          <button onClick={firstStep}>⏮️</button>
-          <button onClick={prevStep}>⏪</button>
-          <button onClick={nextStep}>⏩</button>
-          <button onClick={lastStep}>⏭️</button>
+        <div className="mt-8">
+          <Slider
+            min={minStep}
+            max={maxStep}
+            value={currentStep}
+            onValueChange={setStep}
+            onValueCommit={setStep}
+          />
         </div>
       )}
-    </div>
+    </Center>
   );
 }
