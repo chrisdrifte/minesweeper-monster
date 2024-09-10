@@ -16,7 +16,7 @@ export default function Home() {
         `}
         steps={[{ type: "dig", target: { x: 1, y: 1 } }]}
       />
-      Clicking a cell without a mine will reveal a number.
+      Clicking a cell next to a mine will reveal a number.
       <GameTour
         levelData={`
           XXX
@@ -46,7 +46,18 @@ export default function Home() {
           { type: "flag", target: { x: 2, y: 1 } },
         ]}
       />
-      Let's practice your new skills by playing a quick game.
+      Clicking an empty cell reveals all the cells around it!
+      <GameTour
+        levelData={`
+        XXXXX
+        XXXXX
+        XXMXX
+        XXXXX
+        XXXXX
+      `}
+        steps={[{ type: "dig", target: { x: 0, y: 0 } }]}
+      />
+      Complete this game to practice your new skills.
       <GamePlay
         levelData={`
         111XXX

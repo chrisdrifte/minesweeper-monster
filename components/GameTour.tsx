@@ -10,6 +10,7 @@ import { RenderControls } from "./RenderControls";
 import { createCellId } from "@/helpers/createCellId";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
+import { isWinState } from "@/helpers/isWinState";
 import { loadGameState } from "@/helpers/loadGameState";
 import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
@@ -32,7 +33,7 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
   const getMessage = (action?: Action) => {
     switch (action?.type) {
       case undefined:
-        return "Done!";
+        return isWinState(gameState) ? "Winner!" : "Done!";
 
       case "select-dig":
         return "Click the 'dig' button";

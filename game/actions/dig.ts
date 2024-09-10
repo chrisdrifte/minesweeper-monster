@@ -1,11 +1,12 @@
 import { GameState } from "@/types/GameState";
 import { Target } from "@/types/Target";
 import { getCell } from "@/helpers/getCell";
+import { getNeighbours } from "@/helpers/getNeighbours";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
 
 export function dig(gameState: GameState, target: Target): GameState {
-  const nextGameState = structuredClone(gameState);
+  let nextGameState = structuredClone(gameState);
 
   const targetCell = getCell(nextGameState, target);
 
@@ -28,6 +29,14 @@ export function dig(gameState: GameState, target: Target): GameState {
         nextGameState.cells.forEach((cell) => {
           cell.state = "visible";
         });
+      }
+
+      if (!targetCell.count) {
+        getNeighbours(gameState, targetCell)
+          .filter((cell) => !cell.hasMine)
+          .forEach((cell) => {
+            nextGameState = dig(nextGameState, cell);
+          });
       }
 
       return nextGameState;
