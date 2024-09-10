@@ -52,20 +52,20 @@ export function GamePlay(props: GamePlayProps) {
   const isPlaying = !hasWon && !hasLost;
 
   const getMessage = () => {
-    if (!numMines) {
-      return "Dig anywhere to start";
-    }
-
-    if (!numFlags) {
-      return "Place a flag on suspected mines";
-    }
-
     if (hasWon) {
       return "Winner!";
     }
 
     if (hasLost) {
       return "You lost :(";
+    }
+
+    if (!numMines) {
+      return "Dig anywhere to start";
+    }
+
+    if (!numFlags) {
+      return "Place a flag on suspected mines";
     }
 
     if (numRemaining < 0) {

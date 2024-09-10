@@ -1,28 +1,46 @@
+import { Center } from "@/components/layout/Center";
+import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameStatic } from "@/components/game/GameStatic";
 import { GameTour } from "@/components/game/GameTour";
-import Link from "next/link";
+import { PageMenu } from "@/components/navigation/PageMenu";
+import { Paragraph } from "@/components/layout/Paragraph";
 
 export default function TutorialIntro002() {
   return (
-    <div>
-      Clicking a cell next to a mine will reveal a number.
-      <GameTour
-        levelData={`
+    <>
+      <ContentBlock>
+        <Paragraph>
+          Clicking a cell next to a mine will reveal a number.
+        </Paragraph>
+        <GameTour
+          levelData={`
           XXX
           XMX
           XXX
         `}
-        steps={[{ type: "dig", target: { x: 0, y: 0 } }]}
-      />
-      The number corresponds to the number of mines that the cell is touching.
-      <GameStatic
-        levelData={`
-          1221
-          1MM1
-          1221
+          steps={[{ type: "dig", target: { x: 0, y: 0 } }]}
+        />
+      </ContentBlock>
+      <ContentBlock>
+        <Paragraph>
+          The number corresponds to the number of mines that the cell is
+          touching.
+        </Paragraph>
+        <Center>
+          <GameStatic
+            levelData={`
+          12321
+          1MMM1
+          12321
         `}
+          />
+        </Center>
+      </ContentBlock>
+      <PageMenu
+        prev="/tutorial/intro/001"
+        next="/tutorial/intro/003"
+        nextText="Next lesson"
       />
-      <Link href="/tutorial/intro/003">Next lesson</Link>
-    </div>
+    </>
   );
 }
