@@ -3,6 +3,7 @@
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameStatic } from "@/components/game/GameStatic";
+import { Header } from "@/components/navigation/Header";
 import { LearnIcon } from "@/components/icons/LearnIcon";
 import { MenuButton } from "@/components/navigation/MenuButton";
 import { MenuWrapper } from "@/components/navigation/MenuWrapper";
@@ -14,6 +15,8 @@ export default function IndexPage() {
 
   return (
     <>
+      <Header />
+
       <Center>
         <GameStatic
           levelData={`
@@ -23,7 +26,6 @@ export default function IndexPage() {
           `}
         />
       </Center>
-
       <ContentBlock>
         <Paragraph>
           Play the classic minesweeper game in your browser, totally free and
@@ -39,7 +41,6 @@ export default function IndexPage() {
           />
         </MenuWrapper>
       </ContentBlock>
-
       <ContentBlock>
         <Center>
           <LearnIcon fill="white" className="size-8" />

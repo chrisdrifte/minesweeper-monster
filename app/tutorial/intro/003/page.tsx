@@ -44,11 +44,7 @@ export default function TutorialIntro003() {
         for real.
       </Paragraph>
 
-      <PageMenu
-        prev="/tutorial/intro/002"
-        next="/game/easy"
-        nextText="Play now"
-      />
+      <PageMenu prev="/tutorial/intro/002" next="/" nextText="Finish" />
     </>
   );
 }
