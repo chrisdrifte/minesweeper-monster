@@ -7,19 +7,25 @@ import { useMemo } from "react";
 
 export type GameStaticProps = {
   levelData: string;
+  revealAllCells?: boolean;
 };
 
-export function GameStatic({ levelData }: GameStaticProps) {
+export function GameStatic({
+  levelData,
+  revealAllCells = false,
+}: GameStaticProps) {
   const gameState = useMemo(() => {
     const _gameState = loadGameState(levelData);
 
     // reveal all cells
-    _gameState.cells
-      .filter((cell) => cell.state === "hidden")
-      .forEach((cell) => (cell.state = "visible"));
+    if (revealAllCells) {
+      _gameState.cells
+        .filter((cell) => cell.state === "hidden")
+        .forEach((cell) => (cell.state = "visible"));
+    }
 
     return _gameState;
-  }, [levelData]);
+  }, [levelData, revealAllCells]);
 
   return (
     <div className="pointer-events-none">

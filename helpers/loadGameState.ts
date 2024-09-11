@@ -5,7 +5,7 @@ import { getCount } from "./getCount";
 
 export function loadGameState(levelData: string): GameState {
   const parsedLevelData = levelData
-    .replace(/[^XMF0-9\n]/g, "")
+    .replace(/[^XMDF0-9\n]/g, "")
     .split("\n")
     .filter(Boolean)
     .map((str) => [...str]);
@@ -51,6 +51,13 @@ export function loadGameState(levelData: string): GameState {
         return {
           ...baseCell,
           state: "hidden",
+          hasMine: true,
+        };
+
+      case "D":
+        return {
+          ...baseCell,
+          state: "flagged",
           hasMine: true,
         };
 

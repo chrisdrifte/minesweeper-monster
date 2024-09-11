@@ -19,6 +19,7 @@ export default function IndexPage() {
             1M1
             111
           `}
+          revealAllCells
         />
       </Center>
       <ContentBlock>
@@ -46,6 +47,10 @@ export default function IndexPage() {
           <MenuButton
             text="Minesweeper Rules"
             href="/tutorial/how-to-play/001"
+          />
+          <MenuButton
+            text="Minesweeper Strategies"
+            href="/tutorial/strategies/001"
           />
         </MenuWrapper>
       </ContentBlock>
