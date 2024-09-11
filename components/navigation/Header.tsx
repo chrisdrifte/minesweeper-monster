@@ -15,7 +15,10 @@ export function Header({ children }: React.PropsWithChildren) {
     >
       <hgroup>
         <h1 className={spaceMono.className}>
-          <Link href="/">MINESWEEPER</Link>
+          <Link href="/">
+            <strong>MINESWEEPER</strong>
+            <span className="text-red-500">.MONSTER</span>
+          </Link>
         </h1>
       </hgroup>
 
