@@ -19,21 +19,21 @@ export default function GameClient({ difficulty }: GameClientProps) {
         return {
           width: 10,
           height: 10,
-          numMines: 15,
+          numMines: 12,
         };
 
       case "hard":
         return {
           width: 11,
-          height: 15,
-          numMines: 30,
+          height: 11,
+          numMines: 24,
         };
 
       case "expert":
         return {
           width: 11,
           height: 15,
-          numMines: 45,
+          numMines: 48,
         };
     }
   };

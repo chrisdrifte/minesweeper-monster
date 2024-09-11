@@ -1,5 +1,3 @@
-import { HomeIcon } from "../icons/HomeIcon";
-import { LearnIcon } from "../icons/LearnIcon";
 import Link from "next/link";
 import { MenuButton } from "./MenuButton";
 import { MenuWrapper } from "./MenuWrapper";

@@ -34,7 +34,7 @@ export default function IndexPage() {
 
         <MenuWrapper>
           <MenuButton text="Easy" onClick={() => router.push("/game/easy")} />
-          <MenuButton text="Hard" onClick={() => router.push("/game/easy")} />
+          <MenuButton text="Hard" onClick={() => router.push("/game/hard")} />
           <MenuButton
             text="Expert"
             onClick={() => router.push("/game/expert")}
