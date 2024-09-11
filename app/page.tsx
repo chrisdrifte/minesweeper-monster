@@ -43,7 +43,10 @@ export default function IndexPage() {
         </Paragraph>
 
         <MenuWrapper>
-          <MenuButton text="Minesweeper Rules" href="/tutorial/intro/001" />
+          <MenuButton
+            text="Minesweeper Rules"
+            href="/tutorial/how-to-play/001"
+          />
         </MenuWrapper>
       </ContentBlock>
     </>

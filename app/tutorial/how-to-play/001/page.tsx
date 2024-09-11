@@ -60,7 +60,7 @@ export default function TutorialIntro001() {
         <Paragraph>Take care - revealing a mine is an instant loss!</Paragraph>
       </ContentBlock>
 
-      <PageMenu next="/tutorial/intro/002" nextText="Next lesson" />
+      <PageMenu next="/tutorial/how-to-play/002" nextText="Next lesson" />
     </>
   );
 }

@@ -63,8 +63,8 @@ export default function TutorialIntro002() {
         />
       </ContentBlock>
       <PageMenu
-        prev="/tutorial/intro/001"
-        next="/tutorial/intro/003"
+        prev="/tutorial/how-to-play/001"
+        next="/tutorial/how-to-play/003"
         nextText="Next lesson"
       />
     </>
