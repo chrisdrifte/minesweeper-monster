@@ -1,5 +1,3 @@
-"use client";
-
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameStatic } from "@/components/game/GameStatic";
@@ -8,11 +6,8 @@ import { LearnIcon } from "@/components/icons/LearnIcon";
 import { MenuButton } from "@/components/navigation/MenuButton";
 import { MenuWrapper } from "@/components/navigation/MenuWrapper";
 import { Paragraph } from "@/components/layout/Paragraph";
-import { useRouter } from "next/navigation";
 
 export default function IndexPage() {
-  const router = useRouter();
-
   return (
     <>
       <Header />
@@ -33,12 +28,9 @@ export default function IndexPage() {
         </Paragraph>
 
         <MenuWrapper>
-          <MenuButton text="Easy" onClick={() => router.push("/play/easy")} />
-          <MenuButton text="Hard" onClick={() => router.push("/play/hard")} />
-          <MenuButton
-            text="Expert"
-            onClick={() => router.push("/play/expert")}
-          />
+          <MenuButton text="Easy" href="/play/easy" />
+          <MenuButton text="Hard" href="/play/hard" />
+          <MenuButton text="Expert" href="/play/expert" />
         </MenuWrapper>
       </ContentBlock>
       <ContentBlock>
@@ -51,10 +43,7 @@ export default function IndexPage() {
         </Paragraph>
 
         <MenuWrapper>
-          <MenuButton
-            text="Minesweeper Rules"
-            onClick={() => router.push("/tutorial/intro/001")}
-          />
+          <MenuButton text="Minesweeper Rules" href="/tutorial/intro/001" />
         </MenuWrapper>
       </ContentBlock>
     </>
