@@ -1,10 +1,8 @@
 import "./globals.css";
 
-import { Center } from "@/components/layout/Center";
+import { Analytics } from "@vercel/analytics/react";
 import { Footer } from "@/components/navigation/Footer";
-import Link from "next/link";
 import type { Metadata } from "next";
-import { spaceMono } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Minesweeper Tutorial",
@@ -23,6 +21,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </main>
+        <Analytics />
       </body>
     </html>
   );
