@@ -44,16 +44,16 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
         return isWinState(gameState) ? "Winner!" : "Done!";
 
       case "select-dig":
-        return "Click the 'dig' button";
+        return "Switch to 'dig' mode.";
 
       case "select-flag":
-        return "Click the 'flag' button";
+        return "Switch to 'flag' mode.";
 
       case "dig":
-        return "Dig the highlighted cell";
+        return "Dig the highlighted cell.";
 
       case "flag":
-        return "Flag the highlighted cell";
+        return "Flag the highlighted cell.";
     }
   };
 

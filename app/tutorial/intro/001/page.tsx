@@ -10,29 +10,28 @@ export default function TutorialIntro001() {
     <>
       <ContentBlock>
         <Paragraph>
-          Minesweeper is a game of logic and luck, in which you must reveal all
-          the cells without triggering any of the hidden mines.
-        </Paragraph>
-
-        <Paragraph>
-          By using the numbers as clues and placing flags, it is possible to win
-          the game.
+          Minesweeper is a game of logic and luck, in which you must solve clues
+          and place flags in order to reveal all the cells - without triggering
+          any of the hidden mines.
         </Paragraph>
 
         <Center>
-          <Caption>Click to play through a winning game</Caption>
+          <Caption>Click to watch a winning game.</Caption>
 
           <GameReplay
             levelData={`
-              111XXX
-              1M2XXX
-              112MXX
+              XXXXXX
+              XXMXXX
+              XXXMXX
               XXXXXX        
             `}
             steps={[
-              { type: "flag", target: { x: 1, y: 1 } },
-              { type: "dig", target: { x: 0, y: 3 } },
+              { type: "dig", target: { x: 1, y: 3 } },
+              { type: "flag", target: { x: 2, y: 1 } },
+              { type: "dig", target: { x: 2, y: 0 } },
               { type: "dig", target: { x: 3, y: 0 } },
+              { type: "dig", target: { x: 3, y: 1 } },
+              { type: "dig", target: { x: 4, y: 0 } },
               { type: "flag", target: { x: 3, y: 2 } },
               { type: "dig", target: { x: 3, y: 3 } },
             ]}
@@ -41,23 +40,24 @@ export default function TutorialIntro001() {
       </ContentBlock>
 
       <ContentBlock>
-        <Paragraph>
-          But take care - revealing a mine is an instant loss!
-        </Paragraph>
-
         <Center>
-          <Caption>Click to play through a losing game</Caption>
+          <Caption>Click to watch a losing game.</Caption>
 
           <GameReplay
             levelData={`
-              111XXX
-              1M2XXX
-              112MXX
-              XXXXXX        
+              XXXXXX
+              XXMXXX
+              XXXMXX
+              XXXXXX                    
             `}
-            steps={[{ type: "dig", target: { x: 1, y: 1 } }]}
+            steps={[
+              { type: "dig", target: { x: 1, y: 3 } },
+              { type: "dig", target: { x: 2, y: 1 } },
+            ]}
           />
         </Center>
+
+        <Paragraph>Take care - revealing a mine is an instant loss!</Paragraph>
       </ContentBlock>
 
       <PageMenu next="/tutorial/intro/002" nextText="Next lesson" />

@@ -9,12 +9,16 @@ export default function TutorialIntro002() {
     <>
       <ContentBlock>
         <Paragraph>
-          Some cells contain numbers which tell you how many mines they are
-          touching.
+          Most cells contain a number which represents the number of adjacent
+          mines. For example, a cell which contains <Count count={1} /> can only
+          be adjacent to exactly one mine. A cell which contains{" "}
+          <Count count={2} /> can only be adjacent to exactly two mines. And so
+          on.
         </Paragraph>
 
         <Paragraph>
-          Other cells are empty, and let you open up large areas of the board.
+          Finding cells without numbers is helpful too - they open up all other
+          the empty cells around them!
         </Paragraph>
 
         <GameTour
@@ -30,44 +34,33 @@ export default function TutorialIntro002() {
             {
               type: "select-flag",
               description:
-                "Nice, the empty cell gave enough clues to place flags",
+                "Nice, the empty cell gave enough clues to place some flags. Let's switch to flag mode.",
             },
             {
               type: "flag",
               target: { x: 2, y: 2 },
               description:
-                "This cell must be a mine, because the ones are touching it",
+                "We can deduce from the 1 that the first mine is here. We should flag it!",
             },
             {
               type: "flag",
               target: { x: 3, y: 2 },
               description:
-                "This cell must be a mine, because the twos are touching it",
+                "And based on the 2, this is the only place the other mine could be. Place another flag.",
             },
             {
               type: "select-dig",
               description:
-                "The final cell must be safe, because each cell is touching the same number of mines as its value",
+                "Perfect - each cell is next to the correct number of mines. Let's switch back to dig mode.",
             },
             {
               type: "dig",
               target: { x: 4, y: 2 },
-              description: "Digging this cell will finish the game",
+              description:
+                "Reveal the final cell to win the game. Hopefully it isn't a mine!",
             },
           ]}
         />
-
-        <Paragraph>In the game above, we used the following logic:</Paragraph>
-
-        <Paragraph>
-          If a <Count count={2} /> touches exactly two unrevealed cells, they
-          must both be mines.
-        </Paragraph>
-
-        <Paragraph>
-          If a <Count count={1} /> is already touching exactly one mine, all the
-          other cells around it must be safe.
-        </Paragraph>
       </ContentBlock>
       <PageMenu
         prev="/tutorial/intro/001"

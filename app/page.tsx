@@ -28,7 +28,7 @@ export default function IndexPage() {
       </Center>
       <ContentBlock>
         <Paragraph>
-          Play the classic minesweeper game in your browser, totally free and
+          Play minesweeper in your browser or on your mobile, totally free and
           without ads.
         </Paragraph>
 
@@ -46,7 +46,9 @@ export default function IndexPage() {
           <LearnIcon fill="white" className="size-8" />
         </Center>
 
-        <Paragraph>Or learn how to play via interactive tutorials.</Paragraph>
+        <Paragraph>
+          Learn how to play minesweeper via interactive tutorials.
+        </Paragraph>
 
         <MenuWrapper>
           <MenuButton

@@ -17,10 +17,10 @@ export default function TutorialIntro003() {
       <ContentBlock>
         <Paragraph>
           Sometimes it is not possible to use logic alone. When multiple cells
-          could contain mines, you will have to guess!
+          could contain mines, you have to guess.
         </Paragraph>
 
-        <Paragraph>Try to finish this game by yourself.</Paragraph>
+        <Paragraph>Are you feeling lucky?</Paragraph>
 
         <GamePlay
           key={key}

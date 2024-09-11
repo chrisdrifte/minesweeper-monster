@@ -4,7 +4,6 @@ import { BoardWrapper } from "./BoardWrapper";
 import { Caption } from "../layout/Caption";
 import { Center } from "../layout/Center";
 import { GameSettings } from "@/types/GameSettings";
-import { Paragraph } from "../layout/Paragraph";
 import { RenderCell } from "../cells/RenderCell";
 import { SelectActionType } from "./SelectActionType";
 import classNames from "classnames";
@@ -18,7 +17,6 @@ import { isWinState } from "@/helpers/isWinState";
 import { loadGameState } from "@/helpers/loadGameState";
 import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
-import { spaceMono } from "@/app/fonts";
 import { useState } from "react";
 
 export type GamePlayProps =
@@ -59,15 +57,15 @@ export function GamePlay(props: GamePlayProps) {
     }
 
     if (hasLost) {
-      return "You lost :(";
+      return "Game over...";
     }
 
     if (!numMines) {
-      return "Dig anywhere to start";
+      return "Dig anywhere to start.";
     }
 
     if (!numFlags) {
-      return "Place a flag on suspected mines";
+      return "Place a flag on suspected mines.";
     }
 
     if (numRemaining < 0) {
@@ -75,7 +73,7 @@ export function GamePlay(props: GamePlayProps) {
     }
 
     if (numRemaining === 0) {
-      return `Dig the remaining cells`;
+      return `Dig the remaining cells.`;
     }
 
     return `${numRemaining} mines left...`;
