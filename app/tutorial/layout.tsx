@@ -1,8 +1,6 @@
 import { Header } from "@/components/navigation/Header";
-import { HomeIcon } from "@/components/icons/HomeIcon";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Mine } from "@/components/cells/Mine";
 
 export const metadata: Metadata = {
   title: "How to play Minesweeper",

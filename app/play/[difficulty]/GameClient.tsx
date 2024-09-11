@@ -1,7 +1,6 @@
 "use client";
 
 import { GamePlay } from "@/components/game/GamePlay";
-import Link from "next/link";
 import { RestartIcon } from "@/components/icons/RestartIcon";
 import { useState } from "react";
 

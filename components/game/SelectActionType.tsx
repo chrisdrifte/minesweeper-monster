@@ -1,7 +1,5 @@
 import { Action } from "@/types/Action";
-import { FlagIcon } from "../icons/FlagIcon";
 import { SelectActionButton } from "./SelectActionButton";
-import classNames from "classnames";
 import { noop } from "@/helpers/noop";
 
 export type SelectActionType = {

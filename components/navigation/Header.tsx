@@ -3,9 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import { spaceMono } from "@/app/fonts";
 
-export type HeaderProps = {};
-
-export function Header({ children }: React.PropsWithChildren<HeaderProps>) {
+export function Header({ children }: React.PropsWithChildren) {
   const hasChildren = React.Children.count(children) > 0;
 
   return (

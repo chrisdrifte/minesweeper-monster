@@ -2,7 +2,6 @@
 
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GamePlay } from "@/components/game/GamePlay";
-import Link from "next/link";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { RestartIcon } from "@/components/icons/RestartIcon";

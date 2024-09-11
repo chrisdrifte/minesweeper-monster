@@ -45,7 +45,7 @@ export function GameReplay({ levelData, steps = [] }: GameReplayProps) {
     }
 
     return _gameState;
-  }, [levelData, currentStep]);
+  }, [levelData, currentStep, steps]);
 
   const getHighlightedCellId = (action?: Action): CellId | undefined => {
     switch (action?.type) {

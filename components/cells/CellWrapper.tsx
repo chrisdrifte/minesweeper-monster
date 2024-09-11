@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import { noop } from "@/helpers/noop";
-import { spaceMono } from "@/app/fonts";
 
 export type CellWrapperProps = {
   isHighlighted?: boolean;

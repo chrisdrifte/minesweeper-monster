@@ -95,7 +95,7 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
     }
 
     return _gameState;
-  }, [levelData, currentStep]);
+  }, [levelData, currentStep, steps]);
 
   const requiredAction = steps[currentStep + 1];
   const highlightedCellId = getHighlightedCellId(requiredAction);
