@@ -20,7 +20,7 @@ export default function TutorialLayout({
         <nav className="text-xs">
           <div className="flex justify-center space-x-4">
             <Link
-              href="/game/easy"
+              href="/play/easy"
               className="text-white flex space-x-2 items-center"
             >
               <span>Play now</span>
