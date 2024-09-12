@@ -4,7 +4,8 @@ export default async function CustomGamePage() {
   const customSettings = {
     width: 10,
     height: 15,
-    numMines: 20,
+    numMines: 25,
+    safeFirstClick: true,
   };
 
   return (

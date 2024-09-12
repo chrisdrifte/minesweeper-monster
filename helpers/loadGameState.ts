@@ -97,6 +97,7 @@ export function loadGameState(levelData: string): GameState {
     height,
     cells,
     numMines: cells.filter((cell) => cell.hasMine).length,
+    safeFirstClick: false,
     action: "dig",
   };
 

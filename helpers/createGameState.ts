@@ -9,5 +9,6 @@ export function createGameState(settings: GameSettings): GameState {
   return {
     ...emptyGameState,
     numMines: settings.numMines,
+    safeFirstClick: settings.safeFirstClick,
   };
 }

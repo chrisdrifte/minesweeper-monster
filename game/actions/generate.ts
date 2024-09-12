@@ -18,7 +18,12 @@ export function generate(gameState: GameState, target: Target) {
   }
 
   // detect cells to which mines can be added
-  const safeCells = [targetCell, ...getNeighbours(nextGameState, targetCell)];
+  let safeCells: Cell[] = [];
+
+  if (gameState.safeFirstClick) {
+    safeCells = [targetCell, ...getNeighbours(nextGameState, targetCell)];
+  }
+
   const unsafeCells = cells.filter((cell) => !safeCells.includes(cell));
 
   // add mines

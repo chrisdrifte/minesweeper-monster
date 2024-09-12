@@ -13,7 +13,9 @@ export default function TutorialStrategies002() {
           Test out your new strategies with a quick game of minesweeper:
         </Paragraph>
 
-        <GamePlayWithRestart settings={{ width: 8, height: 8, numMines: 8 }} />
+        <GamePlayWithRestart
+          settings={{ width: 8, height: 8, numMines: 8, safeFirstClick: true }}
+        />
       </ContentBlock>
 
       <PageMenu prev="/tutorial/strategies/001" next="/" nextText="Finish" />
