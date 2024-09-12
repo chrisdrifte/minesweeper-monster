@@ -134,6 +134,7 @@ export function GamePlay(props: GamePlayProps) {
               key={cell.id}
               cell={cell}
               action={gameState.action}
+              isExploded={hasLost}
               onClick={() => {
                 if (!isPlaying) {
                   return;

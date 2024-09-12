@@ -4,6 +4,7 @@ import { noop } from "@/helpers/noop";
 
 export type CellWrapperProps = {
   isHighlighted?: boolean;
+  isExploded?: boolean;
   background?: "none" | "white" | "red";
   annotation?: Annotation;
   onClick?: VoidFunction;
@@ -13,6 +14,7 @@ export type CellWrapperProps = {
 export function CellWrapper({
   children,
   isHighlighted = false,
+  isExploded = false,
   background = "none",
   annotation,
   onClick = noop,
@@ -27,9 +29,11 @@ export function CellWrapper({
           "border-red-500 border-4": annotation === "mine",
           "border-green-500 border-4":
             annotation === "safe" || annotation === "info",
+          exploded: isExploded,
         },
         "size-6 text-black border-black m-1 cursor-pointer rounded-sm"
       )}
+      style={isExploded ? { animationDelay: `${Math.random() * 100}ms` } : {}}
       onMouseDown={(e) => {
         const LEFT_BUTTON = 0;
         const RIGHT_BUTTON = 2;

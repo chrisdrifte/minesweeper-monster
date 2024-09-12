@@ -11,6 +11,7 @@ export type RenderCellProps = {
   cell: Cell;
   action?: "dig" | "flag" | "select-dig" | "select-flag";
   isHighlighted?: boolean;
+  isExploded?: boolean;
   annotation?: Annotation;
   onClick?: VoidFunction;
   onAltClick?: VoidFunction;
@@ -20,6 +21,7 @@ export function RenderCell({
   cell,
   action,
   isHighlighted = false,
+  isExploded = false,
   annotation,
   onClick = noop,
   onAltClick = noop,
@@ -29,6 +31,7 @@ export function RenderCell({
       return (
         <CellWrapper
           isHighlighted={isHighlighted}
+          isExploded={isExploded}
           background="white"
           annotation={annotation}
           onClick={onClick}
@@ -65,6 +68,7 @@ export function RenderCell({
       return (
         <CellWrapper
           isHighlighted={isHighlighted}
+          isExploded={isExploded}
           background="white"
           annotation={annotation}
           onClick={onClick}
@@ -79,6 +83,7 @@ export function RenderCell({
         return (
           <CellWrapper
             isHighlighted={isHighlighted}
+            isExploded={isExploded}
             background="red"
             annotation={annotation}
             onClick={onClick}
@@ -96,6 +101,7 @@ export function RenderCell({
       return (
         <CellWrapper
           isHighlighted={isHighlighted}
+          isExploded={isExploded}
           annotation={annotation}
           onClick={onClick}
           onAltClick={onAltClick}
