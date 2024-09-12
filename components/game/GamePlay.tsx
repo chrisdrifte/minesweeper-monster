@@ -99,13 +99,15 @@ export function GamePlay(props: GamePlayProps) {
   return (
     <div className={classNames({ "sm:pointer-events-none": !isPlaying })}>
       {hasWon && (
-        <Confetti
-          width={width}
-          height={height}
-          numberOfPieces={100}
-          colors={["white"]}
-          recycle={false}
-        />
+        <div className="fixed w-screen h-screen top-0 left-0 pointer-events-none">
+          <Confetti
+            width={width}
+            height={height}
+            numberOfPieces={100}
+            colors={["white"]}
+            recycle={false}
+          />
+        </div>
       )}
 
       <Center>
