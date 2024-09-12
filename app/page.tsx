@@ -32,6 +32,10 @@ export default function IndexPage() {
           <MenuButton text="Beginner" href="/play/beginner" />
           <MenuButton text="Intermediate" href="/play/intermediate" />
           <MenuButton text="Expert" href="/play/expert" />
+          <MenuButton
+            text="Custom (recommended for mobile)"
+            href="/play/custom"
+          />
         </MenuWrapper>
       </ContentBlock>
       <ContentBlock>
