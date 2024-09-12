@@ -82,7 +82,7 @@ export function GamePlay(props: GamePlayProps) {
   const message = getMessage();
 
   return (
-    <div className={classNames({ "pointer-events-none": !isPlaying })}>
+    <div className={classNames({ "sm:pointer-events-none": !isPlaying })}>
       <Center>
         <Caption>{message}</Caption>
 

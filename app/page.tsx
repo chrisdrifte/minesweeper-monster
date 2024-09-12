@@ -31,11 +31,14 @@ export default function IndexPage() {
         <MenuWrapper>
           <MenuButton
             text="Monster Minesweeper (Recommended)"
-            href="/play/custom"
+            href="/play/custom#board"
           />
-          <MenuButton text="Classic Beginner" href="/play/beginner" />
-          <MenuButton text="Classic Intermediate" href="/play/intermediate" />
-          <MenuButton text="Classic Expert" href="/play/expert" />
+          <MenuButton text="Classic Beginner" href="/play/beginner#board" />
+          <MenuButton
+            text="Classic Intermediate"
+            href="/play/intermediate#board"
+          />
+          <MenuButton text="Classic Expert" href="/play/expert#board" />
         </MenuWrapper>
       </ContentBlock>
       <ContentBlock>

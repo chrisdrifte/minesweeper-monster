@@ -23,7 +23,7 @@ export default function GameLayout({
               className="text-white flex space-x-2 items-center group"
             >
               <LearnIcon fill="white" className="size-4" />
-              <span className="underline group-hover:no-underline">
+              <span className="underline sm:group-hover:no-underline">
                 How to play
               </span>
             </Link>

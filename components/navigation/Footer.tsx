@@ -9,7 +9,7 @@ export function Footer({}: React.PropsWithChildren) {
           <a
             href="https://www.linkedin.com/in/chris-drifte/"
             target="_blank"
-            className="underline hover:no-underline"
+            className="underline sm:hover:no-underline"
           >
             Chris Drifte
           </a>

@@ -21,6 +21,7 @@ export function BoardWrapper({
 
   return (
     <div
+      id="#board"
       className={classNames(
         {
           // places a triangle in the bottom-left to create an outer corner without removing the inner curve

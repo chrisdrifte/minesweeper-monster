@@ -33,7 +33,7 @@ export function RenderCell({
                 {
                   "bg-red-500": isHighlighted,
                 },
-                "size-full hover:bg-red-500 active:bg-rad-500"
+                "size-full sm:hover:bg-red-500 active:bg-rad-500"
               )}
             />
           )}
@@ -46,7 +46,7 @@ export function RenderCell({
                     hidden: !isHighlighted,
                     block: isHighlighted,
                   },
-                  "group-hover:block group-active:block"
+                  "sm:group-hover:block group-active:block"
                 )}
               />
             </div>
