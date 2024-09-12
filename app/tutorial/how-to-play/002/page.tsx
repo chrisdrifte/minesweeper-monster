@@ -1,6 +1,6 @@
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { Count } from "@/components/cells/Count";
 import { GameTour } from "@/components/game/GameTour";
+import { MinesCount } from "@/components/cells/MinesCount";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 
@@ -10,10 +10,10 @@ export default function TutorialIntro002() {
       <ContentBlock>
         <Paragraph>
           Most cells contain a number which represents the number of adjacent
-          mines. For example, a cell which contains <Count count={1} /> can only
-          be adjacent to exactly one mine. A cell which contains{" "}
-          <Count count={2} /> can only be adjacent to exactly two mines. And so
-          on.
+          mines. For example, a cell which contains <MinesCount count={1} /> can
+          only be adjacent to exactly one mine. A cell which contains{" "}
+          <MinesCount count={2} /> can only be adjacent to exactly two mines.
+          And so on.
         </Paragraph>
 
         <Paragraph>

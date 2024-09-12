@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import { spaceMono } from "@/app/fonts";
 
-export type CountProps = {
+export type MinesCountProps = {
   count: number;
 };
 
-export function Count({ count }: CountProps) {
+export function MinesCount({ count }: MinesCountProps) {
   return (
     <span
       className={classNames(spaceMono.className, "font-bold", {

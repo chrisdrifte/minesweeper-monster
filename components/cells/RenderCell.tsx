@@ -1,8 +1,8 @@
 import { Cell } from "@/types/Cell";
 import { CellWrapper } from "./CellWrapper";
-import { Count } from "./Count";
 import { FlagIcon } from "../icons/FlagIcon";
 import { Mine } from "./Mine";
+import { MinesCount } from "./MinesCount";
 import classNames from "classnames";
 import { noop } from "@/helpers/noop";
 
@@ -81,16 +81,20 @@ export function RenderCell({
             <Mine />
           </CellWrapper>
         );
-      } else {
-        return (
-          <CellWrapper
-            isHighlighted={isHighlighted}
-            onClick={onClick}
-            onAltClick={onAltClick}
-          >
-            <Count count={cell.count ?? 0} />
-          </CellWrapper>
-        );
       }
+
+      if (!cell.count) {
+        return <div></div>;
+      }
+
+      return (
+        <CellWrapper
+          isHighlighted={isHighlighted}
+          onClick={onClick}
+          onAltClick={onAltClick}
+        >
+          <MinesCount count={cell.count ?? 0} />
+        </CellWrapper>
+      );
   }
 }

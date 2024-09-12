@@ -1,10 +1,10 @@
 import { Caption } from "@/components/layout/Caption";
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { Count } from "@/components/cells/Count";
 import { GameStatic } from "@/components/game/GameStatic";
 import { Grid } from "@/components/layout/Grid";
 import { Heading } from "@/components/layout/Heading";
+import { MinesCount } from "@/components/cells/MinesCount";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 
@@ -26,7 +26,7 @@ export default function TutorialStrategies001() {
 
         <Center>
           <Caption>
-            The top-right <Count count={1} /> touches exactly one cell
+            The top-right <MinesCount count={1} /> touches exactly one cell
             (flagged), which must contain a mine.
           </Caption>
           <GameStatic
@@ -109,8 +109,8 @@ export default function TutorialStrategies001() {
 
         <Heading>3. Bridges</Heading>
         <Paragraph>
-          When two mines are close, they often share several <Count count={2} />
-          s which act as a bridge between them.
+          When two mines are close, they often share several{" "}
+          <MinesCount count={2} />s which act as a bridge between them.
         </Paragraph>
 
         <Center>
