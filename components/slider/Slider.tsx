@@ -38,7 +38,7 @@ export function Slider({
       <SliderPrimitive.Thumb
         className={classNames(
           "block h-5 w-5 rounded-full bg-white cursor-grab active:cursor-grabbing",
-          "focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75"
+          "focus:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-opacity-75"
         )}
       />
     </SliderPrimitive.Root>
