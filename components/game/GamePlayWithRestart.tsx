@@ -2,6 +2,9 @@
 
 import { GamePlay, GamePlayProps } from "@/components/game/GamePlay";
 
+import { Caption } from "../layout/Caption";
+import { Center } from "../layout/Center";
+import { ContentBlock } from "../layout/ContentBlock";
 import Link from "next/link";
 import { RestartIcon } from "@/components/icons/RestartIcon";
 import { SettingsIcon } from "../icons/SettingsIcon";
@@ -32,6 +35,14 @@ export default function GamePlayWithRestart({
             <SettingsIcon fill="white" className="size-8" />
           </Link>
         ) : null}
+      </div>
+
+      <div className="hidden sm:block">
+        <ContentBlock>
+          <Center>
+            <Caption>Tip: you can also right click to place flags</Caption>
+          </Center>
+        </ContentBlock>
       </div>
     </>
   );

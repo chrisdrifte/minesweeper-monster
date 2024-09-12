@@ -11,6 +11,7 @@ export type RenderCellProps = {
   action?: "dig" | "flag" | "select-dig" | "select-flag";
   isHighlighted?: boolean;
   onClick?: VoidFunction;
+  onAltClick?: VoidFunction;
 };
 
 export function RenderCell({
@@ -18,6 +19,7 @@ export function RenderCell({
   action,
   isHighlighted = false,
   onClick = noop,
+  onAltClick = noop,
 }: RenderCellProps) {
   switch (cell.state) {
     case "hidden":
@@ -26,6 +28,7 @@ export function RenderCell({
           isHighlighted={isHighlighted}
           background="white"
           onClick={onClick}
+          onAltClick={onAltClick}
         >
           {action === "dig" && (
             <div
@@ -60,6 +63,7 @@ export function RenderCell({
           isHighlighted={isHighlighted}
           background="white"
           onClick={onClick}
+          onAltClick={onAltClick}
         >
           <FlagIcon />
         </CellWrapper>
@@ -72,13 +76,18 @@ export function RenderCell({
             isHighlighted={isHighlighted}
             background="red"
             onClick={onClick}
+            onAltClick={onAltClick}
           >
             <Mine />
           </CellWrapper>
         );
       } else {
         return (
-          <CellWrapper isHighlighted={isHighlighted} onClick={onClick}>
+          <CellWrapper
+            isHighlighted={isHighlighted}
+            onClick={onClick}
+            onAltClick={onAltClick}
+          >
             <Count count={cell.count ?? 0} />
           </CellWrapper>
         );

@@ -118,6 +118,13 @@ export function GamePlay(props: GamePlayProps) {
                     return;
                 }
               }}
+              onAltClick={() => {
+                if (!isPlaying) {
+                  return;
+                }
+
+                setGameState((prevGameState) => flag(prevGameState, cell));
+              }}
             />
           ))}
         </BoardWrapper>

@@ -5,6 +5,7 @@ export type CellWrapperProps = {
   isHighlighted?: boolean;
   background?: "none" | "white" | "red";
   onClick?: VoidFunction;
+  onAltClick?: VoidFunction;
 };
 
 export function CellWrapper({
@@ -12,6 +13,7 @@ export function CellWrapper({
   isHighlighted = false,
   background = "none",
   onClick = noop,
+  onAltClick = noop,
 }: React.PropsWithChildren<CellWrapperProps>) {
   return (
     <div
@@ -22,7 +24,25 @@ export function CellWrapper({
         },
         "size-6 text-black m-1 cursor-pointer rounded-sm"
       )}
-      onClick={onClick}
+      onMouseDown={(e) => {
+        const LEFT_BUTTON = 0;
+        const RIGHT_BUTTON = 2;
+
+        switch (e.nativeEvent.button) {
+          case LEFT_BUTTON:
+            if (e.ctrlKey) {
+              return onAltClick();
+            }
+
+            return onClick();
+
+          case RIGHT_BUTTON:
+            return onAltClick();
+        }
+      }}
+      onContextMenu={(e) => {
+        e.preventDefault();
+      }}
     >
       <div
         className={classNames(
