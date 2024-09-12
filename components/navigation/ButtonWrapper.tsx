@@ -1,13 +1,13 @@
 import classNames from "classnames";
 
-export type MenuWrapperProps = {
+export type ButtonWrapperProps = {
   isHorizontal?: boolean;
 };
 
-export function MenuWrapper({
+export function ButtonWrapper({
   isHorizontal = false,
   children,
-}: React.PropsWithChildren<MenuWrapperProps>) {
+}: React.PropsWithChildren<ButtonWrapperProps>) {
   return (
     <nav
       className={classNames(

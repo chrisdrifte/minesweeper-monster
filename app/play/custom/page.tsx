@@ -1,18 +1,13 @@
-import GamePlayWithRestart from "@/components/game/GamePlayWithRestart";
+import CustomGameClient from "./CustomGameClient";
+import { Suspense } from "react";
+import { getCustomSettings } from "@/game/settings/getCustomSettings";
 
 export default async function CustomGamePage() {
-  const customSettings = {
-    width: 10,
-    height: 15,
-    numMines: 25,
-    safeFirstClick: true,
-    revealContiguousNumbers: true,
-  };
+  const initialCustomSettings = getCustomSettings();
 
   return (
-    <GamePlayWithRestart
-      settings={customSettings}
-      // settingsHref="/play/custom/settings"
-    />
+    <Suspense>
+      <CustomGameClient initialCustomSettings={initialCustomSettings} />
+    </Suspense>
   );
 }

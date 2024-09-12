@@ -1,10 +1,10 @@
+import { ButtonWrapper } from "@/components/navigation/ButtonWrapper";
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameStatic } from "@/components/game/GameStatic";
 import { Header } from "@/components/navigation/Header";
 import { LearnIcon } from "@/components/icons/LearnIcon";
 import { MenuButton } from "@/components/navigation/MenuButton";
-import { MenuWrapper } from "@/components/navigation/MenuWrapper";
 import { Paragraph } from "@/components/layout/Paragraph";
 
 export default function IndexPage() {
@@ -28,7 +28,7 @@ export default function IndexPage() {
           without ads.
         </Paragraph>
 
-        <MenuWrapper>
+        <ButtonWrapper>
           <MenuButton
             text="Monster Minesweeper (Recommended)"
             href="/play/custom#board"
@@ -39,7 +39,7 @@ export default function IndexPage() {
             href="/play/intermediate#board"
           />
           <MenuButton text="Classic Expert" href="/play/expert#board" />
-        </MenuWrapper>
+        </ButtonWrapper>
       </ContentBlock>
       <ContentBlock>
         <Center>
@@ -50,7 +50,7 @@ export default function IndexPage() {
           Learn how to play minesweeper via interactive tutorials.
         </Paragraph>
 
-        <MenuWrapper>
+        <ButtonWrapper>
           <MenuButton
             text="Minesweeper Rules"
             href="/tutorial/how-to-play/001"
@@ -59,7 +59,7 @@ export default function IndexPage() {
             text="Minesweeper Strategies"
             href="/tutorial/strategies/001"
           />
-        </MenuWrapper>
+        </ButtonWrapper>
       </ContentBlock>
     </>
   );

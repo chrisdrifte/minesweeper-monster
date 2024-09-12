@@ -1,23 +1,66 @@
 "use client";
 
+import { ButtonWrapper } from "@/components/navigation/ButtonWrapper";
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { FormButton } from "@/components/navigation/FormButton";
 import { FormField } from "@/components/navigation/FormField";
+import { GameSettings } from "@/types/GameSettings";
 import { Heading } from "@/components/layout/Heading";
 import { InputCheckbox } from "@/components/navigation/InputCheckbox";
 import { InputNumber } from "@/components/navigation/InputNumber";
+import { defaultCustomSettings } from "@/game/settings/defaultCustomSettings";
+import { useCustomSettings } from "@/game/settings/useCustomSettings";
 import { useState } from "react";
 
 export default function CustomSettings() {
-  const [width, setWidth] = useState(10);
-  const [height, setHeight] = useState(15);
-  const [numMines, setNumMines] = useState(50);
+  const { customSettings, setCustomSettings } = useCustomSettings();
 
-  const [safeFirstClick, setSafeFirstClick] = useState(true);
-  const [revealContiguousNumbers, setRevealContiguousNumbers] = useState(false);
+  const [width, setWidth] = useState(String(customSettings.width));
+  const [height, setHeight] = useState(String(customSettings.height));
+  const [numMines, setNumMines] = useState(String(customSettings.numMines));
+
+  const [safeFirstClick, setSafeFirstClick] = useState(
+    customSettings.safeFirstClick
+  );
+
+  const [revealContiguousNumbers, setRevealContiguousNumbers] = useState(
+    customSettings.revealContiguousNumbers
+  );
 
   const handleSaveSettings = () => {
-    window.location.href = "/play/custom";
+    const nextCustomSettings: GameSettings = {
+      width: parseInt(width),
+      height: parseInt(height),
+      numMines: parseInt(numMines),
+      safeFirstClick,
+      revealContiguousNumbers,
+    };
+
+    if (isNaN(nextCustomSettings.width) || nextCustomSettings.width < 10) {
+      return;
+    }
+
+    if (isNaN(nextCustomSettings.height) || nextCustomSettings.height < 10) {
+      return;
+    }
+
+    if (isNaN(nextCustomSettings.numMines) || nextCustomSettings.numMines < 1) {
+      return;
+    }
+
+    setCustomSettings(nextCustomSettings);
+
+    requestAnimationFrame(() => {
+      window.location.href = "/play/custom";
+    });
+  };
+
+  const handleResetSettings = () => {
+    setCustomSettings(defaultCustomSettings);
+
+    requestAnimationFrame(() => {
+      window.location.href = "/play/custom";
+    });
   };
 
   return (
@@ -58,7 +101,10 @@ export default function CustomSettings() {
         </FormField>
       </ContentBlock>
 
-      <FormButton text="Save settings" onClick={handleSaveSettings} />
+      <ButtonWrapper>
+        <FormButton text="Save settings" onClick={handleSaveSettings} />
+        <FormButton text="Use default settings" onClick={handleResetSettings} />
+      </ButtonWrapper>
     </form>
   );
 }
