@@ -10,7 +10,7 @@ export function Header({ children }: React.PropsWithChildren) {
     <header
       className={classNames(
         { "justify-center": !hasChildren, "justify-between": hasChildren },
-        "mt-8 mb-16 flex items-center"
+        "mt-8 mb-12 flex items-center"
       )}
     >
       <hgroup>

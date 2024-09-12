@@ -27,11 +27,14 @@ export default function CustomSettings() {
     customSettings.revealContiguousNumbers
   );
 
+  const [showTimer, setShowTimer] = useState(customSettings.showTimer);
+
   const handleSaveSettings = () => {
     const nextCustomSettings: GameSettings = {
       width: parseInt(width),
       height: parseInt(height),
       numMines: parseInt(numMines),
+      showTimer,
       safeFirstClick,
       revealContiguousNumbers,
     };
@@ -85,6 +88,10 @@ export default function CustomSettings() {
 
       <ContentBlock>
         <Heading>Rules</Heading>
+
+        <FormField label="Show timer">
+          <InputCheckbox checked={showTimer} onChange={setShowTimer} />
+        </FormField>
 
         <FormField label="No mine on first click">
           <InputCheckbox

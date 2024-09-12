@@ -8,6 +8,7 @@ export function createGameState(settings: GameSettings): GameState {
 
   return {
     ...emptyGameState,
+    showTimer: settings.showTimer,
     numMines: settings.numMines,
     safeFirstClick: settings.safeFirstClick,
     revealContiguousNumbers: settings.revealContiguousNumbers,

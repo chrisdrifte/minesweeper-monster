@@ -18,6 +18,7 @@ export default function TutorialStrategies002() {
             width: 8,
             height: 8,
             numMines: 8,
+            showTimer: false,
             safeFirstClick: true,
             revealContiguousNumbers: false,
           }}

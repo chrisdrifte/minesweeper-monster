@@ -1,11 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { BoardWrapper } from "./BoardWrapper";
 import { Caption } from "../layout/Caption";
 import { Center } from "../layout/Center";
 import { GameSettings } from "@/types/GameSettings";
 import { RenderCell } from "../cells/RenderCell";
 import { SelectActionType } from "./SelectActionType";
+import { Timer } from "./Timer";
 import classNames from "classnames";
 import { createGameState } from "@/helpers/createGameState";
 import { dig } from "@/game/actions/dig";
@@ -17,7 +20,7 @@ import { isWinState } from "@/helpers/isWinState";
 import { loadGameState } from "@/helpers/loadGameState";
 import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
-import { useState } from "react";
+import { useTimer } from "@/game/timer/useTimer";
 
 export type GamePlayProps =
   | {
@@ -50,6 +53,14 @@ export function GamePlay(props: GamePlayProps) {
   const hasWon = isWinState(gameState);
   const hasLost = isLoseState(gameState);
   const isPlaying = !hasWon && !hasLost;
+
+  const timer = useTimer();
+
+  useEffect(() => {
+    if (hasWon || hasLost) {
+      timer.stop();
+    }
+  }, [hasWon, hasLost]);
 
   const getMessage = () => {
     if (hasWon) {
@@ -84,7 +95,20 @@ export function GamePlay(props: GamePlayProps) {
   return (
     <div className={classNames({ "sm:pointer-events-none": !isPlaying })}>
       <Center>
-        <Caption>{message}</Caption>
+        {gameState.showTimer ? (
+          <div className="grid gap-4 grid-cols-2 mb-8 w-full">
+            <div className="self-center justify-self-start text-sm text-gray-500 font-bold">
+              {message}
+            </div>
+            <div className="self-center justify-self-end">
+              <Timer seconds={timer.seconds} />{" "}
+            </div>
+          </div>
+        ) : (
+          <>
+            <Caption>{message}</Caption>
+          </>
+        )}
 
         <BoardWrapper
           width={gameState.width}
@@ -99,6 +123,10 @@ export function GamePlay(props: GamePlayProps) {
               onClick={() => {
                 if (!isPlaying) {
                   return;
+                }
+
+                if (!timer.seconds) {
+                  timer.start();
                 }
 
                 switch (gameState.action) {
