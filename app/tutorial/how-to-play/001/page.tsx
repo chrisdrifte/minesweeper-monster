@@ -2,7 +2,6 @@ import { Caption } from "@/components/layout/Caption";
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameReplay } from "@/components/game/GameReplay";
-import { Heading } from "@/components/layout/Heading";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 
