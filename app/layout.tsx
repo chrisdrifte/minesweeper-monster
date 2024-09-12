@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Minesweeper Monster",
   description:
     "Play minesweeper for free, without ads, or learn via interactive tutorials",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
