@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import useWindowWidth from "@/hooks/useWindowWidth";
 
 export type BoardWrapperProps = {
   width: number;
@@ -12,6 +13,12 @@ export function BoardWrapper({
   hasControls = false,
   children,
 }: React.PropsWithChildren<BoardWrapperProps>) {
+  const windowWidth = useWindowWidth();
+  const minBoardWidth = 568;
+  const boardWidth = width * 32 + 24;
+  const shouldUseBoardWidth =
+    boardWidth < windowWidth - 32 && boardWidth > minBoardWidth;
+
   return (
     <div
       className={classNames(
@@ -30,6 +37,7 @@ export function BoardWrapper({
         },
         "relative border-4 rounded-lg border-white h-min p-2 flex justify-center select-none"
       )}
+      style={shouldUseBoardWidth ? { width: boardWidth } : undefined}
     >
       <div
         className="grid overflow-auto overscroll-none"
