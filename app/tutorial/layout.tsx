@@ -18,7 +18,7 @@ export default function TutorialLayout({
         <nav className="text-xs">
           <div className="flex justify-center space-x-4">
             <Link
-              href="/play/easy"
+              href="/play/beginner"
               className="text-white underline hover:no-underline"
             >
               Play now

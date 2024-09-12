@@ -29,8 +29,8 @@ export default function IndexPage() {
         </Paragraph>
 
         <MenuWrapper>
-          <MenuButton text="Easy" href="/play/easy" />
-          <MenuButton text="Hard" href="/play/hard" />
+          <MenuButton text="Beginner" href="/play/beginner" />
+          <MenuButton text="Intermediate" href="/play/intermediate" />
           <MenuButton text="Expert" href="/play/expert" />
         </MenuWrapper>
       </ContentBlock>

@@ -1,17 +1,17 @@
 export const difficulties = {
-  easy: {
-    width: 10,
-    height: 10,
-    numMines: 12,
+  beginner: {
+    width: 9,
+    height: 9,
+    numMines: 10,
   },
-  hard: {
-    width: 11,
-    height: 15,
-    numMines: 24,
+  intermediate: {
+    width: 16,
+    height: 16,
+    numMines: 40,
   },
   expert: {
-    width: 11,
-    height: 15,
-    numMines: 48,
+    width: 30,
+    height: 16,
+    numMines: 99,
   },
 };

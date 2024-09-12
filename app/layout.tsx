@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased bg-black text-white flex flex-col items-center">
-        <main className="max-w-[450px] w-full px-4">
+        <main className="max-w-[568px] w-full px-4">
           {children}
           <Footer />
         </main>
