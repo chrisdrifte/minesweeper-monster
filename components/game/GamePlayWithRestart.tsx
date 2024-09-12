@@ -1,6 +1,7 @@
 "use client";
 
 import { GamePlay, GamePlayProps } from "@/components/game/GamePlay";
+import { useEffect, useState } from "react";
 
 import { Caption } from "../layout/Caption";
 import { Center } from "../layout/Center";
@@ -8,7 +9,6 @@ import { ContentBlock } from "../layout/ContentBlock";
 import Link from "next/link";
 import { RestartIcon } from "@/components/icons/RestartIcon";
 import { SettingsIcon } from "../icons/SettingsIcon";
-import { useState } from "react";
 
 export type GameClientProps = GamePlayProps & {
   settingsHref?: string;
@@ -20,6 +20,19 @@ export default function GamePlayWithRestart({
 }: GameClientProps) {
   const [key, setKey] = useState(0);
   const restart = () => setKey((prevKey) => prevKey + 1);
+
+  useEffect(() => {
+    const handleKeyboardShortcut = (e: KeyboardEvent) => {
+      switch (e.code) {
+        case "KeyR":
+          return restart();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyboardShortcut);
+
+    return () => window.removeEventListener("keydown", handleKeyboardShortcut);
+  });
 
   return (
     <>
