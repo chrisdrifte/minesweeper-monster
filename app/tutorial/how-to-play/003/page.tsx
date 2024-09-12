@@ -1,16 +1,12 @@
-"use client";
-
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GamePlay } from "@/components/game/GamePlay";
+import GamePlayWithRestart from "@/components/game/GamePlayWithRestart";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { RestartIcon } from "@/components/icons/RestartIcon";
 import { useState } from "react";
 
 export default function TutorialIntro003() {
-  const [key, setKey] = useState(0);
-  const restart = () => setKey((prevKey) => prevKey + 1);
-
   return (
     <>
       <ContentBlock>
@@ -21,8 +17,7 @@ export default function TutorialIntro003() {
 
         <Paragraph>Are you feeling lucky?</Paragraph>
 
-        <GamePlay
-          key={key}
+        <GamePlayWithRestart
           levelData={`
             1221XM
             1MM2XM
@@ -30,12 +25,6 @@ export default function TutorialIntro003() {
             XXMXXX       
           `}
         />
-
-        <div className="flex flex-col items-center m-8">
-          <button onClick={restart} title="Restart">
-            <RestartIcon fill="white" className="size-8" />
-          </button>
-        </div>
       </ContentBlock>
 
       <Paragraph>

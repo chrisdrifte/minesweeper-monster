@@ -1,36 +1,23 @@
-import GameClient from "./GameClient";
+import GamePlayWithRestart from "@/components/game/GamePlayWithRestart";
+import { difficulties } from "@/config/difficulties";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  return [
-    {
-      difficulty: "easy",
-    },
-    {
-      difficulty: "hard",
-    },
-    {
-      difficulty: "expert",
-    },
-  ];
+  return Object.keys(difficulties).map((difficulty) => {
+    difficulty;
+  });
 }
 
 export type GamePageProps = {
-  params: { difficulty: string };
+  params: { difficulty: keyof typeof difficulties };
 };
 
 export default async function GamePage({ params }: GamePageProps) {
   const { difficulty } = params;
 
-  switch (difficulty) {
-    default:
-      notFound();
-
-    case "easy":
-    case "hard":
-    case "expert":
-      break;
+  if (!difficulties[difficulty]) {
+    notFound();
   }
 
-  return <GameClient difficulty={difficulty} />;
+  return <GamePlayWithRestart settings={difficulties[difficulty]} />;
 }
