@@ -14,7 +14,13 @@ export default function TutorialStrategies002() {
         </Paragraph>
 
         <GamePlayWithRestart
-          settings={{ width: 8, height: 8, numMines: 8, safeFirstClick: true }}
+          settings={{
+            width: 8,
+            height: 8,
+            numMines: 8,
+            safeFirstClick: true,
+            revealContiguousNumbers: false,
+          }}
         />
       </ContentBlock>
 

@@ -3,4 +3,5 @@ export type GameSettings = {
   height: number;
   numMines: number;
   safeFirstClick: boolean;
+  revealContiguousNumbers: boolean;
 };

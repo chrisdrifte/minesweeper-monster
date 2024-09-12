@@ -6,6 +6,7 @@ export default async function CustomGamePage() {
     height: 15,
     numMines: 25,
     safeFirstClick: true,
+    revealContiguousNumbers: true,
   };
 
   return (

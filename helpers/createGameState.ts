@@ -10,5 +10,6 @@ export function createGameState(settings: GameSettings): GameState {
     ...emptyGameState,
     numMines: settings.numMines,
     safeFirstClick: settings.safeFirstClick,
+    revealContiguousNumbers: settings.revealContiguousNumbers,
   };
 }

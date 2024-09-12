@@ -1,6 +1,8 @@
+import { Cell } from "@/types/Cell";
 import { GameState } from "@/types/GameState";
 import { Target } from "@/types/Target";
 import { getCell } from "@/helpers/getCell";
+import { getHorizontalNeighbours } from "@/helpers/getHorizontalNeighbours";
 import { getNeighbours } from "@/helpers/getNeighbours";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
@@ -39,6 +41,23 @@ export function dig(gameState: GameState, target: Target): GameState {
           .forEach((cell) => {
             nextGameState = dig(nextGameState, cell);
           });
+      }
+
+      if (targetCell.count && gameState.revealContiguousNumbers) {
+        const recursiveReveal = (targetCell: Cell) => {
+          targetCell.state = "visible";
+
+          getHorizontalNeighbours(gameState, targetCell)
+            .filter(
+              (cell) =>
+                cell.state === "hidden" &&
+                !cell.hasMine &&
+                cell.count === targetCell.count
+            )
+            .forEach(recursiveReveal);
+        };
+
+        recursiveReveal(targetCell);
       }
 
       return nextGameState;
