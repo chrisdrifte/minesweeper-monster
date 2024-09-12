@@ -2,6 +2,7 @@ import { Caption } from "@/components/layout/Caption";
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameReplay } from "@/components/game/GameReplay";
+import { Heading } from "@/components/layout/Heading";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 
@@ -16,7 +17,7 @@ export default function TutorialIntro001() {
         </Paragraph>
 
         <Center>
-          <Caption>Click to watch a winning game.</Caption>
+          <Caption>Use the slider to step through a winning game.</Caption>
 
           <GameReplay
             levelData={`
@@ -40,23 +41,6 @@ export default function TutorialIntro001() {
       </ContentBlock>
 
       <ContentBlock>
-        <Center>
-          <Caption>Click to watch a losing game.</Caption>
-
-          <GameReplay
-            levelData={`
-              XXXXXX
-              XXMXXX
-              XXXMXX
-              XXXXXX                    
-            `}
-            steps={[
-              { type: "dig", target: { x: 1, y: 3 } },
-              { type: "dig", target: { x: 2, y: 1 } },
-            ]}
-          />
-        </Center>
-
         <Paragraph>Take care - revealing a mine is an instant loss!</Paragraph>
       </ContentBlock>
 

@@ -1,3 +1,4 @@
+import { Annotation } from "@/types/Annotation";
 import { Cell } from "@/types/Cell";
 import { CellWrapper } from "./CellWrapper";
 import { FlagIcon } from "../icons/FlagIcon";
@@ -10,6 +11,7 @@ export type RenderCellProps = {
   cell: Cell;
   action?: "dig" | "flag" | "select-dig" | "select-flag";
   isHighlighted?: boolean;
+  annotation?: Annotation;
   onClick?: VoidFunction;
   onAltClick?: VoidFunction;
 };
@@ -18,6 +20,7 @@ export function RenderCell({
   cell,
   action,
   isHighlighted = false,
+  annotation,
   onClick = noop,
   onAltClick = noop,
 }: RenderCellProps) {
@@ -27,6 +30,7 @@ export function RenderCell({
         <CellWrapper
           isHighlighted={isHighlighted}
           background="white"
+          annotation={annotation}
           onClick={onClick}
           onAltClick={onAltClick}
         >
@@ -62,6 +66,7 @@ export function RenderCell({
         <CellWrapper
           isHighlighted={isHighlighted}
           background="white"
+          annotation={annotation}
           onClick={onClick}
           onAltClick={onAltClick}
         >
@@ -75,6 +80,7 @@ export function RenderCell({
           <CellWrapper
             isHighlighted={isHighlighted}
             background="red"
+            annotation={annotation}
             onClick={onClick}
             onAltClick={onAltClick}
           >
@@ -90,6 +96,7 @@ export function RenderCell({
       return (
         <CellWrapper
           isHighlighted={isHighlighted}
+          annotation={annotation}
           onClick={onClick}
           onAltClick={onAltClick}
         >

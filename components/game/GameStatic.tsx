@@ -1,17 +1,21 @@
 "use client";
 
+import { Annotation } from "@/types/Annotation";
 import { BoardWrapper } from "./BoardWrapper";
+import { CellId } from "@/types/CellId";
 import { RenderCell } from "../cells/RenderCell";
 import { loadGameState } from "@/helpers/loadGameState";
 import { useMemo } from "react";
 
 export type GameStaticProps = {
   levelData: string;
+  annotations?: Record<CellId, Annotation>;
   revealAllCells?: boolean;
 };
 
 export function GameStatic({
   levelData,
+  annotations = {},
   revealAllCells = false,
 }: GameStaticProps) {
   const gameState = useMemo(() => {
@@ -31,7 +35,11 @@ export function GameStatic({
     <div className="pointer-events-none">
       <BoardWrapper width={gameState.width} height={gameState.height}>
         {gameState.cells.map((cell) => (
-          <RenderCell key={cell.id} cell={cell} />
+          <RenderCell
+            key={cell.id}
+            cell={cell}
+            annotation={annotations[cell.id]}
+          />
         ))}
       </BoardWrapper>
     </div>

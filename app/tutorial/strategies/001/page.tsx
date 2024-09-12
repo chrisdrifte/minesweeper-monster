@@ -26,16 +26,20 @@ export default function TutorialStrategies001() {
 
         <Center>
           <Caption>
-            The top-right <MinesCount count={1} /> touches exactly one cell
-            (flagged), which must contain a mine.
+            The <MinesCount count={1} /> touches exactly one cell, which must
+            contain a mine.
           </Caption>
           <GameStatic
             levelData={`
               0000
               1110
-              XD10
+              XM10
               XX10
             `}
+            annotations={{
+              "2,1": "info",
+              "1,2": "mine",
+            }}
           />
         </Center>
 
@@ -52,6 +56,9 @@ export default function TutorialStrategies001() {
                 XD20
                 XD20
               `}
+              annotations={{
+                "2,2": "info",
+              }}
             />
             <GameStatic
               levelData={`
@@ -60,6 +67,10 @@ export default function TutorialStrategies001() {
                 D210
                 XD10
               `}
+              annotations={{
+                "1,1": "info",
+                "2,2": "info",
+              }}
             />
             <GameStatic
               levelData={`
@@ -68,6 +79,10 @@ export default function TutorialStrategies001() {
                 DD20
                 XD20
               `}
+              annotations={{
+                "1,1": "info",
+                "2,2": "info",
+              }}
             />
             <GameStatic
               levelData={`
@@ -76,6 +91,9 @@ export default function TutorialStrategies001() {
                 D310
                 DD10
               `}
+              annotations={{
+                "1,2": "info",
+              }}
             />
           </Grid>
         </Center>
@@ -90,27 +108,34 @@ export default function TutorialStrategies001() {
           <Grid>
             <GameStatic
               levelData={`
-              00000
-              12321
-              XDDDX
-              XXXXX
-            `}
+                00000
+                12321
+                XDDDX
+                XXXXX
+              `}
+              annotations={{
+                "2,1": "info",
+              }}
             />
             <GameStatic
               levelData={`
-              00000
-              23332
-              DDDDD
-              XXXXX
-            `}
+                00000
+                23332
+                DDDDD
+                XXXXX
+              `}
+              annotations={{
+                "1,1": "info",
+                "3,1": "info",
+              }}
             />
           </Grid>
         </Center>
 
         <Heading>3. Bridges</Heading>
         <Paragraph>
-          When two mines are close, they often share several{" "}
-          <MinesCount count={2} />s which act as a bridge between them.
+          When mines are close, they often share a <MinesCount count={2} />{" "}
+          which acts as a bridge between them.
         </Paragraph>
 
         <Center>
@@ -121,6 +146,9 @@ export default function TutorialStrategies001() {
               XD2DX
               XX2XX
             `}
+            annotations={{
+              "2,1": "info",
+            }}
           />
         </Center>
       </ContentBlock>

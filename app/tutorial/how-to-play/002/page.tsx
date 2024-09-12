@@ -1,5 +1,9 @@
+import { Caption } from "@/components/layout/Caption";
+import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
+import { GameStatic } from "@/components/game/GameStatic";
 import { GameTour } from "@/components/game/GameTour";
+import { Heading } from "@/components/layout/Heading";
 import { MinesCount } from "@/components/cells/MinesCount";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
@@ -8,17 +12,58 @@ export default function TutorialIntro002() {
   return (
     <>
       <ContentBlock>
-        <Paragraph>
-          Most cells contain a number which represents the number of adjacent
-          mines. For example, a cell which contains <MinesCount count={1} /> can
-          only be adjacent to exactly one mine. A cell which contains{" "}
-          <MinesCount count={2} /> can only be adjacent to exactly two mines.
-          And so on.
-        </Paragraph>
+        <Heading>Finding Mines</Heading>
 
         <Paragraph>
-          Finding cells without numbers is helpful too - they open up all other
-          the empty cells around them!
+          Cells display the number of mines they are touching. This allows you
+          to use logic to avoid mines and dig safely.
+        </Paragraph>
+
+        <Center>
+          <Caption>
+            The flagged cell must be a mine, because it is the only cell
+            touching <MinesCount count={1} />.
+          </Caption>
+          <GameStatic
+            levelData={`
+              XX10
+              XD10
+              1110
+              0000
+            `}
+            annotations={{
+              "1,1": "mine",
+              "2,2": "info",
+            }}
+          />
+        </Center>
+      </ContentBlock>
+
+      <ContentBlock>
+        <Caption>
+          All the <MinesCount count={1} />s already touch a flag, so you can
+          safely dig the adjacent cells.
+        </Caption>
+
+        <Center>
+          <GameStatic
+            levelData={`
+              XX10
+              XD10
+              1110
+              0000
+            `}
+            annotations={{
+              "0,1": "safe",
+              "1,0": "safe",
+            }}
+          />
+        </Center>
+
+        <Paragraph>
+          If a cell doesn't touch any mines, it is empty. Digging an empty cell
+          reveals all the cells around them. Empty cells are often found in the
+          corners of the board, so they are a good place to start playing.
         </Paragraph>
 
         <GameTour
