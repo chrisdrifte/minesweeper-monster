@@ -19,9 +19,9 @@ export default function TutorialLayout({
           <div className="flex justify-center space-x-4">
             <Link
               href="/play/easy"
-              className="text-white flex space-x-2 items-center"
+              className="text-white underline hover:no-underline"
             >
-              <span>Play now</span>
+              Play now
             </Link>
           </div>
         </nav>
