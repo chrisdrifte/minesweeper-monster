@@ -70,7 +70,7 @@ export function RenderCell({
           onClick={onClick}
           onAltClick={onAltClick}
         >
-          <FlagIcon />
+          <FlagIcon className="size-full" />
         </CellWrapper>
       );
 
