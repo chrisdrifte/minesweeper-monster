@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { BoardWrapper } from "./BoardWrapper";
 import { Caption } from "../layout/Caption";
 import { Center } from "../layout/Center";
+import Confetti from "react-confetti";
 import { GameSettings } from "@/types/GameSettings";
 import { RenderCell } from "../cells/RenderCell";
 import { SelectActionType } from "./SelectActionType";
@@ -21,6 +22,7 @@ import { loadGameState } from "@/helpers/loadGameState";
 import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
 import { useTimer } from "@/game/timer/useTimer";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export type GamePlayProps =
   | {
@@ -92,8 +94,20 @@ export function GamePlay(props: GamePlayProps) {
 
   const message = getMessage();
 
+  const { width, height } = useWindowSize();
+
   return (
     <div className={classNames({ "sm:pointer-events-none": !isPlaying })}>
+      {hasWon && (
+        <Confetti
+          width={width}
+          height={height}
+          numberOfPieces={100}
+          colors={["white"]}
+          recycle={false}
+        />
+      )}
+
       <Center>
         {gameState.showTimer ? (
           <div className="grid gap-4 grid-cols-2 mb-8 w-full">

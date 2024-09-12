@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import useWindowWidth from "@/hooks/useWindowWidth";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export type BoardWrapperProps = {
   width: number;
@@ -13,7 +13,7 @@ export function BoardWrapper({
   hasControls = false,
   children,
 }: React.PropsWithChildren<BoardWrapperProps>) {
-  const windowWidth = useWindowWidth();
+  const { width: windowWidth } = useWindowSize();
   const minBoardWidth = 568;
   const boardWidth = width * 32 + 24;
   const shouldUseBoardWidth =
