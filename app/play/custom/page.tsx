@@ -12,7 +12,7 @@ export default async function CustomGamePage() {
   return (
     <GamePlayWithRestart
       settings={customSettings}
-      settingsHref="/play/custom/settings"
+      // settingsHref="/play/custom/settings"
     />
   );
 }
