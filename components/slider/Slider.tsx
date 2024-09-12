@@ -32,7 +32,7 @@ export function Slider({
       aria-label="value"
       className="relative flex h-5 w-64 touch-none items-center"
     >
-      <SliderPrimitive.Track className="relative h-1 w-full grow rounded-full bg-white">
+      <SliderPrimitive.Track className="relative h-1 w-full grow rounded-full bg-gray-500">
         <SliderPrimitive.Range className="absolute h-full rounded-full bg-white" />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb
