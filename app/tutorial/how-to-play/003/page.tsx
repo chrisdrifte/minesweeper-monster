@@ -1,10 +1,7 @@
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { GamePlay } from "@/components/game/GamePlay";
 import GamePlayWithRestart from "@/components/game/GamePlayWithRestart";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
-import { RestartIcon } from "@/components/icons/RestartIcon";
-import { useState } from "react";
 
 export default function TutorialIntro003() {
   return (
