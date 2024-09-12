@@ -117,7 +117,7 @@ export function GamePlay(props: GamePlayProps) {
               {message}
             </div>
             <div className="self-center justify-self-end">
-              <Timer seconds={timer.seconds} />{" "}
+              <Timer seconds={timer.seconds} />
             </div>
           </div>
         ) : (

@@ -39,6 +39,9 @@ export function BoardWrapper({
         "relative border-4 rounded-lg border-white h-min p-2 flex justify-center select-none"
       )}
       style={shouldUseBoardWidth ? { width: boardWidth } : undefined}
+      onContextMenu={(e) => {
+        e.preventDefault();
+      }}
     >
       <div
         className="grid overflow-auto overscroll-none"
