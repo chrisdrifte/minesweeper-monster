@@ -98,6 +98,7 @@ export function loadGameState(levelData: string): GameState {
     cells,
     numMines: cells.filter((cell) => cell.hasMine).length,
     safeFirstClick: false,
+    revealContiguousNumbers: false,
     action: "dig",
   };
 
