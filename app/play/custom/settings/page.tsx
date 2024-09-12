@@ -68,7 +68,7 @@ export default function CustomSettings() {
       <ContentBlock>
         <Heading>Board</Heading>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-3 gap-4 grid-cols-1">
           <FormField label="Width" isCentered>
             <InputNumber value={width} onChange={setWidth} />
           </FormField>

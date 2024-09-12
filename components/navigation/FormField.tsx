@@ -13,18 +13,22 @@ export function FormField({
   return (
     <label className="grid grid-cols-2 gap-4 my-4 text-xl">
       <span
-        className={classNames({
-          "self-center justify-self-start": !isCentered,
-          "self-center justify-self-end": isCentered,
-        })}
+        className={classNames(
+          {
+            "sm:justify-self-end": isCentered,
+          },
+          "self-center justify-self-start"
+        )}
       >
         {label}
       </span>
       <span
-        className={classNames({
-          "self-center justify-self-end": !isCentered,
-          "self-center justify-self-start": isCentered,
-        })}
+        className={classNames(
+          {
+            "sm:justify-self-start": isCentered,
+          },
+          "self-center justify-self-end"
+        )}
       >
         {children}
       </span>
