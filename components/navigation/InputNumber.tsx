@@ -21,6 +21,7 @@ export function InputNumber({
       )}
       maxLength={2}
       type="text"
+      inputMode="numeric"
       value={value}
       onChange={(e) => onChange(e.currentTarget.value)}
     />
