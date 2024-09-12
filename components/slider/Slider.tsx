@@ -32,12 +32,12 @@ export function Slider({
       aria-label="value"
       className="relative flex h-5 w-64 touch-none items-center"
     >
-      <SliderPrimitive.Track className="relative h-1 w-full grow rounded-full bg-white dark:bg-gray-800">
-        <SliderPrimitive.Range className="absolute h-full rounded-full bg-gray-600 dark:bg-white" />
+      <SliderPrimitive.Track className="relative h-1 w-full grow rounded-full bg-white">
+        <SliderPrimitive.Range className="absolute h-full rounded-full bg-white" />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb
         className={classNames(
-          "block h-5 w-5 rounded-full bg-gray-600 dark:bg-white cursor-grab active:cursor-grabbing",
+          "block h-5 w-5 rounded-full bg-white cursor-grab active:cursor-grabbing",
           "focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75"
         )}
       />
