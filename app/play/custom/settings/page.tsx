@@ -21,7 +21,11 @@ export default function CustomSettings() {
     String(customSettings.numMines ?? "")
   );
 
-  const [showTimer, setShowTimer] = useState(customSettings.showTimer ?? "");
+  const [timeLimit, setTimeLimit] = useState(
+    String(customSettings.timeLimit ?? "")
+  );
+
+  const [showTimer, setShowTimer] = useState(customSettings.showTimer);
 
   const [safeFirstClick, setSafeFirstClick] = useState(
     customSettings.safeFirstClick
@@ -32,8 +36,6 @@ export default function CustomSettings() {
   );
 
   const [autoRestart, setAutoRestart] = useState(customSettings.autoRestart);
-
-  const [timeLimit, setTimeLimit] = useState(String(customSettings.timeLimit));
 
   const handleSaveSettings = () => {
     const nextCustomSettings: GameSettings = {
