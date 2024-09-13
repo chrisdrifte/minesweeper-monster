@@ -23,6 +23,11 @@ export function useTimer() {
     setSeconds(0);
   };
 
+  const set = (seconds: number) => {
+    setSeconds(seconds);
+    setIsRunning(false);
+  };
+
   const [frame, setFrame] = useState({});
   const nextFrame = () => setFrame({});
 
@@ -32,7 +37,11 @@ export function useTimer() {
     }
 
     setSeconds((getTimestamp() - startTimestamp) / 100);
-    requestAnimationFrame(nextFrame);
+    const id = requestAnimationFrame(nextFrame);
+
+    return () => {
+      cancelAnimationFrame(id);
+    };
   }, [frame, isRunning]);
 
   return {
@@ -40,5 +49,6 @@ export function useTimer() {
     start,
     stop,
     reset,
+    set,
   };
 }

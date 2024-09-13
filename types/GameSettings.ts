@@ -6,4 +6,5 @@ export type GameSettings = {
   safeFirstClick: boolean;
   revealContiguousNumbers: boolean;
   autoRestart: boolean;
+  timeLimit: number;
 };

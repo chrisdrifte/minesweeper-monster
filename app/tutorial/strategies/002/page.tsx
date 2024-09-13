@@ -21,6 +21,8 @@ export default function TutorialStrategies002() {
             showTimer: false,
             safeFirstClick: true,
             revealContiguousNumbers: false,
+            autoRestart: false,
+            timeLimit: 0,
           }}
         />
       </ContentBlock>

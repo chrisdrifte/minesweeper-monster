@@ -11,7 +11,15 @@ export function FormField({
   isCentered = false,
 }: React.PropsWithChildren<FormFieldProps>) {
   return (
-    <label className="grid grid-cols-2 gap-4 my-4 text-xl">
+    <label
+      className={classNames(
+        {
+          "grid-cols-[1fr_minmax(80px,min-content)]": !isCentered,
+          "grid-cols-2": isCentered,
+        },
+        "grid grid-cols-2 gap-4 my-4 text-xl"
+      )}
+    >
       <span
         className={classNames(
           {

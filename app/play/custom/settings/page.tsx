@@ -15,11 +15,13 @@ import { useState } from "react";
 export default function CustomSettings() {
   const { customSettings, setCustomSettings } = useCustomSettings();
 
-  const [width, setWidth] = useState(String(customSettings.width));
-  const [height, setHeight] = useState(String(customSettings.height));
-  const [numMines, setNumMines] = useState(String(customSettings.numMines));
+  const [width, setWidth] = useState(String(customSettings.width ?? ""));
+  const [height, setHeight] = useState(String(customSettings.height ?? ""));
+  const [numMines, setNumMines] = useState(
+    String(customSettings.numMines ?? "")
+  );
 
-  const [showTimer, setShowTimer] = useState(customSettings.showTimer);
+  const [showTimer, setShowTimer] = useState(customSettings.showTimer ?? "");
 
   const [safeFirstClick, setSafeFirstClick] = useState(
     customSettings.safeFirstClick
@@ -31,6 +33,8 @@ export default function CustomSettings() {
 
   const [autoRestart, setAutoRestart] = useState(customSettings.autoRestart);
 
+  const [timeLimit, setTimeLimit] = useState(String(customSettings.timeLimit));
+
   const handleSaveSettings = () => {
     const nextCustomSettings: GameSettings = {
       width: parseInt(width),
@@ -40,6 +44,7 @@ export default function CustomSettings() {
       safeFirstClick,
       revealContiguousNumbers,
       autoRestart,
+      timeLimit: parseInt(timeLimit),
     };
 
     if (isNaN(nextCustomSettings.width) || nextCustomSettings.width < 10) {
@@ -51,6 +56,13 @@ export default function CustomSettings() {
     }
 
     if (isNaN(nextCustomSettings.numMines) || nextCustomSettings.numMines < 1) {
+      return;
+    }
+
+    if (
+      isNaN(nextCustomSettings.timeLimit) ||
+      nextCustomSettings.timeLimit < 0
+    ) {
       return;
     }
 
@@ -112,6 +124,14 @@ export default function CustomSettings() {
 
         <FormField label="Restart automatically on loss">
           <InputCheckbox checked={autoRestart} onChange={setAutoRestart} />
+        </FormField>
+
+        <FormField label="Time limit (seconds)">
+          <InputNumber
+            value={timeLimit}
+            onChange={setTimeLimit}
+            maxLength={4}
+          />
         </FormField>
       </ContentBlock>
 

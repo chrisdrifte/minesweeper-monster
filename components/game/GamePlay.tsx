@@ -64,7 +64,7 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
   ).length;
   const numRemaining = numMines - numFlags;
 
-  const hasNotStarted = isInitialState(gameState);
+  const isNotGenerated = isInitialState(gameState);
   const hasWon = isWinState(gameState);
   const hasLost = isLoseState(gameState);
   const isPlaying = !hasWon && !hasLost;
@@ -107,14 +107,15 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
       return;
     }
 
-    if (!timer.seconds) {
-      timer.start();
-    }
-
     switch (gameState.action) {
       case "dig":
-        if (hasNotStarted) {
+        if (isNotGenerated) {
           setGameState((prevGameState) => generate(prevGameState, cell));
+          timer.start();
+
+          if (gameState.timeLimit) {
+            setTimeout(handleForceLoss, gameState.timeLimit * 1000);
+          }
           return;
         }
 
@@ -128,11 +129,7 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
   };
 
   const handleAltClickCell = (cell: Cell) => {
-    if (hasNotStarted) {
-      return;
-    }
-
-    if (!isPlaying) {
+    if (isNotGenerated || !isPlaying) {
       return;
     }
 
@@ -140,7 +137,7 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
   };
 
   const handleSelectDig = () => {
-    if (hasNotStarted || !isPlaying) {
+    if (isNotGenerated || !isPlaying) {
       return;
     }
 
@@ -148,11 +145,27 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
   };
 
   const handleSelectFlag = () => {
-    if (hasNotStarted || !isPlaying) {
+    if (isNotGenerated || !isPlaying) {
       return;
     }
 
     setGameState((prevGameState) => selectFlag(prevGameState));
+  };
+
+  const handleForceLoss = () => {
+    setGameState((prevGameState) => {
+      const nextGameState = structuredClone(prevGameState);
+
+      nextGameState.cells
+        .filter((cell) => cell.hasMine || cell.state === "hidden")
+        .forEach((cell) => {
+          cell.state = "visible";
+        });
+
+      return nextGameState;
+    });
+
+    timer.set(gameState.timeLimit);
   };
 
   useKeyboardShortcuts({

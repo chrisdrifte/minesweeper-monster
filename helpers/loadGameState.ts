@@ -100,6 +100,7 @@ export function loadGameState(levelData: string): GameState {
     safeFirstClick: false,
     revealContiguousNumbers: false,
     autoRestart: false,
+    timeLimit: 0,
     cells,
     action: "dig",
   };
