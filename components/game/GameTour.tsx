@@ -23,9 +23,14 @@ type Step = Action & { description?: string };
 export type GameTourProps = {
   levelData: string;
   steps?: Step[];
+  doneMessage?: string;
 };
 
-export function GameTour({ levelData, steps = [] }: GameTourProps) {
+export function GameTour({
+  levelData,
+  steps = [],
+  doneMessage = "Done!",
+}: GameTourProps) {
   const hasSteps = steps.length > 0;
 
   const minStep = -1;
@@ -41,7 +46,7 @@ export function GameTour({ levelData, steps = [] }: GameTourProps) {
 
     switch (step?.type) {
       case undefined:
-        return isWinState(gameState) ? "Winner!" : "Done!";
+        return isWinState(gameState) ? "Winner!" : doneMessage;
 
       case "select-dig":
         return "Switch to 'dig' mode.";
