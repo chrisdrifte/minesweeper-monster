@@ -164,6 +164,10 @@ export function GamePlay(props: GamePlayProps) {
                 }
               }}
               onAltClick={() => {
+                if (hasNotStarted) {
+                  return;
+                }
+
                 if (!isPlaying) {
                   return;
                 }
