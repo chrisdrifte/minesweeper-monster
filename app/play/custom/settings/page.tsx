@@ -15,14 +15,18 @@ import { useState } from "react";
 export default function CustomSettings() {
   const { customSettings, setCustomSettings } = useCustomSettings();
 
-  const [width, setWidth] = useState(String(customSettings.width ?? ""));
-  const [height, setHeight] = useState(String(customSettings.height ?? ""));
+  const [width, setWidth] = useState(
+    String(customSettings.width ?? defaultCustomSettings.width)
+  );
+  const [height, setHeight] = useState(
+    String(customSettings.height ?? defaultCustomSettings.height)
+  );
   const [numMines, setNumMines] = useState(
-    String(customSettings.numMines ?? "")
+    String(customSettings.numMines ?? defaultCustomSettings.numMines)
   );
 
   const [timeLimit, setTimeLimit] = useState(
-    String(customSettings.timeLimit ?? "")
+    String(customSettings.timeLimit ?? defaultCustomSettings.timeLimit)
   );
 
   const [showTimer, setShowTimer] = useState(customSettings.showTimer);
