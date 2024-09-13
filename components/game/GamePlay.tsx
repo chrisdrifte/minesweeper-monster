@@ -194,6 +194,7 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
     KeyD: handleSelectDig,
     KeyF: handleSelectFlag,
     KeyR: handleRestart,
+    Space: handleRestart,
   });
 
   // automatically stop timer
