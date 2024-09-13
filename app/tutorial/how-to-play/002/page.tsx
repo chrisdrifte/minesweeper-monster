@@ -8,8 +8,6 @@ import { Heading } from "@/components/layout/Heading";
 import { MinesCount } from "@/components/cells/MinesCount";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
-import classNames from "classnames";
-import { spaceMono } from "@/app/fonts";
 
 export default function TutorialIntro002() {
   return (
