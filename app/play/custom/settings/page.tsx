@@ -104,6 +104,14 @@ export default function CustomSettings() {
       <ContentBlock>
         <Heading>Rules</Heading>
 
+        <FormField label="Time limit (seconds)">
+          <InputNumber
+            value={timeLimit}
+            onChange={setTimeLimit}
+            maxLength={4}
+          />
+        </FormField>
+
         <FormField label="Show timer">
           <InputCheckbox checked={showTimer} onChange={setShowTimer} />
         </FormField>
@@ -124,14 +132,6 @@ export default function CustomSettings() {
 
         <FormField label="Restart automatically on loss">
           <InputCheckbox checked={autoRestart} onChange={setAutoRestart} />
-        </FormField>
-
-        <FormField label="Time limit (seconds)">
-          <InputNumber
-            value={timeLimit}
-            onChange={setTimeLimit}
-            maxLength={4}
-          />
         </FormField>
       </ContentBlock>
 
