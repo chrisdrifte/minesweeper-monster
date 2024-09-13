@@ -1,5 +1,5 @@
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import GamePlayWithRestart from "@/components/game/GamePlayWithRestart";
+import { GamePlay } from "@/components/game/GamePlay";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 
@@ -14,7 +14,7 @@ export default function TutorialIntro003() {
 
         <Paragraph>Are you feeling lucky?</Paragraph>
 
-        <GamePlayWithRestart
+        <GamePlay
           levelData={`
             1221XM
             1MM2XM

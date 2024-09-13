@@ -1,4 +1,4 @@
-import GamePlayWithRestart from "@/components/game/GamePlayWithRestart";
+import { GamePlay } from "@/components/game/GamePlay";
 import { difficulties } from "@/config/difficulties";
 import { notFound } from "next/navigation";
 
@@ -19,5 +19,10 @@ export default async function GamePage({ params }: GamePageProps) {
     notFound();
   }
 
-  return <GamePlayWithRestart settings={difficulties[difficulty]} />;
+  return (
+    <GamePlay
+      settings={difficulties[difficulty]}
+      tipText="Tip: You can also right click to place flags"
+    />
+  );
 }

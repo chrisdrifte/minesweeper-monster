@@ -1,6 +1,6 @@
 "use client";
 
-import GamePlayWithRestart from "@/components/game/GamePlayWithRestart";
+import { GamePlay } from "@/components/game/GamePlay";
 import { GameSettings } from "@/types/GameSettings";
 import { useCustomSettings } from "@/game/settings/useCustomSettings";
 
@@ -14,9 +14,10 @@ export default function CustomGameClient({
   const { customSettings } = useCustomSettings(initialCustomSettings);
 
   return (
-    <GamePlayWithRestart
+    <GamePlay
       settings={customSettings}
       settingsHref="/play/custom/settings"
+      tipText="Tip: This mode is fully customizable by editing the settings"
     />
   );
 }

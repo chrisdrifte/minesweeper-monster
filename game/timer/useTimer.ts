@@ -18,6 +18,11 @@ export function useTimer() {
     setIsRunning(false);
   };
 
+  const reset = () => {
+    setIsRunning(false);
+    setSeconds(0);
+  };
+
   const [frame, setFrame] = useState({});
   const nextFrame = () => setFrame({});
 
@@ -34,5 +39,6 @@ export function useTimer() {
     seconds,
     start,
     stop,
+    reset,
   };
 }

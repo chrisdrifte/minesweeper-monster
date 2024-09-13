@@ -1,5 +1,5 @@
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import GamePlayWithRestart from "@/components/game/GamePlayWithRestart";
+import { GamePlay } from "@/components/game/GamePlay";
 import { Heading } from "@/components/layout/Heading";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
@@ -13,7 +13,7 @@ export default function TutorialStrategies002() {
           Test out your new strategies with a quick game of minesweeper:
         </Paragraph>
 
-        <GamePlayWithRestart
+        <GamePlay
           settings={{
             width: 8,
             height: 8,
