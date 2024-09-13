@@ -19,7 +19,7 @@ html[data-theme="high-contrast"] {
 html[data-theme="dark"] {
   --bg: #1a1a1c;
   --fg-50: #6b7280;
-  --fg-100: #ffffff;
+  --fg-100: #fafafc;
   --blue: #3b82f6;
   --green: #22c55e;
   --red: #ff5858;

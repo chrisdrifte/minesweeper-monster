@@ -31,7 +31,7 @@ export function CellWrapper({
             annotation === "safe" || annotation === "info",
           "animate-explode": isExploded,
         },
-        "size-6 text-bg border-bg m-1 cursor-pointer rounded-sm"
+        "size-7 text-bg border-bg m-0.5 cursor-pointer rounded-sm"
       )}
       style={isExploded ? { animationDelay: `${Math.random() * 100}ms` } : {}}
       onMouseDown={(e) => {

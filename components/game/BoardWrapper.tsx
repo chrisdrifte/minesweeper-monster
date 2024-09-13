@@ -44,7 +44,7 @@ export function BoardWrapper({
       }}
     >
       <div
-        className="grid overflow-auto overscroll-none"
+        className="grid overflow-auto overscroll-none items-start justify-start"
         style={{
           gridTemplateColumns: `repeat(${width}, 32px)`,
           gridTemplateRows: `repeat(${height}, 32px)`,
