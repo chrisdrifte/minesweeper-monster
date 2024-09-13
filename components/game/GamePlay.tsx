@@ -24,6 +24,7 @@ import { isInitialState } from "@/helpers/isInitialState";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
 import { loadGameState } from "@/helpers/loadGameState";
+import { revealBoard } from "@/game/actions/revealBoard";
 import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
@@ -183,15 +184,7 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
         return prevGameState;
       }
 
-      const nextGameState = structuredClone(prevGameState);
-
-      nextGameState.cells
-        .filter((cell) => cell.hasMine || cell.state === "hidden")
-        .forEach((cell) => {
-          cell.state = "visible";
-        });
-
-      return nextGameState;
+      return revealBoard(prevGameState);
     });
 
     timerSet(timeLimit);

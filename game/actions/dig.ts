@@ -1,11 +1,13 @@
 import { Cell } from "@/types/Cell";
 import { GameState } from "@/types/GameState";
 import { Target } from "@/types/Target";
+import { flagAllMines } from "./flagAllMines";
 import { getCell } from "@/helpers/getCell";
 import { getHorizontalNeighbours } from "@/helpers/getHorizontalNeighbours";
 import { getNeighbours } from "@/helpers/getNeighbours";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
+import { revealBoard } from "./revealBoard";
 
 export function dig(gameState: GameState, target: Target): GameState {
   let nextGameState = structuredClone(gameState);
@@ -43,19 +45,11 @@ export function dig(gameState: GameState, target: Target): GameState {
       targetCell.state = "visible";
 
       if (isWinState(nextGameState)) {
-        nextGameState.cells
-          .filter((cell) => cell.hasMine)
-          .forEach((cell) => {
-            cell.state = "flagged";
-          });
+        return flagAllMines(nextGameState);
       }
 
       if (isLoseState(nextGameState)) {
-        nextGameState.cells
-          .filter((cell) => cell.state === "hidden" || cell.hasMine)
-          .forEach((cell) => {
-            cell.state = "visible";
-          });
+        return revealBoard(nextGameState);
       }
 
       if (!targetCell.count) {
