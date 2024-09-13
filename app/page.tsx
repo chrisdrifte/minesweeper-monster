@@ -43,7 +43,7 @@ export default function IndexPage() {
       </ContentBlock>
       <ContentBlock>
         <Center>
-          <LearnIcon fill="white" className="size-8" />
+          <LearnIcon className="size-8 fill-fg-100" />
         </Center>
 
         <Paragraph>

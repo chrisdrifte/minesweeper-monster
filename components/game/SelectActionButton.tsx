@@ -18,7 +18,7 @@ export function SelectActionButton({
     <button
       className={classNames(
         {
-          "bg-black text-white": isActive,
+          "bg-bg text-fg-100": isActive,
         },
         "size-full py-2 px-4 rounded"
       )}
@@ -27,7 +27,7 @@ export function SelectActionButton({
       <div
         className={classNames(
           {
-            "before:bg-orange-500 before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping relative":
+            "before:bg-orange before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping relative":
               isHighlighted,
           },
           spaceMono.className,

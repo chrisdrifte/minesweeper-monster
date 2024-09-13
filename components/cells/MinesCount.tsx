@@ -9,14 +9,14 @@ export function MinesCount({ count }: MinesCountProps) {
   return (
     <span
       className={classNames(spaceMono.className, "font-bold", {
-        "text-violet-500": count === 8,
-        "text-lime-500": count === 7,
-        "text-yellow-500": count === 6,
-        "text-orange-500": count === 5,
-        "text-cyan-500": count === 4,
-        "text-red-500": count === 3,
-        "text-green-500": count === 2,
-        "text-blue-500": count === 1,
+        "text-blue": count === 1,
+        "text-green": count === 2,
+        "text-red": count === 3,
+        "text-indigo": count === 4,
+        "text-orange": count === 5,
+        "text-cyan": count === 6,
+        "text-violet": count === 7,
+        "text-grey": count === 8,
       })}
     >
       {count || null}

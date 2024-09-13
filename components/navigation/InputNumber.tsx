@@ -17,7 +17,7 @@ export function InputNumber({
     <input
       className={classNames(
         spaceMono.className,
-        "text-center w-16 text-lg text-white bg-black border-2 border-white rounded-sm py-2 px-4"
+        "text-center w-16 text-lg text-fg-100 bg-bg border-2 border-fg-100 rounded-sm py-2 px-4"
       )}
       maxLength={2}
       type="text"

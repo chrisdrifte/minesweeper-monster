@@ -2,24 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-body .exploded {
-  animation: shake 100ms 5;
+html[data-theme="high-contrast"] {
+  --bg: #000000;
+  --fg-50: #6b7280;
+  --fg-100: #ffffff;
+  --blue: #3b82f6;
+  --green: #22c55e;
+  --red: #ef4444;
+  --indigo: #6366f1;
+  --orange: #f97316;
+  --cyan: #06b6d4;
+  --violet: #8b5cf6;
+  --grey: #6b7280;
 }
 
-@keyframes shake {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  25% {
-    transform: translate(2px, 2px) rotate(2deg);
-  }
-  50% {
-    transform: translate(0, 0) rotate(0eg);
-  }
-  75% {
-    transform: translate(-2px, 2px) rotate(-2deg);
-  }
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-  }
+html[data-theme="dark"] {
+  --bg: #1a1a1c;
+  --fg-50: #6b7280;
+  --fg-100: #ffffff;
+  --blue: #3b82f6;
+  --green: #22c55e;
+  --red: #ff5858;
+  --indigo: #6366f1;
+  --orange: #f97316;
+  --cyan: #06b6d4;
+  --violet: #8b5cf6;
+  --grey: #6b7280;
+}
+
+html[data-theme="classic"] {
+  --bg: #c0c0c0;
+  --fg-50: #808080;
+  --fg-100: #404040;
+  --blue: #0000ff;
+  --green: #008000;
+  --red: #ff0000;
+  --indigo: #000080;
+  --orange: #800000;
+  --cyan: #008080;
+  --violet: #800080;
+  --grey: #000000;
 }

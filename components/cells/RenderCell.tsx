@@ -32,7 +32,7 @@ export function RenderCell({
         <CellWrapper
           isHighlighted={isHighlighted}
           isExploded={isExploded}
-          background="white"
+          background="fg"
           annotation={annotation}
           onClick={onClick}
           onAltClick={onAltClick}
@@ -41,9 +41,9 @@ export function RenderCell({
             <div
               className={classNames(
                 {
-                  "bg-red-500": isHighlighted,
+                  "bg-red": isHighlighted,
                 },
-                "size-full sm:hover:bg-red-500 active:bg-rad-500"
+                "size-full sm:hover:bg-red active:bg-red rounded-sm"
               )}
             />
           )}
@@ -69,7 +69,7 @@ export function RenderCell({
         <CellWrapper
           isHighlighted={isHighlighted}
           isExploded={isExploded}
-          background="white"
+          background="fg"
           annotation={annotation}
           onClick={onClick}
           onAltClick={onAltClick}

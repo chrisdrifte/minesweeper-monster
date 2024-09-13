@@ -20,9 +20,9 @@ export default function GameLayout({
           <div className="flex justify-center space-x-4">
             <Link
               href="/tutorial/how-to-play/001"
-              className="text-white flex space-x-2 items-center group"
+              className="text-fg-100 flex space-x-2 items-center group"
             >
-              <LearnIcon fill="white" className="size-4" />
+              <LearnIcon className="size-4 fill-fg-100" />
               <span className="underline sm:group-hover:no-underline">
                 How to play
               </span>

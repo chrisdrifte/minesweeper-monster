@@ -113,7 +113,7 @@ export function GamePlay(props: GamePlayProps) {
       <Center>
         {gameState.showTimer ? (
           <div className="grid gap-4 grid-cols-2 mb-8 w-full">
-            <div className="self-center justify-self-start text-sm text-gray-500 font-bold">
+            <div className="self-center justify-self-start text-sm text-fg-50 font-bold">
               {message}
             </div>
             <div className="self-center justify-self-end">

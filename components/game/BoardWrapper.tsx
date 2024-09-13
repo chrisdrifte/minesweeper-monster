@@ -25,18 +25,18 @@ export function BoardWrapper({
       className={classNames(
         {
           // places a triangle in the bottom-left to create an outer corner without removing the inner curve
-          "before:content-[''] before:block before:absolute before:-bottom-1 before:-left-1 before:border-white before:size-[0px] before:border-r-transparent before:border-t-transparent before:border-4":
+          "before:content-[''] before:block before:absolute before:-bottom-1 before:-left-1 before:border-fg-100 before:size-[0px] before:border-r-transparent before:border-t-transparent before:border-4":
             hasControls,
 
           // places a triangle in the bottom-right to create an outer corner without removing the inner curve
-          "after:content-[''] after:block after:absolute after:-bottom-1 after:-right-1 after:border-white after:size-[0px] after:border-l-transparent after:border-t-transparent after:border-4":
+          "after:content-[''] after:block after:absolute after:-bottom-1 after:-right-1 after:border-fg-100 after:size-[0px] after:border-l-transparent after:border-t-transparent after:border-4":
             hasControls,
 
           // shrinks the board area if no controls are present
           "w-full": hasControls,
           "w-min": !hasControls,
         },
-        "relative border-4 rounded-lg border-white h-min p-2 flex justify-center select-none"
+        "relative border-4 rounded-lg border-fg-100 h-min p-2 flex justify-center select-none"
       )}
       style={shouldUseBoardWidth ? { width: boardWidth } : undefined}
       onContextMenu={(e) => {

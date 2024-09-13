@@ -19,7 +19,7 @@ export default function TutorialLayout({
           <div className="flex justify-center space-x-4">
             <Link
               href="/play/beginner"
-              className="text-white underline sm:hover:no-underline"
+              className="text-fg-100 underline sm:hover:no-underline"
             >
               Play now
             </Link>

@@ -5,7 +5,7 @@ import { noop } from "@/helpers/noop";
 export type CellWrapperProps = {
   isHighlighted?: boolean;
   isExploded?: boolean;
-  background?: "none" | "white" | "red";
+  background?: "none" | "fg" | "red";
   annotation?: Annotation;
   onClick?: VoidFunction;
   onAltClick?: VoidFunction;
@@ -24,14 +24,14 @@ export function CellWrapper({
     <div
       className={classNames(
         {
-          "bg-white": background === "white",
-          "bg-red-500": background === "red",
-          "border-red-500 border-4": annotation === "mine",
-          "border-green-500 border-4":
+          "bg-fg-100": background === "fg",
+          "bg-red": background === "red",
+          "border-red border-4": annotation === "mine",
+          "border-green border-4":
             annotation === "safe" || annotation === "info",
-          exploded: isExploded,
+          "animate-explode": isExploded,
         },
-        "size-6 text-black border-black m-1 cursor-pointer rounded-sm"
+        "size-6 text-bg border-bg m-1 cursor-pointer rounded-sm"
       )}
       style={isExploded ? { animationDelay: `${Math.random() * 100}ms` } : {}}
       onMouseDown={(e) => {
@@ -57,7 +57,7 @@ export function CellWrapper({
       <div
         className={classNames(
           {
-            "before:bg-orange-500 before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping relative":
+            "before:bg-orange before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping before:rounded-sm relative":
               isHighlighted,
           },
           "size-full flex items-center justify-center"

@@ -17,7 +17,7 @@ export function InputCheckbox({
     <input
       className={classNames(
         spaceMono.className,
-        "text-right size-8 text-lg accent-slate-500 rounded-sm py-2 px-4"
+        "text-right size-8 text-lg accent-fg-50 rounded-sm py-2 px-4"
       )}
       type="checkbox"
       checked={checked}

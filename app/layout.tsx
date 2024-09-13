@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased bg-black text-white flex flex-col items-center">
+    <html lang="en" data-theme="dark">
+      <body className="antialiased bg-bg text-fg-100 flex flex-col items-center">
         <main className="max-w-[568px] w-full px-4">
           {children}
           <Footer />

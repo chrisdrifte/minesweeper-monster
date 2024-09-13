@@ -18,7 +18,7 @@ export function SelectActionType({
   onSelectFlag = noop,
 }: SelectActionType) {
   return (
-    <div className="flex p-1 pt-0 items-center space-x-2 bg-white text-black w-full rounded-b">
+    <div className="flex p-1 pt-0 items-center space-x-2 bg-fg-100 text-bg w-full rounded-b">
       <SelectActionButton
         isHighlighted={isHighlightedDig}
         isActive={actionType === "dig"}

@@ -40,12 +40,12 @@ export default function GamePlayWithRestart({
 
       <div className="flex justify-center m-8 space-x-8">
         <button onClick={restart} title="Restart">
-          <RestartIcon fill="white" className="size-8" />
+          <RestartIcon className="fill-fg-100 size-8" />
         </button>
 
         {settingsHref ? (
           <Link href={settingsHref} title="Edit settings">
-            <SettingsIcon fill="white" className="size-8" />
+            <SettingsIcon className="fill-fg-100 size-8" />
           </Link>
         ) : null}
       </div>
