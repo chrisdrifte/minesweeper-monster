@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Monster Minesweeper",
   description:
-    "A beautiful, fully customizable minesweeper game with interactive tutorials",
+    "A fully customizable minesweeper game with interactive tutorials",
 };
 
 export default function RootLayout({

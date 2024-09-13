@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Monster Minesweeper",
     short_name: "Minesweeper",
     description:
-      "A beautiful, fully customizable minesweeper game with interactive tutorials",
+      "A fully customizable minesweeper game with interactive tutorials",
     start_url: "/",
     display: "standalone",
     background_color: "#1a1a1c",
