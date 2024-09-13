@@ -109,8 +109,8 @@ export default function TutorialIntro002() {
         />
 
         <Paragraph>
-          There are a variety of mouse and keyboard shortcuts, so you can play
-          with the style you like best.
+          On desktop there are a variety of mouse and keyboard shortcuts, so you
+          can play with the controls you like best.
           <table className="w-full my-8 gap-8 border-separate border-spacing-y-4">
             <thead>
               <tr>
