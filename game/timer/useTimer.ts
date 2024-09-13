@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const getTimestamp = () => performance.now() / 10;
 
@@ -9,24 +9,24 @@ export function useTimer() {
   const [isRunning, setIsRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
 
-  const start = () => {
+  const start = useCallback(() => {
     setStartTimestamp(getTimestamp);
     setIsRunning(true);
-  };
+  }, []);
 
-  const stop = () => {
+  const stop = useCallback(() => {
     setIsRunning(false);
-  };
+  }, []);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setIsRunning(false);
     setSeconds(0);
-  };
+  }, []);
 
-  const set = (seconds: number) => {
+  const set = useCallback((seconds: number) => {
     setSeconds(seconds);
     setIsRunning(false);
-  };
+  }, []);
 
   const [frame, setFrame] = useState({});
   const nextFrame = () => setFrame({});

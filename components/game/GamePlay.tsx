@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { BoardWrapper } from "./BoardWrapper";
 import { Caption } from "../layout/Caption";
@@ -44,6 +44,8 @@ export type GamePlayProps =
     });
 
 export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
+  const { width, height } = useWindowSize();
+
   const originalState = useMemo(() => {
     if ("levelData" in props) {
       return Object.freeze(loadGameState(props.levelData));
@@ -54,20 +56,33 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
     }
 
     throw new Error("Invalid game props");
-  }, []);
+  }, [props]);
 
   const [gameState, setGameState] = useState(originalState);
+  const timeLimit = gameState.timeLimit;
+  const action = gameState.action;
+
+  const {
+    reset: timerReset,
+    start: timerStart,
+    stop: timerStop,
+    set: timerSet,
+    seconds: timerSeconds,
+  } = useTimer();
 
   const numMines = gameState.cells.filter((cell) => cell.hasMine).length;
+
   const numFlags = gameState.cells.filter(
     (cell) => cell.state === "flagged"
   ).length;
+
   const numRemaining = numMines - numFlags;
 
-  const isNotGenerated = isInitialState(gameState);
+  const hasGeneratedMap = !isInitialState(gameState);
   const hasWon = isWinState(gameState);
   const hasLost = isLoseState(gameState);
-  const isPlaying = !hasWon && !hasLost;
+  const hasFinished = hasWon || hasLost;
+  const isPlaying = hasGeneratedMap && !hasFinished;
 
   const getMessage = () => {
     if (hasWon) {
@@ -87,7 +102,7 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
     }
 
     if (numRemaining < 0) {
-      return `${Math.abs(numRemaining)} incorrect flags...`;
+      return `${Math.abs(numRemaining)} overflagged...`;
     }
 
     if (numRemaining === 0) {
@@ -97,63 +112,77 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
     return `${numRemaining} mines left...`;
   };
 
-  const handleRestart = () => {
+  const handleRestart = useCallback(() => {
     setGameState(originalState);
-    timer.reset();
-  };
+    timerReset();
+  }, [originalState, timerReset]);
 
-  const handleClickCell = (cell: Cell) => {
+  const handleClickCell = useCallback(
+    (cell: Cell) => {
+      if (hasFinished) {
+        return;
+      }
+
+      if (!hasGeneratedMap) {
+        setGameState((prevGameState) => generate(prevGameState, cell));
+        timerStart();
+        return;
+      }
+
+      switch (action) {
+        case "dig":
+          setGameState((prevGameState) => dig(prevGameState, cell));
+          return;
+
+        case "flag":
+          setGameState((prevGameState) => flag(prevGameState, cell));
+          return;
+      }
+    },
+    [hasFinished, hasGeneratedMap, timerStart, action]
+  );
+
+  const handleAltClickCell = useCallback(
+    (cell: Cell) => {
+      if (!isPlaying) {
+        return;
+      }
+
+      setGameState((prevGameState) => flag(prevGameState, cell));
+    },
+    [isPlaying]
+  );
+
+  const handleSelectDig = useCallback(() => {
     if (!isPlaying) {
       return;
     }
 
-    switch (gameState.action) {
-      case "dig":
-        if (isNotGenerated) {
-          setGameState((prevGameState) => generate(prevGameState, cell));
-          timer.start();
-
-          if (gameState.timeLimit) {
-            setTimeout(handleForceLoss, gameState.timeLimit * 1000);
-          }
-          return;
-        }
-
-        setGameState((prevGameState) => dig(prevGameState, cell));
-        return;
-
-      case "flag":
-        setGameState((prevGameState) => flag(prevGameState, cell));
-        return;
-    }
-  };
-
-  const handleAltClickCell = (cell: Cell) => {
-    if (isNotGenerated || !isPlaying) {
-      return;
-    }
-
-    setGameState((prevGameState) => flag(prevGameState, cell));
-  };
-
-  const handleSelectDig = () => {
-    if (isNotGenerated || !isPlaying) {
-      return;
-    }
-
     setGameState((prevGameState) => selectDig(prevGameState));
-  };
+  }, [isPlaying]);
 
-  const handleSelectFlag = () => {
-    if (isNotGenerated || !isPlaying) {
+  const handleSelectFlag = useCallback(() => {
+    if (!isPlaying) {
       return;
     }
 
     setGameState((prevGameState) => selectFlag(prevGameState));
-  };
+  }, [isPlaying]);
 
-  const handleForceLoss = () => {
+  const handleForceLoss = useCallback(() => {
     setGameState((prevGameState) => {
+      if (isInitialState(prevGameState)) {
+        return prevGameState;
+      }
+
+      if (isLoseState(prevGameState)) {
+        return prevGameState;
+      }
+
+      if (isWinState(prevGameState)) {
+        return prevGameState;
+      }
+
       const nextGameState = structuredClone(prevGameState);
 
       nextGameState.cells
@@ -165,8 +194,8 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
       return nextGameState;
     });
 
-    timer.set(gameState.timeLimit);
-  };
+    timerSet(timeLimit);
+  }, [timerSet, timeLimit]);
 
   useKeyboardShortcuts({
     KeyD: handleSelectDig,
@@ -174,35 +203,47 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
     KeyR: handleRestart,
   });
 
-  const timer = useTimer();
-
   // automatically stop timer
   useEffect(() => {
-    if (hasWon || hasLost) {
-      timer.stop();
+    if (hasFinished) {
+      timerStop();
     }
-  }, [hasWon, hasLost]);
+  }, [hasFinished, timerStop]);
 
-  // automatically restart on loss
-  const restartOnLoss = gameState.autoRestart;
+  // force loss after time limit
   useEffect(() => {
-    if (!restartOnLoss) {
+    if (!isPlaying) {
       return;
     }
 
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
-    if (hasLost) {
-      timeoutId = setTimeout(handleRestart, 1000);
+    if (!timeLimit) {
+      return;
     }
+
+    const timeoutId = setTimeout(handleForceLoss, timeLimit * 1000);
 
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [restartOnLoss, handleRestart, hasLost]);
+  }, [isPlaying, timeLimit, handleForceLoss]);
 
-  const message = getMessage();
+  // automatically restart on loss
+  const autoRestart = gameState.autoRestart;
+  useEffect(() => {
+    if (!autoRestart) {
+      return;
+    }
 
-  const { width, height } = useWindowSize();
+    if (!hasLost) {
+      return;
+    }
+
+    const timeoutId = setTimeout(handleRestart, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [autoRestart, hasLost, handleRestart]);
 
   return (
     <div>
@@ -222,19 +263,19 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
         {gameState.showTimer ? (
           <div className="grid gap-4 grid-cols-2 mb-8 w-full">
             <div className="self-center justify-self-start text-sm text-fg-50 font-bold">
-              {message}
+              {getMessage()}
             </div>
             <div className="self-center justify-self-end">
-              <Timer seconds={timer.seconds} />
+              <Timer seconds={timerSeconds} />
             </div>
           </div>
         ) : (
           <>
-            <Caption>{message}</Caption>
+            <Caption>{getMessage()}</Caption>
           </>
         )}
 
-        <div className={classNames({ "sm:pointer-events-none": !isPlaying })}>
+        <div className={classNames({ "sm:pointer-events-none": hasFinished })}>
           <BoardWrapper
             width={gameState.width}
             height={gameState.height}

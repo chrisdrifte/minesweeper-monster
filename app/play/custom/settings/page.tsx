@@ -47,11 +47,11 @@ export default function CustomSettings() {
       timeLimit: parseInt(timeLimit),
     };
 
-    if (isNaN(nextCustomSettings.width) || nextCustomSettings.width < 10) {
+    if (isNaN(nextCustomSettings.width) || nextCustomSettings.width < 9) {
       return;
     }
 
-    if (isNaN(nextCustomSettings.height) || nextCustomSettings.height < 10) {
+    if (isNaN(nextCustomSettings.height) || nextCustomSettings.height < 9) {
       return;
     }
 
