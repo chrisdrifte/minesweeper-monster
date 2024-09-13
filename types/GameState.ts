@@ -1,12 +1,7 @@
 import { Cell } from "./Cell";
+import { GameSettings } from "./GameSettings";
 
-export type GameState = {
-  width: number;
-  height: number;
-  numMines: number;
-  showTimer: boolean;
-  safeFirstClick: boolean;
-  revealContiguousNumbers: boolean;
+export type GameState = GameSettings & {
   cells: Cell[];
   action: "dig" | "flag";
 };

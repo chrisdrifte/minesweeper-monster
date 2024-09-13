@@ -5,4 +5,5 @@ export type GameSettings = {
   showTimer: boolean;
   safeFirstClick: boolean;
   revealContiguousNumbers: boolean;
+  autoRestart: boolean;
 };

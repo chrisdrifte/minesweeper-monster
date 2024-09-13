@@ -69,14 +69,6 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
   const hasLost = isLoseState(gameState);
   const isPlaying = !hasWon && !hasLost;
 
-  const timer = useTimer();
-
-  useEffect(() => {
-    if (hasWon || hasLost) {
-      timer.stop();
-    }
-  }, [hasWon, hasLost]);
-
   const getMessage = () => {
     if (hasWon) {
       return "Winner!";
@@ -168,6 +160,32 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
     KeyF: handleSelectFlag,
     KeyR: handleRestart,
   });
+
+  const timer = useTimer();
+
+  // automatically stop timer
+  useEffect(() => {
+    if (hasWon || hasLost) {
+      timer.stop();
+    }
+  }, [hasWon, hasLost]);
+
+  // automatically restart on loss
+  const restartOnLoss = gameState.autoRestart;
+  useEffect(() => {
+    if (!restartOnLoss) {
+      return;
+    }
+
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    if (hasLost) {
+      timeoutId = setTimeout(handleRestart, 1000);
+    }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [restartOnLoss, handleRestart, hasLost]);
 
   const message = getMessage();
 

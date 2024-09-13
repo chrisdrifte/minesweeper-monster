@@ -6,6 +6,7 @@ export const difficulties = {
     showTimer: true,
     safeFirstClick: false,
     revealContiguousNumbers: false,
+    autoRestart: false,
   },
   intermediate: {
     width: 16,
@@ -14,6 +15,7 @@ export const difficulties = {
     showTimer: true,
     safeFirstClick: false,
     revealContiguousNumbers: false,
+    autoRestart: false,
   },
   expert: {
     width: 30,
@@ -22,5 +24,6 @@ export const difficulties = {
     showTimer: true,
     safeFirstClick: false,
     revealContiguousNumbers: false,
+    autoRestart: false,
   },
 };

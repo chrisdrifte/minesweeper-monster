@@ -19,6 +19,8 @@ export default function CustomSettings() {
   const [height, setHeight] = useState(String(customSettings.height));
   const [numMines, setNumMines] = useState(String(customSettings.numMines));
 
+  const [showTimer, setShowTimer] = useState(customSettings.showTimer);
+
   const [safeFirstClick, setSafeFirstClick] = useState(
     customSettings.safeFirstClick
   );
@@ -27,7 +29,7 @@ export default function CustomSettings() {
     customSettings.revealContiguousNumbers
   );
 
-  const [showTimer, setShowTimer] = useState(customSettings.showTimer);
+  const [autoRestart, setAutoRestart] = useState(customSettings.autoRestart);
 
   const handleSaveSettings = () => {
     const nextCustomSettings: GameSettings = {
@@ -37,6 +39,7 @@ export default function CustomSettings() {
       showTimer,
       safeFirstClick,
       revealContiguousNumbers,
+      autoRestart,
     };
 
     if (isNaN(nextCustomSettings.width) || nextCustomSettings.width < 10) {
@@ -105,6 +108,10 @@ export default function CustomSettings() {
             checked={revealContiguousNumbers}
             onChange={setRevealContiguousNumbers}
           />
+        </FormField>
+
+        <FormField label="Restart automatically on loss">
+          <InputCheckbox checked={autoRestart} onChange={setAutoRestart} />
         </FormField>
       </ContentBlock>
 

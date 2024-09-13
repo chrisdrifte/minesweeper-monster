@@ -7,4 +7,5 @@ export const defaultCustomSettings: GameSettings = Object.freeze({
   showTimer: false,
   safeFirstClick: true,
   revealContiguousNumbers: true,
+  autoRestart: false,
 });

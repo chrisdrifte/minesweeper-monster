@@ -95,11 +95,12 @@ export function loadGameState(levelData: string): GameState {
   const gameState: GameState = {
     width,
     height,
-    cells,
     numMines: cells.filter((cell) => cell.hasMine).length,
     showTimer: false,
     safeFirstClick: false,
     revealContiguousNumbers: false,
+    autoRestart: false,
+    cells,
     action: "dig",
   };
 
