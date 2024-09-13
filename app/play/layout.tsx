@@ -5,7 +5,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Play Minesweeper",
-  description: "Play minesweeper on easy, hard, or expert modes",
+  description:
+    "Play classic minesweeper on beginner, intermediate and expert - or customize with your own rules",
 };
 
 export default function GameLayout({

@@ -5,11 +5,11 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Monster Minesweeper",
     short_name: "Minesweeper",
     description:
-      "Play minesweeper for free, without ads, or learn via interactive tutorials",
+      "A beautiful, fully customizable minesweeper game with interactive tutorials",
     start_url: "/",
     display: "standalone",
-    background_color: "#000000",
-    theme_color: "#000000",
+    background_color: "#1a1a1c",
+    theme_color: "#1a1a1c",
     icons: [
       {
         src: "/icon-192x192.png",

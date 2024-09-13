@@ -5,9 +5,9 @@ import { Footer } from "@/components/navigation/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Minesweeper Monster",
+  title: "Monster Minesweeper",
   description:
-    "Play minesweeper for free, without ads, or learn via interactive tutorials",
+    "A beautiful, fully customizable minesweeper game with interactive tutorials",
 };
 
 export default function RootLayout({
