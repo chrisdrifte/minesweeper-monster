@@ -43,8 +43,8 @@ export default function CustomSettings() {
 
   const handleSaveSettings = () => {
     const nextCustomSettings: GameSettings = {
-      width: parseInt(width),
-      height: parseInt(height),
+      width: Math.min(parseInt(width), 30), // @todo move to config
+      height: Math.min(parseInt(height), 30), // @todo move to config
       numMines: parseInt(numMines),
       showTimer,
       safeFirstClick,
