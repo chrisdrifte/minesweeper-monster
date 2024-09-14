@@ -8,6 +8,7 @@ import { GameSettings } from "@/types/GameSettings";
 import { Heading } from "@/components/layout/Heading";
 import { InputCheckbox } from "@/components/navigation/InputCheckbox";
 import { InputNumber } from "@/components/navigation/InputNumber";
+import { board } from "@/config/board";
 import { defaultCustomSettings } from "@/game/settings/defaultCustomSettings";
 import { useCustomSettings } from "@/game/settings/useCustomSettings";
 import { useState } from "react";
@@ -43,8 +44,8 @@ export default function CustomSettings() {
 
   const handleSaveSettings = () => {
     const nextCustomSettings: GameSettings = {
-      width: Math.min(parseInt(width), 30), // @todo move to config
-      height: Math.min(parseInt(height), 30), // @todo move to config
+      width: Math.min(parseInt(width), board.maxWidth),
+      height: Math.min(parseInt(height), board.maxHeight),
       numMines: parseInt(numMines),
       showTimer,
       safeFirstClick,
