@@ -24,6 +24,7 @@ const config: Config = {
     colors: {
       transparent: "transparent",
       bg: "var(--bg)",
+      "bg-alt": "var(--bg-alt)",
       "fg-50": "var(--fg-50)",
       "fg-100": "var(--fg-100)",
       "fg-alt": "var(--fg-alt)",
