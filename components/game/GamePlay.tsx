@@ -124,7 +124,6 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
   });
 
   const gameParams = toParamsString({
-    url: window.location.pathname,
     boardSize: `${gameState.width}x${gameState.height}`,
     numMines: gameState.numMines,
     showTimer: gameState.showTimer,
