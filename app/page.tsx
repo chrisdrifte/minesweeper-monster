@@ -23,10 +23,7 @@ export default function IndexPage() {
         />
       </Center>
       <ContentBlock>
-        <Paragraph>
-          Play minesweeper in your browser or on your mobile, totally free and
-          without ads.
-        </Paragraph>
+        <Paragraph>Select a game mode:</Paragraph>
 
         <ButtonWrapper>
           <MenuButton
