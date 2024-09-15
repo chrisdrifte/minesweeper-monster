@@ -27,6 +27,9 @@ import { loadGameState } from "@/helpers/loadGameState";
 import { revealBoard } from "@/game/actions/revealBoard";
 import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
+import { toParamsString } from "@/helpers/toParams";
+import { track } from "@vercel/analytics";
+import { useCurrentTheme } from "@/game/theme/useCurrentTheme";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { useTimer } from "@/game/timer/useTimer";
 import useWindowSize from "@/hooks/useWindowSize";
@@ -45,7 +48,9 @@ export type GamePlayProps =
     });
 
 export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
-  const { width, height } = useWindowSize();
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
+
+  const { id: currentThemeId } = useCurrentTheme();
 
   const originalState = useMemo(() => {
     if ("levelData" in props) {
@@ -113,6 +118,56 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
     return `${numRemaining} mines left...`;
   };
 
+  const userParams = toParamsString({
+    screenSize: `${windowWidth}x${windowHeight}`,
+    themeId: currentThemeId,
+  });
+
+  const gameParams = toParamsString({
+    url: window.location.pathname,
+    boardSize: `${gameState.width}x${gameState.height}`,
+    numMines: gameState.numMines,
+    showTimer: gameState.showTimer,
+    safeFirstClick: gameState.safeFirstClick,
+    revealContiguousNumbers: gameState.revealContiguousNumbers,
+    autoRestart: gameState.autoRestart,
+    timeLimit: gameState.timeLimit,
+  });
+
+  const handleStart = useCallback(
+    (cell: Cell) => {
+      if (hasGeneratedMap) {
+        return;
+      }
+
+      if (isPlaying) {
+        return;
+      }
+
+      if (hasFinished) {
+        return;
+      }
+
+      setGameState((prevGameState) => generate(prevGameState, cell));
+      timerStart();
+
+      // only two custom event properties allowed on vercel pro
+      // keys and values must be less than 255 characters
+      track("MinesweeperGame", {
+        user: userParams,
+        game: gameParams,
+      });
+    },
+    [
+      hasGeneratedMap,
+      isPlaying,
+      hasFinished,
+      timerStart,
+      userParams,
+      gameParams,
+    ]
+  );
+
   const handleRestart = useCallback(() => {
     setGameState(originalState);
     timerReset();
@@ -125,8 +180,7 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
       }
 
       if (!hasGeneratedMap) {
-        setGameState((prevGameState) => generate(prevGameState, cell));
-        timerStart();
+        handleStart(cell);
         return;
       }
 
@@ -140,7 +194,7 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
           return;
       }
     },
-    [hasFinished, hasGeneratedMap, timerStart, action]
+    [hasFinished, hasGeneratedMap, handleStart, action]
   );
 
   const handleAltClickCell = useCallback(
@@ -244,8 +298,8 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
       {hasWon && (
         <div className="fixed w-screen h-screen top-0 left-0 pointer-events-none">
           <Confetti
-            width={width}
-            height={height}
+            width={windowWidth}
+            height={windowHeight}
             numberOfPieces={100}
             colors={["white"]}
             recycle={false}

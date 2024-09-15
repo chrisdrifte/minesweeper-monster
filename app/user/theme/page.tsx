@@ -9,7 +9,6 @@ import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { FormButton } from "@/components/navigation/FormButton";
 import { Heading } from "@/components/layout/Heading";
-import { Paragraph } from "@/components/layout/Paragraph";
 import { RenderCell } from "@/components/cells/RenderCell";
 import { createCellId } from "@/helpers/createCellId";
 import { themes } from "@/game/theme/themes";
