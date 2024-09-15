@@ -344,7 +344,7 @@ export function GamePlay({
 
       <Center>
         {gameState.showTimer ? (
-          <div className="grid gap-4 grid-cols-2 mb-8 w-full">
+          <div className="grid gap-4 grid-cols-[1fr,min-content] mb-8 w-full">
             <div className="self-center justify-self-start text-sm text-fg-50 font-bold">
               {getMessage()}
             </div>
