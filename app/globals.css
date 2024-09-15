@@ -28,7 +28,7 @@ html[data-theme="dark"] {
   --annotate-info: #22c55e;
 }
 
-html[data-theme="dark-high-contrast"] {
+html[data-theme="dark-oled"] {
   --bg: #000000;
   --bg-alt: #333333;
   --fg-50: #6b7280;

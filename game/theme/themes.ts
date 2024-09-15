@@ -3,6 +3,6 @@ import { defaultTheme } from "./defaultTheme";
 
 export const themes: Theme[] = [
   defaultTheme,
-  { id: "dark-high-contrast", name: "Dark High Contrast" },
+  { id: "dark-oled", name: "Dark OLED" },
   { id: "retro-monochrome", name: "Retro Monochrome" },
 ];
