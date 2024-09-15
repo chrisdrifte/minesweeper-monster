@@ -5,6 +5,8 @@ import { Footer } from "@/components/navigation/Footer";
 import type { Metadata } from "next";
 import { getCurrentTheme } from "@/game/theme/getCurrentTheme";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Monster Minesweeper",
   description:
