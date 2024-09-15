@@ -1,10 +1,10 @@
 import { defaultCustomSettings } from "./defaultCustomSettings";
-import { useCookies } from "@/hooks/useCookies";
+import { useCookie } from "@/hooks/useCookie";
 
 export function useCustomSettings(
   initialCustomSettings = defaultCustomSettings
 ) {
-  const [customSettings, setCustomSettings] = useCookies(
+  const { value: customSettings, set: setCustomSettings } = useCookie(
     "custom-settings",
     initialCustomSettings
   );

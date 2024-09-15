@@ -26,9 +26,9 @@ export function CellWrapper({
         {
           "bg-fg-100": background === "fg",
           "bg-red": background === "red",
+          "border-blue border-4": annotation === "info",
           "border-red border-4": annotation === "mine",
-          "border-green border-4":
-            annotation === "safe" || annotation === "info",
+          "border-green border-4": annotation === "safe",
           "animate-explode": isExploded,
         },
         "size-7 text-bg border-bg m-0.5 cursor-pointer rounded-sm"

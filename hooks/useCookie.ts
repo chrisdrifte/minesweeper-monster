@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { getCookie } from "@/helpers/getCookie";
 import { parseJsonString } from "@/helpers/parseJsonString";
 import { setCookie } from "@/helpers/setCookie";
 
-export const useCookies = <T>(key: string, defaultValue: T) => {
+export const useCookie = <T>(key: string, defaultValue: T) => {
   const [value, setValue] = useState<T>(() => {
     let currentValue;
 
@@ -17,9 +17,10 @@ export const useCookies = <T>(key: string, defaultValue: T) => {
     return currentValue;
   });
 
-  useEffect(() => {
+  const set = useCallback((value: T) => {
+    setValue(structuredClone(value));
     setCookie(key, JSON.stringify(value));
-  }, [value, key]);
+  }, []);
 
-  return [value, setValue] as const;
+  return { value, set };
 };

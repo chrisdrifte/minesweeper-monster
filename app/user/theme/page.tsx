@@ -17,10 +17,10 @@ import { useCurrentTheme } from "@/game/theme/useCurrentTheme";
 export default function ThemePage() {
   const currentTheme = useCurrentTheme();
 
-  const handleUpdateTheme = (theme: string) => {
-    currentTheme.update(theme);
+  const handleUpdateTheme = (themeId: string) => {
+    currentTheme.set(themeId);
 
-    document.querySelector("html")?.setAttribute("data-theme", theme);
+    document.querySelector("html")?.setAttribute("data-theme", themeId);
   };
 
   const cols = 4;
@@ -35,70 +35,70 @@ export default function ThemePage() {
   let i = 0;
 
   const cells: Cell[] = [
-    createCell(++i, {
+    createCell(i++, {
       state: "hidden",
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "hidden",
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "hidden",
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "hidden",
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "flagged",
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "visible",
       hasMine: true,
     }),
-    createCell(++i, {
+    createCell(i++, {
+      state: "hidden",
+    }),
+    createCell(i++, {
       state: "visible",
       count: 0,
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "visible",
       count: 1,
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "visible",
       count: 2,
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "visible",
       count: 3,
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "visible",
       count: 4,
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "visible",
       count: 5,
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "visible",
       count: 6,
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "visible",
       count: 7,
     }),
-    createCell(++i, {
+    createCell(i++, {
       state: "visible",
       count: 8,
-    }),
-    createCell(++i, {
-      state: "hidden",
     }),
   ];
 
   const annotations: Record<CellId, Annotation> = {
-    "0,0": "info",
-    "1,0": "mine",
-    "2,0": "safe",
+    "1,0": "info",
+    "2,0": "mine",
+    "3,0": "safe",
   };
 
   return (
@@ -110,12 +110,12 @@ export default function ThemePage() {
 
         <Center>
           <BoardWrapper width={cols} height={Math.round(cells.length / cols)}>
-            {cells.map((cell, i) => (
+            {cells.map((cell) => (
               <RenderCell
                 key={cell.id}
                 cell={cell}
                 annotation={annotations[cell.id]}
-                isHighlighted={i === cells.length - 1}
+                isHighlighted={cell.id === "2,1"}
               />
             ))}
           </BoardWrapper>
@@ -123,7 +123,7 @@ export default function ThemePage() {
 
         <br />
 
-        <ButtonWrapper>
+        <ButtonWrapper key={currentTheme.id}>
           {themes.map((theme) => (
             <FormButton
               key={theme.id}
