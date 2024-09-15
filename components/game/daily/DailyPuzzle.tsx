@@ -4,6 +4,8 @@ import { DailySolution } from "./types/DailySolution";
 import { GamePlay } from "@/components/game/GamePlay";
 import { difficulties } from "@/config/difficulties";
 import { getDailySeed } from "./getDailySeed";
+import { getYYYYMMDD } from "@/helpers/getYYYYMMDD";
+import { track } from "@vercel/analytics";
 import { useDailySolution } from "./useDailySolution";
 
 type DailyPuzzleProps = {
@@ -28,7 +30,10 @@ export function DailyPuzzle({ initialDailySolution }: DailyPuzzleProps) {
         ...difficulties["daily"],
       }}
       tipText={tipText}
-      onWin={dailySolution.setFromGameState}
+      onWin={(gameState) => {
+        dailySolution.setFromGameState(gameState);
+        track("DailyPuzzleSolved", { date: getYYYYMMDD() });
+      }}
     />
   );
 }
