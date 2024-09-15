@@ -111,89 +111,90 @@ export default function TutorialIntro002() {
         <Paragraph>
           On desktop there are a variety of mouse and keyboard shortcuts, so you
           can play with the controls you like best.
-          <table className="w-full my-8 gap-8 border-separate border-spacing-y-4">
-            <thead>
-              <tr>
-                <th className="text-left">Action</th>
-                <th className="text-left">Shortcut</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colSpan={2}>
-                  <hr className="border-fg-50" />
-                </td>
-              </tr>
-              <tr>
-                <td rowSpan={2} className="align-top">
-                  Dig
-                </td>
-                <td>
-                  <ControlBinding>Left Click</ControlBinding>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <ControlBinding>D</ControlBinding> then{" "}
-                  <ControlBinding>Left Click</ControlBinding>
-                </td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td colSpan={2}>
-                  <hr className="border-fg-50" />
-                </td>
-              </tr>
-              <tr>
-                <td rowSpan={3} className="align-top">
-                  Flag
-                </td>
-                <td>
-                  <ControlBinding>Right Click</ControlBinding>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <ControlBinding>Ctrl + Left Click</ControlBinding>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <ControlBinding>F</ControlBinding> then{" "}
-                  <ControlBinding>Left Click</ControlBinding>
-                </td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td colSpan={2}>
-                  <hr className="border-fg-50" />
-                </td>
-              </tr>
-              <tr>
-                <td rowSpan={2} className="align-top">
-                  Restart
-                </td>
-                <td>
-                  <ControlBinding>R</ControlBinding>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <ControlBinding>Space</ControlBinding>
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colSpan={2}>
-                  <hr className="border-fg-50" />
-                </td>
-              </tr>
-            </tfoot>
-          </table>
         </Paragraph>
+
+        <table className="w-full my-8 gap-8 border-separate border-spacing-y-4">
+          <thead>
+            <tr>
+              <th className="text-left">Action</th>
+              <th className="text-left">Shortcut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan={2}>
+                <hr className="border-fg-50" />
+              </td>
+            </tr>
+            <tr>
+              <td rowSpan={2} className="align-top">
+                Dig
+              </td>
+              <td>
+                <ControlBinding>Left Click</ControlBinding>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <ControlBinding>D</ControlBinding> then{" "}
+                <ControlBinding>Left Click</ControlBinding>
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td colSpan={2}>
+                <hr className="border-fg-50" />
+              </td>
+            </tr>
+            <tr>
+              <td rowSpan={3} className="align-top">
+                Flag
+              </td>
+              <td>
+                <ControlBinding>Right Click</ControlBinding>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <ControlBinding>Ctrl + Left Click</ControlBinding>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <ControlBinding>F</ControlBinding> then{" "}
+                <ControlBinding>Left Click</ControlBinding>
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td colSpan={2}>
+                <hr className="border-fg-50" />
+              </td>
+            </tr>
+            <tr>
+              <td rowSpan={2} className="align-top">
+                Restart
+              </td>
+              <td>
+                <ControlBinding>R</ControlBinding>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <ControlBinding>Space</ControlBinding>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan={2}>
+                <hr className="border-fg-50" />
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </ContentBlock>
       <PageMenu
         prev="/tutorial/how-to-play/001"

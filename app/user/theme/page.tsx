@@ -96,9 +96,9 @@ export default function ThemePage() {
   ];
 
   const annotations: Record<CellId, Annotation> = {
-    "1,0": "info",
-    "2,0": "mine",
-    "3,0": "safe",
+    "1,0": "mine",
+    "2,0": "safe",
+    "3,0": "info",
   };
 
   return (

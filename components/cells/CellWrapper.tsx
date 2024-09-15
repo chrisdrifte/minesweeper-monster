@@ -5,7 +5,7 @@ import { noop } from "@/helpers/noop";
 export type CellWrapperProps = {
   isHighlighted?: boolean;
   isExploded?: boolean;
-  background?: "none" | "fg" | "red";
+  variant?: "none" | "hidden" | "mine" | "flag";
   annotation?: Annotation;
   onClick?: VoidFunction;
   onAltClick?: VoidFunction;
@@ -15,7 +15,7 @@ export function CellWrapper({
   children,
   isHighlighted = false,
   isExploded = false,
-  background = "none",
+  variant = "none",
   annotation,
   onClick = noop,
   onAltClick = noop,
@@ -24,14 +24,15 @@ export function CellWrapper({
     <div
       className={classNames(
         {
-          "bg-fg-100": background === "fg",
-          "bg-red": background === "red",
-          "border-blue border-4": annotation === "info",
-          "border-red border-4": annotation === "mine",
-          "border-green border-4": annotation === "safe",
+          "bg-hidden-bg": variant === "hidden",
+          "bg-mine-bg": variant === "mine",
+          "bg-flag-bg": variant === "flag",
+          "border-annotate-info border-4 border-dashed": annotation === "info",
+          "border-annotate-mine border-4": annotation === "mine",
+          "border-annotate-safe border-4": annotation === "safe",
           "animate-explode": isExploded,
         },
-        "size-7 text-bg border-bg m-0.5 cursor-pointer rounded-sm"
+        "size-7 text-bg m-0.5 cursor-pointer rounded-sm"
       )}
       style={isExploded ? { animationDelay: `${Math.random() * 100}ms` } : {}}
       onMouseDown={(e) => {
@@ -57,7 +58,7 @@ export function CellWrapper({
       <div
         className={classNames(
           {
-            "before:bg-orange before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping before:rounded-sm relative":
+            "before:bg-highlight-click before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping before:rounded-sm relative":
               isHighlighted,
           },
           "size-full flex items-center justify-center"

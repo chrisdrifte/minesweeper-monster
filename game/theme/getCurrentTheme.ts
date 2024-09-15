@@ -5,7 +5,7 @@ import { themes } from "./themes";
 
 export function getCurrentTheme() {
   const cookiesStore = cookies();
-  const themeIdCookie = cookiesStore.get("themeId");
+  const themeIdCookie = cookiesStore.get("theme-id");
   const themeId = parseJsonString(themeIdCookie?.value);
 
   return themes.find((theme) => theme.id === themeId) || defaultTheme;

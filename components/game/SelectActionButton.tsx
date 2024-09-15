@@ -27,7 +27,7 @@ export function SelectActionButton({
       <div
         className={classNames(
           {
-            "before:bg-orange before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping relative":
+            "before:bg-highlight-click before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping relative":
               isHighlighted,
           },
           spaceMono.className,

@@ -19,7 +19,8 @@ export function FormButton({
     <button
       className={classNames(
         {
-          "text-red border-red bg-transparent pointer-events-none": isActive,
+          "text-fg-alt border-fg-alt bg-transparent pointer-events-none":
+            isActive,
           "sm:hover:bg-fg-100 sm:hover:text-bg active:text-bg active:bg-fg-100":
             !isActive,
         },

@@ -2,58 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-html[data-theme="high-contrast"] {
-  --bg: #000000;
-  --fg-50: #6b7280;
-  --fg-100: #ffffff;
-  --blue: #3b82f6;
-  --green: #22c55e;
-  --red: #ef4444;
-  --indigo: #6366f1;
-  --orange: #f97316;
-  --cyan: #06b6d4;
-  --violet: #8b5cf6;
-  --grey: #6b7280;
-}
-
 html[data-theme="dark"] {
   --bg: #1a1a1c;
   --fg-50: #6b7280;
   --fg-100: #fafafc;
-  --blue: #3b82f6;
-  --green: #22c55e;
-  --red: #ff5858;
-  --indigo: #6366f1;
-  --orange: #f97316;
-  --cyan: #06b6d4;
-  --violet: #8b5cf6;
-  --grey: #6b7280;
+  --fg-alt: #ff5858;
+  --one: #3b82f6;
+  --two: #22c55e;
+  --three: #ff5858;
+  --four: #6366f1;
+  --five: #f97316;
+  --six: #06b6d4;
+  --seven: #8b5cf6;
+  --eight: #6b7280;
+  --hidden-bg: #fafafc;
+  --mine-bg: #ff5858;
+  --mine-fg: #1a1a1c;
+  --flag-bg: #fafafc;
+  --flag-fg: #1a1a1c;
+  --highlight-click: #f97316;
+  --highlight-dig: #ff5858;
+  --annotate-mine: #ff5858;
+  --annotate-safe: #22c55e;
+  --annotate-info: #22c55e;
 }
 
-html[data-theme="classic"] {
-  --bg: #c0c0c0;
-  --fg-50: #808080;
-  --fg-100: #404040;
-  --blue: #0000ff;
-  --green: #008000;
-  --red: #ff0000;
-  --indigo: #000080;
-  --orange: #800000;
-  --cyan: #008080;
-  --violet: #800080;
-  --grey: #000000;
-}
-
-html[data-theme="anna"] {
-  --bg: #2d2d31;
+html[data-theme="dark-high-contrast"] {
+  --bg: #000000;
   --fg-50: #6b7280;
-  --fg-100: #d0cfd7;
-  --blue: #ce4e2a;
-  --green: #e3ae1b;
-  --red: #f2ab93f2;
-  --indigo: #68bc11;
-  --orange: #21c3da;
-  --cyan: #06b6d4;
-  --violet: #8b5cf6;
-  --grey: #6b7280;
+  --fg-100: #ffffff;
+  --fg-alt: #ef4444;
+  --one: #3b82f6;
+  --two: #22c55e;
+  --three: #ef4444;
+  --four: #6366f1;
+  --five: #f97316;
+  --six: #06b6d4;
+  --seven: #8b5cf6;
+  --eight: #6b7280;
+  --hidden-bg: #fafafc;
+  --mine-bg: #ef4444;
+  --mine-fg: #000000;
+  --flag-bg: #fafafc;
+  --flag-fg: #000000;
+  --highlight-click: #f97316;
+  --highlight-dig: #ef4444;
+  --annotate-mine: #ef4444;
+  --annotate-safe: #22c55e;
+  --annotate-info: #22c55e;
 }

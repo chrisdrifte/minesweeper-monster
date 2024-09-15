@@ -3,5 +3,5 @@ import { defaultTheme } from "./defaultTheme";
 
 export const themes: Theme[] = [
   defaultTheme,
-  { id: "high-contrast", name: "High Contrast" },
+  { id: "dark-high-contrast", name: "Dark High Contrast" },
 ];

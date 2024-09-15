@@ -61,7 +61,7 @@ export default function TutorialIntro002() {
             XXXXXXXXX
             `}
             annotations={{
-              "4,4": "info", // center
+              "4,4": "safe", // center
               "4,3": "safe", // top
               "5,3": "safe", // top right
               "5,4": "safe", // right

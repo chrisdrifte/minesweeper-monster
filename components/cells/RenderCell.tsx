@@ -2,7 +2,7 @@ import { Annotation } from "@/types/Annotation";
 import { Cell } from "@/types/Cell";
 import { CellWrapper } from "./CellWrapper";
 import { FlagIcon } from "../icons/FlagIcon";
-import { Mine } from "./Mine";
+import { MineIcon } from "../icons/MineIcon";
 import { MinesCount } from "./MinesCount";
 import classNames from "classnames";
 import { noop } from "@/helpers/noop";
@@ -32,7 +32,7 @@ export function RenderCell({
         <CellWrapper
           isHighlighted={isHighlighted}
           isExploded={isExploded}
-          background="fg"
+          variant="hidden"
           annotation={annotation}
           onClick={onClick}
           onAltClick={onAltClick}
@@ -41,22 +41,21 @@ export function RenderCell({
             <div
               className={classNames(
                 {
-                  "bg-red": isHighlighted,
+                  "bg-hightlight-dig": isHighlighted,
                 },
-                "size-full sm:hover:bg-red active:bg-red rounded-sm"
+                "size-full sm:hover:bg-highlight-dig active:bg-highlight-dig rounded-sm"
               )}
             />
           )}
           {action === "flag" && (
             <div className="size-full opacity-50 group">
               <FlagIcon
-                fill="black"
                 className={classNames(
                   {
                     hidden: !isHighlighted,
                     block: isHighlighted,
                   },
-                  "sm:group-hover:block group-active:block"
+                  "fill-flag-fg sm:group-hover:block group-active:block"
                 )}
               />
             </div>
@@ -69,12 +68,12 @@ export function RenderCell({
         <CellWrapper
           isHighlighted={isHighlighted}
           isExploded={isExploded}
-          background="fg"
+          variant="flag"
           annotation={annotation}
           onClick={onClick}
           onAltClick={onAltClick}
         >
-          <FlagIcon className="size-full" />
+          <FlagIcon className="size-full fill-flag-fg" />
         </CellWrapper>
       );
 
@@ -84,12 +83,12 @@ export function RenderCell({
           <CellWrapper
             isHighlighted={isHighlighted}
             isExploded={isExploded}
-            background="red"
+            variant="mine"
             annotation={annotation}
             onClick={onClick}
             onAltClick={onAltClick}
           >
-            <Mine />
+            <MineIcon className="fill-mine-fg" />
           </CellWrapper>
         );
       }
