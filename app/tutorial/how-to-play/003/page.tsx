@@ -21,6 +21,7 @@ export default function TutorialIntro003() {
             134MXX
             XXMXXX       
           `}
+          showRestart
         />
       </ContentBlock>
 

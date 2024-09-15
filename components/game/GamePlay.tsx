@@ -9,6 +9,7 @@ import { Center } from "../layout/Center";
 import Confetti from "react-confetti";
 import { ContentBlock } from "../layout/ContentBlock";
 import { GameSettings } from "@/types/GameSettings";
+import { GameState } from "@/types/GameState";
 import Link from "next/link";
 import { RenderCell } from "../cells/RenderCell";
 import { RestartIcon } from "../icons/RestartIcon";
@@ -20,10 +21,12 @@ import { createGameState } from "@/helpers/createGameState";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
 import { generate } from "@/game/actions/generate";
+import { generateFromSeed } from "@/game/actions/generateFromSeed";
 import { isInitialState } from "@/helpers/isInitialState";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
 import { loadGameState } from "@/helpers/loadGameState";
+import { noop } from "@/helpers/noop";
 import { revealBoard } from "@/game/actions/revealBoard";
 import { selectDig } from "@/game/actions/selectDig";
 import { selectFlag } from "@/game/actions/selectFlag";
@@ -37,6 +40,8 @@ import useWindowSize from "@/hooks/useWindowSize";
 type BaseGamePlayProps = {
   settingsHref?: string;
   tipText?: string;
+  showRestart?: boolean;
+  onWin?: (gameState: GameState) => void;
 };
 
 export type GamePlayProps =
@@ -47,7 +52,13 @@ export type GamePlayProps =
       settings: GameSettings;
     });
 
-export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
+export function GamePlay({
+  settingsHref,
+  tipText,
+  showRestart = false,
+  onWin = noop,
+  ...props
+}: GamePlayProps) {
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   const { id: currentThemeId } = useCurrentTheme();
@@ -75,6 +86,8 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
     set: timerSet,
     seconds: timerSeconds,
   } = useTimer();
+
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const numMines = gameState.cells.filter((cell) => cell.hasMine).length;
 
@@ -124,11 +137,13 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
   });
 
   const gameParams = toParamsString({
+    seed: gameState.seed,
     boardSize: `${gameState.width}x${gameState.height}`,
     numMines: gameState.numMines,
     showTimer: gameState.showTimer,
     safeFirstClick: gameState.safeFirstClick,
     revealContiguousNumbers: gameState.revealContiguousNumbers,
+    revealBoardOnLoss: gameState.revealBoardOnLoss,
     autoRestart: gameState.autoRestart,
     timeLimit: gameState.timeLimit,
   });
@@ -147,7 +162,19 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
         return;
       }
 
-      setGameState((prevGameState) => generate(prevGameState, cell));
+      setGameState((prevGameState) => {
+        const seed = prevGameState.seed;
+
+        let nextGameState: GameState;
+
+        nextGameState = seed
+          ? generateFromSeed(prevGameState)
+          : generate(gameState, cell);
+
+        nextGameState = dig(nextGameState, cell);
+
+        return nextGameState;
+      });
       timerStart();
 
       // only two custom event properties allowed on vercel pro
@@ -186,10 +213,12 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
       switch (action) {
         case "dig":
           setGameState((prevGameState) => dig(prevGameState, cell));
+          setHasInteracted(true);
           return;
 
         case "flag":
           setGameState((prevGameState) => flag(prevGameState, cell));
+          setHasInteracted(true);
           return;
       }
     },
@@ -292,9 +321,16 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
     };
   }, [autoRestart, hasLost, handleRestart]);
 
+  // fire event listeners
+  useEffect(() => {
+    if (hasWon) {
+      onWin(gameState);
+    }
+  }, [gameState, hasWon]);
+
   return (
     <div>
-      {hasWon && (
+      {hasWon && hasInteracted && (
         <div className="fixed w-screen h-screen top-0 left-0 pointer-events-none">
           <Confetti
             width={windowWidth}
@@ -349,9 +385,11 @@ export function GamePlay({ settingsHref, tipText, ...props }: GamePlayProps) {
       </Center>
 
       <div className="flex justify-center m-8 space-x-8">
-        <button onClick={handleRestart} title="Restart">
-          <RestartIcon className="fill-fg-100 size-8" />
-        </button>
+        {showRestart ? (
+          <button onClick={handleRestart} title="Restart">
+            <RestartIcon className="fill-fg-100 size-8" />
+          </button>
+        ) : null}
 
         {settingsHref ? (
           <Link href={settingsHref} title="Edit settings">

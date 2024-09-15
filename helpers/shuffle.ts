@@ -1,4 +1,7 @@
-export function shuffle<T>(inputArray: T[]) {
+export function shuffle<T>(
+  inputArray: T[],
+  generateRandomNumber = () => Math.random()
+) {
   const array = [...inputArray];
 
   let currentIndex = array.length;
@@ -6,7 +9,8 @@ export function shuffle<T>(inputArray: T[]) {
   // While there remain elements to shuffle...
   while (currentIndex != 0) {
     // Pick a remaining element...
-    let randomIndex = Math.floor(Math.random() * currentIndex);
+    const randomNumber = generateRandomNumber();
+    let randomIndex = Math.floor(randomNumber * currentIndex);
     currentIndex--;
 
     // And swap it with the current element.

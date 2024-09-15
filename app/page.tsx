@@ -30,6 +30,7 @@ export default function IndexPage() {
             text="Monster Minesweeper (Recommended)"
             href="/play/custom#board"
           />
+          <MenuButton text="Daily Puzzle" href="/play/daily#board" />
           <MenuButton text="Classic Beginner" href="/play/beginner#board" />
           <MenuButton
             text="Classic Intermediate"

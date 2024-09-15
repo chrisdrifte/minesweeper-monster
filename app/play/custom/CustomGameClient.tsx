@@ -18,6 +18,7 @@ export default function CustomGameClient({
       settings={customSettings}
       settingsHref="/play/custom/settings"
       tipText="Tip: This mode is fully customizable by editing the settings"
+      showRestart
     />
   );
 }

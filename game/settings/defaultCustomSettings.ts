@@ -7,6 +7,7 @@ export const defaultCustomSettings: GameSettings = Object.freeze({
   showTimer: false,
   safeFirstClick: true,
   revealContiguousNumbers: true,
+  revealBoardOnLoss: true,
   autoRestart: false,
   timeLimit: 0,
 });

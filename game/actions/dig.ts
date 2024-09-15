@@ -49,7 +49,11 @@ export function dig(gameState: GameState, target: Target): GameState {
       }
 
       if (isLoseState(nextGameState)) {
-        return revealBoard(nextGameState);
+        if (nextGameState.revealBoardOnLoss) {
+          return revealBoard(nextGameState);
+        }
+
+        return nextGameState;
       }
 
       if (!targetCell.count) {

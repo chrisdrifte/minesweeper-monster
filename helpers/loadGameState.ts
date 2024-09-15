@@ -99,6 +99,7 @@ export function loadGameState(levelData: string): GameState {
     showTimer: false,
     safeFirstClick: false,
     revealContiguousNumbers: false,
+    revealBoardOnLoss: false,
     autoRestart: false,
     timeLimit: 0,
     cells,

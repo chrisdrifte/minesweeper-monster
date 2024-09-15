@@ -50,6 +50,7 @@ export default function CustomSettings() {
       showTimer,
       safeFirstClick,
       revealContiguousNumbers,
+      revealBoardOnLoss: true,
       autoRestart,
       timeLimit: parseInt(timeLimit),
     };
