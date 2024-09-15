@@ -43,3 +43,17 @@ html[data-theme="classic"] {
   --violet: #800080;
   --grey: #000000;
 }
+
+html[data-theme="anna"] {
+  --bg: #2d2d31;
+  --fg-50: #6b7280;
+  --fg-100: #d0cfd7;
+  --blue: #ce4e2a;
+  --green: #e3ae1b;
+  --red: #f2ab93f2;
+  --indigo: #68bc11;
+  --orange: #21c3da;
+  --cyan: #06b6d4;
+  --violet: #8b5cf6;
+  --grey: #6b7280;
+}

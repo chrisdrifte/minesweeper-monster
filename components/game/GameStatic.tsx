@@ -11,6 +11,7 @@ export type GameStaticProps = {
   levelData: string;
   annotations?: Record<CellId, Annotation>;
   revealAllCells?: boolean;
+  allowInvalid?: boolean;
 };
 
 export function GameStatic({
