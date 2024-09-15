@@ -116,6 +116,7 @@ export default function ThemePage() {
                 cell={cell}
                 annotation={annotations[cell.id]}
                 isHighlighted={cell.id === "2,1"}
+                action={cell.id === "0,0" ? "dig" : undefined}
               />
             ))}
           </BoardWrapper>
