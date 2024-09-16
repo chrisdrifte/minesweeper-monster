@@ -35,7 +35,7 @@ export function CellWrapper({
         "size-7 text-bg m-0.5 cursor-pointer rounded-sm"
       )}
       style={isExploded ? { animationDelay: `${Math.random() * 100}ms` } : {}}
-      onPointerDown={(e) => {
+      onPointerUp={(e) => {
         const LEFT_BUTTON = 0;
         const RIGHT_BUTTON = 2;
 

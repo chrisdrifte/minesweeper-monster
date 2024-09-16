@@ -14,7 +14,10 @@ export function BoardWrapper({
   children,
 }: React.PropsWithChildren<BoardWrapperProps>) {
   const { width: windowWidth } = useWindowSize();
-  const responsiveWidth = Math.min(width * 32 + 24, windowWidth - 32);
+  const responsiveWidth = Math.max(
+    0,
+    Math.min(width * 32 + 24, windowWidth - 32)
+  );
 
   return (
     <div
@@ -35,7 +38,7 @@ export function BoardWrapper({
         },
         "relative border-4 rounded-lg border-fg-100 h-min p-2 flex justify-center select-none"
       )}
-      style={{ width: responsiveWidth }}
+      style={responsiveWidth ? { width: responsiveWidth } : undefined}
       onContextMenu={(e) => {
         e.preventDefault();
       }}
