@@ -36,7 +36,8 @@ export default function IndexPage() {
             text="Classic Intermediate"
             href="/play/intermediate#board"
           />
-          <MenuButton text="Classic Expert" href="/play/expert#board" />
+          <MenuButton text="Classic Expert" href="/play/expert#board" />{" "}
+          <MenuButton text="Campaign" href="/play/campaign#board" />
         </ButtonWrapper>
       </ContentBlock>
       <ContentBlock>
