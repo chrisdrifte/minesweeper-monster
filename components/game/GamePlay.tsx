@@ -33,6 +33,7 @@ import { useCurrentTheme } from "@/game/theme/useCurrentTheme";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { useTimer } from "@/game/timer/useTimer";
 import useWindowSize from "@/hooks/useWindowSize";
+import { useWithoutGestures } from "@/hooks/useWithoutGuestures";
 
 export type GamePlayProps = {
   initialGameState: GameState;
@@ -49,6 +50,10 @@ export function GamePlay({
   showRestart = false,
   onWin = noop,
 }: GamePlayProps) {
+  // tapping adjacent cells quickly is sometimes registered as a double tap
+  // of the same cell unless we disable gestures
+  useWithoutGestures();
+
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   const { id: currentThemeId } = useCurrentTheme();
