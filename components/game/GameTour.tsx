@@ -110,49 +110,52 @@ export function GameTour({
     <Center>
       <Caption>{message}</Caption>
 
-      <BoardWrapper
-        width={gameState.width}
-        height={gameState.height}
-        hasControls
-      >
-        {gameState.cells.map((cell) => (
-          <RenderCell
-            key={cell.id}
-            cell={cell}
-            action={requiredAction?.type}
-            isHighlighted={cell.id === highlightedCellId}
-            onClick={() => {
-              if (
-                requiredAction?.type !== gameState.action ||
-                cell.id !== highlightedCellId
-              ) {
-                return;
-              }
+      <div className="grid grid-cols-1 justify-items-center">
+        <BoardWrapper
+          width={gameState.width}
+          height={gameState.height}
+          hasControls
+        >
+          {gameState.cells.map((cell) => (
+            <RenderCell
+              key={cell.id}
+              cell={cell}
+              action={requiredAction?.type}
+              isHighlighted={cell.id === highlightedCellId}
+              onClick={() => {
+                if (
+                  requiredAction?.type !== gameState.action ||
+                  cell.id !== highlightedCellId
+                ) {
+                  return;
+                }
 
-              nextStep();
-            }}
-          />
-        ))}
-      </BoardWrapper>
-      <SelectActionType
-        actionType={gameState.action}
-        isHighlightedDig={requiredAction?.type === "select-dig"}
-        isHighlightedFlag={requiredAction?.type === "select-flag"}
-        onSelectDig={() => {
-          if (requiredAction?.type !== "select-dig") {
-            return;
-          }
+                nextStep();
+              }}
+            />
+          ))}
+        </BoardWrapper>
+        <SelectActionType
+          actionType={gameState.action}
+          isHighlightedDig={requiredAction?.type === "select-dig"}
+          isHighlightedFlag={requiredAction?.type === "select-flag"}
+          onSelectDig={() => {
+            if (requiredAction?.type !== "select-dig") {
+              return;
+            }
 
-          nextStep();
-        }}
-        onSelectFlag={() => {
-          if (requiredAction?.type !== "select-flag") {
-            return;
-          }
+            nextStep();
+          }}
+          onSelectFlag={() => {
+            if (requiredAction?.type !== "select-flag") {
+              return;
+            }
 
-          nextStep();
-        }}
-      />
+            nextStep();
+          }}
+        />
+      </div>
+
       {hasSteps && (
         <div className="mt-8">
           <Slider

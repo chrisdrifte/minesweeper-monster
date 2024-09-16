@@ -336,7 +336,12 @@ export function GamePlay({
           </>
         )}
 
-        <div className={classNames({ "sm:pointer-events-none": hasFinished })}>
+        <div
+          className={classNames(
+            { "sm:pointer-events-none": hasFinished },
+            "grid grid-cols-1 justify-items-center"
+          )}
+        >
           <BoardWrapper
             width={gameState.width}
             height={gameState.height}
