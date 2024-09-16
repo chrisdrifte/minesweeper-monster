@@ -1,9 +1,25 @@
 import { Cell } from "@/types/Cell";
+import { GameSettings } from "@/types/GameSettings";
 import { GameState } from "@/types/GameState";
 import { createCellId } from "./createCellId";
 import { getCount } from "./getCount";
 
-export function loadGameState(levelData: string): GameState {
+const defaultSettings = {
+  showTimer: false,
+  safeFirstClick: false,
+  revealContiguousNumbers: false,
+  revealBoardOnLoss: false,
+  autoRestart: false,
+  timeLimit: 0,
+};
+
+export function loadGameState(
+  levelData: string,
+  settings: Omit<
+    GameSettings,
+    "width" | "height" | "numMines"
+  > = defaultSettings
+): GameState {
   const parsedLevelData = levelData
     .replace(/[^XMDF0-9\n]/g, "")
     .split("\n")
@@ -93,15 +109,10 @@ export function loadGameState(levelData: string): GameState {
   }
 
   const gameState: GameState = {
+    ...settings,
     width,
     height,
     numMines: cells.filter((cell) => cell.hasMine).length,
-    showTimer: false,
-    safeFirstClick: false,
-    revealContiguousNumbers: false,
-    revealBoardOnLoss: false,
-    autoRestart: false,
-    timeLimit: 0,
     cells,
     action: "dig",
   };

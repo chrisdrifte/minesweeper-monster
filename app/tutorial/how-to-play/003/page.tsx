@@ -1,5 +1,5 @@
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { GamePlay } from "@/components/game/GamePlay";
+import { GamePlayFromLevelData } from "@/components/game/GamePlayFromLevelData";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 
@@ -14,7 +14,7 @@ export default function TutorialIntro003() {
 
         <Paragraph>Are you feeling lucky?</Paragraph>
 
-        <GamePlay
+        <GamePlayFromLevelData
           levelData={`
             1221XM
             1MM2XM

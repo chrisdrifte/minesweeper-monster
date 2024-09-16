@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { BoardWrapper } from "./BoardWrapper";
 import { Caption } from "../layout/Caption";
@@ -8,7 +8,6 @@ import { Cell } from "@/types/Cell";
 import { Center } from "../layout/Center";
 import Confetti from "react-confetti";
 import { ContentBlock } from "../layout/ContentBlock";
-import { GameSettings } from "@/types/GameSettings";
 import { GameState } from "@/types/GameState";
 import Link from "next/link";
 import { RenderCell } from "../cells/RenderCell";
@@ -17,7 +16,6 @@ import { SelectActionType } from "./SelectActionType";
 import { SettingsIcon } from "../icons/SettingsIcon";
 import { Timer } from "./Timer";
 import classNames from "classnames";
-import { createGameState } from "@/helpers/createGameState";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
 import { generate } from "@/game/actions/generate";
@@ -25,7 +23,6 @@ import { generateFromSeed } from "@/game/actions/generateFromSeed";
 import { isInitialState } from "@/helpers/isInitialState";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
-import { loadGameState } from "@/helpers/loadGameState";
 import { noop } from "@/helpers/noop";
 import { revealBoard } from "@/game/actions/revealBoard";
 import { selectDig } from "@/game/actions/selectDig";
@@ -37,45 +34,26 @@ import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { useTimer } from "@/game/timer/useTimer";
 import useWindowSize from "@/hooks/useWindowSize";
 
-type BaseGamePlayProps = {
+export type GamePlayProps = {
+  initialGameState: GameState;
   settingsHref?: string;
   tipText?: string;
   showRestart?: boolean;
   onWin?: (gameState: GameState) => void;
 };
 
-export type GamePlayProps =
-  | (BaseGamePlayProps & {
-      levelData: string;
-    })
-  | (BaseGamePlayProps & {
-      settings: GameSettings;
-    });
-
 export function GamePlay({
+  initialGameState,
   settingsHref,
   tipText,
   showRestart = false,
   onWin = noop,
-  ...props
 }: GamePlayProps) {
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   const { id: currentThemeId } = useCurrentTheme();
 
-  const originalState = useMemo(() => {
-    if ("levelData" in props) {
-      return Object.freeze(loadGameState(props.levelData));
-    }
-
-    if ("settings" in props) {
-      return Object.freeze(createGameState(props.settings));
-    }
-
-    throw new Error("Invalid game props");
-  }, [props]);
-
-  const [gameState, setGameState] = useState(originalState);
+  const [gameState, setGameState] = useState(initialGameState);
   const timeLimit = gameState.timeLimit;
   const action = gameState.action;
 
@@ -169,7 +147,7 @@ export function GamePlay({
 
         nextGameState = seed
           ? generateFromSeed(prevGameState)
-          : generate(gameState, cell);
+          : generate(prevGameState, cell);
 
         nextGameState = dig(nextGameState, cell);
 
@@ -195,9 +173,9 @@ export function GamePlay({
   );
 
   const handleRestart = useCallback(() => {
-    setGameState(originalState);
+    setGameState(initialGameState);
     timerReset();
-  }, [originalState, timerReset]);
+  }, [initialGameState, timerReset]);
 
   const handleClickCell = useCallback(
     (cell: Cell) => {
@@ -326,7 +304,7 @@ export function GamePlay({
     if (hasWon) {
       onWin(gameState);
     }
-  }, [gameState, hasWon]);
+  }, [gameState, hasWon, onWin]);
 
   return (
     <div>

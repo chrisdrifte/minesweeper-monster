@@ -1,5 +1,5 @@
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { GamePlay } from "@/components/game/GamePlay";
+import { GamePlayFromSettings } from "@/components/game/GamePlayFromSettings";
 import { Heading } from "@/components/layout/Heading";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
@@ -14,7 +14,7 @@ export default function TutorialStrategies002() {
           Test out your new strategies with a quick game of minesweeper:
         </Paragraph>
 
-        <GamePlay settings={difficulties["practice"]} showRestart />
+        <GamePlayFromSettings settings={difficulties["practice"]} showRestart />
       </ContentBlock>
 
       <PageMenu prev="/tutorial/strategies/003" next="/" nextText="Finish" />

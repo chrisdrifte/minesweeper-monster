@@ -1,7 +1,8 @@
 "use client";
 
 import { DailySolution } from "./types/DailySolution";
-import { GamePlay } from "@/components/game/GamePlay";
+import { GamePlayFromLevelData } from "../GamePlayFromLevelData";
+import { GamePlayFromSettings } from "../GamePlayFromSettings";
 import { difficulties } from "@/config/difficulties";
 import { getDailySeed } from "./getDailySeed";
 import { getYYYYMMDD } from "@/helpers/getYYYYMMDD";
@@ -20,11 +21,16 @@ export function DailyPuzzle({ initialDailySolution }: DailyPuzzleProps) {
     "Tip: Come back tomorrow for the next daily minesweeper puzzle";
 
   if (dailySolution.levelData && dailySolution.seed === dailySeed) {
-    return <GamePlay levelData={dailySolution.levelData} tipText={tipText} />;
+    return (
+      <GamePlayFromLevelData
+        levelData={dailySolution.levelData}
+        tipText={tipText}
+      />
+    );
   }
 
   return (
-    <GamePlay
+    <GamePlayFromSettings
       settings={{
         seed: dailySeed,
         ...difficulties["daily"],
