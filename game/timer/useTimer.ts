@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const getTimestamp = () => performance.now() / 10;
 
-export function useTimer() {
+export function useTimer(isEnabled = true) {
   const [startTimestamp, setStartTimestamp] = useState(getTimestamp);
   const [isRunning, setIsRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -32,6 +32,10 @@ export function useTimer() {
   const nextFrame = () => setFrame({});
 
   useEffect(() => {
+    if (!isEnabled) {
+      return;
+    }
+
     if (!isRunning) {
       return;
     }

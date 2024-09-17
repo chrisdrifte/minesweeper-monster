@@ -63,7 +63,7 @@ export function GamePlay({
     stop: timerStop,
     set: timerSet,
     seconds: timerSeconds,
-  } = useTimer();
+  } = useTimer(gameState.showTimer);
 
   const [hasInteracted, setHasInteracted] = useState(false);
 
@@ -179,6 +179,8 @@ export function GamePlay({
 
   const handleClickCell = useCallback(
     (cell: Cell) => {
+      setHasInteracted(true);
+
       if (hasFinished) {
         return;
       }
@@ -191,12 +193,10 @@ export function GamePlay({
       switch (action) {
         case "dig":
           setGameState((prevGameState) => dig(prevGameState, cell));
-          setHasInteracted(true);
           return;
 
         case "flag":
           setGameState((prevGameState) => flag(prevGameState, cell));
-          setHasInteracted(true);
           return;
       }
     },
