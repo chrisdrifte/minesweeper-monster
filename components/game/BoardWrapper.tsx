@@ -14,10 +14,12 @@ export function BoardWrapper({
   children,
 }: React.PropsWithChildren<BoardWrapperProps>) {
   const { width: windowWidth } = useWindowSize();
-  const responsiveWidth = Math.max(
-    0,
-    Math.min(width * 32 + 24, windowWidth - 32)
-  );
+
+  const maxWidth = windowWidth - 32;
+  const requiredWidth = width * 32 + 24;
+  const responsiveWidth = Math.max(0, Math.min(requiredWidth, maxWidth));
+
+  const isScrollable = width && requiredWidth > maxWidth;
 
   return (
     <div
@@ -44,7 +46,10 @@ export function BoardWrapper({
       }}
     >
       <div
-        className="grid overflow-auto overscroll-none items-start justify-start"
+        className={classNames(
+          { "overflow-auto overscroll-none": isScrollable },
+          "grid items-start justify-start"
+        )}
         style={{
           gridTemplateColumns: `repeat(${width}, 32px)`,
           gridTemplateRows: `repeat(${height}, 32px)`,
