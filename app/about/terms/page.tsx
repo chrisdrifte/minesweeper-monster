@@ -1,15 +1,9 @@
-import { ButtonWrapper } from "@/components/navigation/ButtonWrapper";
-import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { ControlBinding } from "@/components/layout/ControlBinding";
-import { GameStatic } from "@/components/game/GameStatic";
-import { Header } from "@/components/navigation/Header";
 import { Heading } from "@/components/layout/Heading";
-import { LearnIcon } from "@/components/icons/LearnIcon";
-import { MenuButton } from "@/components/navigation/MenuButton";
 import { Paragraph } from "@/components/layout/Paragraph";
 
-export default function IndexPage() {
+export default function TermsPage() {
   return (
     <>
       <ContentBlock>
