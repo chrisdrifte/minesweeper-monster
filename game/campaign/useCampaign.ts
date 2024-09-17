@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export function useCampaign(initialCampaignLevel = 0) {
   const { value: campaignLevel, set: setCampaignLevel } = useCookie(
-    "campaignLevel",
+    "campaign-level",
     initialCampaignLevel
   );
 

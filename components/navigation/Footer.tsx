@@ -25,6 +25,15 @@ export function Footer({}: React.PropsWithChildren) {
               Select Theme
             </Link>
           </span>
+          <span>|</span>
+          <span>
+            <Link
+              href="/about/terms"
+              className="underline sm:hover:no-underline"
+            >
+              Terms
+            </Link>
+          </span>
         </div>
       </Center>
     </footer>
