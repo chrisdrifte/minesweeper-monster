@@ -5,10 +5,14 @@ import { GameStatic } from "@/components/game/GameStatic";
 import { Header } from "@/components/navigation/Header";
 import { LearnIcon } from "@/components/icons/LearnIcon";
 import Link from "next/link";
+import { MainMenu } from "@/components/game/MainMenu";
 import { MenuButton } from "@/components/navigation/MenuButton";
 import { Paragraph } from "@/components/layout/Paragraph";
+import { getCampaignLevel } from "@/game/campaign/getCampaignLevel";
 
 export default function IndexPage() {
+  const initialCampaignLevel = getCampaignLevel();
+
   return (
     <>
       <Header />
@@ -45,17 +49,7 @@ export default function IndexPage() {
 
         <Paragraph>Select a game mode:</Paragraph>
 
-        <ButtonWrapper>
-          <MenuButton text="Daily Puzzle" href="/play/daily#board" />
-          <MenuButton text="Classic Beginner" href="/play/beginner#board" />
-          <MenuButton
-            text="Classic Intermediate"
-            href="/play/intermediate#board"
-          />
-          <MenuButton text="Classic Expert" href="/play/expert#board" />
-          <MenuButton text="Campaign" href="/play/campaign#board" />
-          <MenuButton text="Custom Game" href="/play/custom#board" />
-        </ButtonWrapper>
+        <MainMenu initialCampaignLevel={initialCampaignLevel} />
       </ContentBlock>
       <ContentBlock>
         <Center>

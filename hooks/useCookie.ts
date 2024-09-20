@@ -22,5 +22,9 @@ export const useCookie = <T>(key: string, defaultValue: T) => {
     setCookie(key, JSON.stringify(value));
   }, []);
 
-  return { value, set };
+  const setCookieOnly = useCallback((value: T) => {
+    setCookie(key, JSON.stringify(value));
+  }, []);
+
+  return { value, set, setCookieOnly };
 };
