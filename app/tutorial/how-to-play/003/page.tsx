@@ -27,8 +27,11 @@ export default function TutorialIntro003() {
       </ContentBlock>
 
       <Paragraph>
-        Congratulations! You now have all the skills you need to start playing
-        for real.
+        Congratulations! You now have all the skills you need to{" "}
+        <Link href="/" className="underline sm:hover:no-underline">
+          start playing for real
+        </Link>
+        .
       </Paragraph>
 
       <Paragraph>
@@ -42,7 +45,11 @@ export default function TutorialIntro003() {
         ?
       </Paragraph>
 
-      <PageMenu prev="/tutorial/how-to-play/002" next="/" nextText="Finish" />
+      <PageMenu
+        prev="/tutorial/how-to-play/002"
+        next="/tutorial/strategies/001"
+        nextText="Advanced Strategies"
+      />
     </>
   );
 }
