@@ -1,9 +1,9 @@
 import { GameSettings } from "@/types/GameSettings";
 
 export const defaultCustomSettings: GameSettings = Object.freeze({
-  width: 10,
-  height: 15,
-  numMines: 25,
+  width: 9,
+  height: 9,
+  numMines: 10,
   showTimer: false,
   safeFirstClick: true,
   revealContiguousNumbers: true,

@@ -46,18 +46,15 @@ export default function IndexPage() {
         <Paragraph>Select a game mode:</Paragraph>
 
         <ButtonWrapper>
-          <MenuButton
-            text="Monster Minesweeper (Recommended)"
-            href="/play/custom#board"
-          />
           <MenuButton text="Daily Puzzle" href="/play/daily#board" />
           <MenuButton text="Classic Beginner" href="/play/beginner#board" />
           <MenuButton
             text="Classic Intermediate"
             href="/play/intermediate#board"
           />
-          <MenuButton text="Classic Expert" href="/play/expert#board" />{" "}
+          <MenuButton text="Classic Expert" href="/play/expert#board" />
           <MenuButton text="Campaign" href="/play/campaign#board" />
+          <MenuButton text="Custom Game" href="/play/custom#board" />
         </ButtonWrapper>
       </ContentBlock>
       <ContentBlock>
