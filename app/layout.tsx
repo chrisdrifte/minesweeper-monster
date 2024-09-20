@@ -22,7 +22,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" data-theme={currentTheme.id}>
-      <body className="antialiased bg-bg text-fg-100 flex flex-col items-center">
+      <body className="antialiased bg-bg text-fg-100 flex flex-col items-center select-none sm:select-auto">
         <main className="max-w-[568px] w-full px-4">
           {children}
           <Footer />
