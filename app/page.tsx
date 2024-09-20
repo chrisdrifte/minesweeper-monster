@@ -4,6 +4,7 @@ import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameStatic } from "@/components/game/GameStatic";
 import { Header } from "@/components/navigation/Header";
 import { LearnIcon } from "@/components/icons/LearnIcon";
+import Link from "next/link";
 import { MenuButton } from "@/components/navigation/MenuButton";
 import { Paragraph } from "@/components/layout/Paragraph";
 
@@ -23,6 +24,18 @@ export default function IndexPage() {
         />
       </Center>
       <ContentBlock>
+        <Paragraph align="center">
+          Welcome to visitors from NextJS Weekly! 👋
+          <br /> Why not start with a{" "}
+          <Link
+            href="/tutorial/how-to-play/001"
+            className="underline sm:hover:no-underline"
+          >
+            two minute tutorial
+          </Link>
+          ?
+        </Paragraph>
+
         <Paragraph>Select a game mode:</Paragraph>
 
         <ButtonWrapper>
