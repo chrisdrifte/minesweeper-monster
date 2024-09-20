@@ -35,7 +35,7 @@ export default function IndexPage() {
           </Link>{" "}
           or a{" "}
           <Link
-            href="/play/beginner#board"
+            href="/play/custom#board"
             className="underline sm:hover:no-underline"
           >
             quick game
