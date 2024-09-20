@@ -34,7 +34,7 @@ export default function TutorialIntro003() {
       <Paragraph>
         Why not keep practicing with the{" "}
         <Link
-          href="/tutorial/how-to-play/001"
+          href="/play/daily#board"
           className="underline sm:hover:no-underline"
         >
           daily puzzle
