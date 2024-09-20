@@ -13,6 +13,7 @@ import { Slider } from "../slider/Slider";
 import { createCellId } from "@/helpers/createCellId";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
+import { isFlaggableState } from "@/helpers/isFlaggableState";
 import { isWinState } from "@/helpers/isWinState";
 import { loadGameState } from "@/helpers/loadGameState";
 import { selectDig } from "@/game/actions/selectDig";
@@ -139,6 +140,7 @@ export function GameTour({
           actionType={gameState.action}
           isHighlightedDig={requiredAction?.type === "select-dig"}
           isHighlightedFlag={requiredAction?.type === "select-flag"}
+          isFlaggingEnabled={isFlaggableState(gameState)}
           onSelectDig={() => {
             if (requiredAction?.type !== "select-dig") {
               return;

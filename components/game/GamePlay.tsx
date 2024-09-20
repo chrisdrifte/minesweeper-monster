@@ -20,6 +20,7 @@ import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
 import { generate } from "@/game/actions/generate";
 import { generateFromSeed } from "@/game/actions/generateFromSeed";
+import { isFlaggableState } from "@/helpers/isFlaggableState";
 import { isInitialState } from "@/helpers/isInitialState";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
@@ -357,6 +358,7 @@ export function GamePlay({
 
           <SelectActionType
             actionType={gameState.action}
+            isFlaggingEnabled={isFlaggableState(gameState)}
             onSelectDig={handleSelectDig}
             onSelectFlag={handleSelectFlag}
           />

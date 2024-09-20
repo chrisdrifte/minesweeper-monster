@@ -6,6 +6,7 @@ export type SelectActionType = {
   actionType: Action["type"];
   isHighlightedDig?: boolean;
   isHighlightedFlag?: boolean;
+  isFlaggingEnabled?: boolean;
   onSelectDig?: VoidFunction;
   onSelectFlag?: VoidFunction;
 };
@@ -14,6 +15,7 @@ export function SelectActionType({
   actionType,
   isHighlightedDig = false,
   isHighlightedFlag = false,
+  isFlaggingEnabled = true,
   onSelectDig = noop,
   onSelectFlag = noop,
 }: SelectActionType) {
@@ -30,6 +32,7 @@ export function SelectActionType({
       <SelectActionButton
         isHighlighted={isHighlightedFlag}
         isActive={actionType === "flag"}
+        isEnabled={isFlaggingEnabled}
         onClick={onSelectFlag}
       >
         Flag
