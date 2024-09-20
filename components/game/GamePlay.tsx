@@ -65,8 +65,6 @@ export function GamePlay({
     seconds: timerSeconds,
   } = useTimer(gameState.showTimer);
 
-  const [hasInteracted, setHasInteracted] = useState(false);
-
   const numMines = gameState.cells.filter((cell) => cell.hasMine).length;
 
   const numFlags = gameState.cells.filter(
@@ -179,8 +177,6 @@ export function GamePlay({
 
   const handleClickCell = useCallback(
     (cell: Cell) => {
-      setHasInteracted(true);
-
       if (hasFinished) {
         return;
       }
@@ -308,7 +304,7 @@ export function GamePlay({
 
   return (
     <div>
-      {hasWon && hasInteracted && (
+      {hasWon && (
         <div className="fixed w-screen h-screen top-0 left-0 pointer-events-none">
           <Confetti
             width={windowWidth}
