@@ -42,9 +42,9 @@ export default function TutorialIntro002() {
 
       <ContentBlock>
         <Paragraph>
-          In monster minesweeper, <strong>"No mine on first click"</strong> is
-          enabled by default. In this mode it's better to start somewhere in the
-          center, as the surrounding tiles are guaranteed to be empty.
+          In custom games, <strong>"no mine on first click"</strong> may be
+          enabled. In this mode it's better to start somewhere in the center, as
+          the surrounding tiles are guaranteed to be empty.
         </Paragraph>
 
         <Center>

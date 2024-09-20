@@ -58,7 +58,7 @@ export default function TutorialStrategies001() {
       </ContentBlock>
 
       <Paragraph>
-        Chording is key to playing efficiently. Its name come from the original
+        Chording is key to playing efficiently. Its name comes from the original
         version of minesweeper, which required you to click both the left and
         the right mouse buttons to reveal the cells.
       </Paragraph>
