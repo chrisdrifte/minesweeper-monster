@@ -26,14 +26,21 @@ export default function IndexPage() {
       <ContentBlock>
         <Paragraph align="center">
           Welcome to visitors from NextJS Weekly! 👋
-          <br /> Why not start with a{" "}
+          <br /> Start with a{" "}
           <Link
             href="/tutorial/how-to-play/001"
             className="underline sm:hover:no-underline"
           >
             two minute tutorial
+          </Link>{" "}
+          or a{" "}
+          <Link
+            href="/play/beginner#board"
+            className="underline sm:hover:no-underline"
+          >
+            quick game
           </Link>
-          ?
+          .
         </Paragraph>
 
         <Paragraph>Select a game mode:</Paragraph>
