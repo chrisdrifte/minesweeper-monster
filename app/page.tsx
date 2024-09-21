@@ -9,8 +9,10 @@ import { LinkInline } from "@/components/navigation/LinkInline";
 import { MainMenu } from "@/components/game/MainMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { getCampaignLevel } from "@/game/campaign/getCampaignLevel";
+import { getDailySolution } from "@/components/game/daily/getDailySolution";
 
 export default function IndexPage() {
+  const initialDailySolution = getDailySolution();
   const initialCampaignLevel = getCampaignLevel();
 
   return (
@@ -39,7 +41,10 @@ export default function IndexPage() {
 
         <Paragraph>Select a game mode:</Paragraph>
 
-        <MainMenu initialCampaignLevel={initialCampaignLevel} />
+        <MainMenu
+          initialDailySolution={initialDailySolution}
+          initialCampaignLevel={initialCampaignLevel}
+        />
       </ContentBlock>
       <ContentBlock>
         <Center>
