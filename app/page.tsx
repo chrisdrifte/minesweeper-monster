@@ -31,7 +31,7 @@ export default function IndexPage() {
       </Center>
       <ContentBlock>
         <Paragraph align="center">
-          Welcome to r/webdev and NextJS Weekly! 👋
+          Welcome to Minesweeper Monster! 👋
           <br /> Start with a{" "}
           <LinkInline href="/tutorial/how-to-play/001">
             two minute tutorial
@@ -39,7 +39,7 @@ export default function IndexPage() {
           or a <LinkInline href="/play/custom#board">quick game</LinkInline>.
         </Paragraph>
 
-        <Paragraph>Select a game mode:</Paragraph>
+        <Paragraph align="center">Or select a game mode:</Paragraph>
 
         <MainMenu
           initialDailySolution={initialDailySolution}
