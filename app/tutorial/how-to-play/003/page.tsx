@@ -17,10 +17,10 @@ export default function TutorialIntro003() {
 
         <GamePlayFromLevelData
           levelData={`
-            1221XM
-            1MM2XM
-            134MXX
-            XXMXXX       
+            XMMX
+            X22X
+            X22X
+            XMMX       
           `}
           showRestart
         />
