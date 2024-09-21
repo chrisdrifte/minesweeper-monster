@@ -1,5 +1,5 @@
 import { Header } from "@/components/navigation/Header";
-import Link from "next/link";
+import { LinkInline } from "@/components/navigation/LinkInline";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,12 +17,7 @@ export default function TutorialLayout({
       <Header>
         <nav className="text-xs">
           <div className="flex justify-center space-x-4">
-            <Link
-              href="/play/beginner"
-              className="text-fg-100 underline sm:hover:no-underline"
-            >
-              Play now
-            </Link>
+            <LinkInline href="/play/beginner">Play now</LinkInline>
           </div>
         </nav>
       </Header>

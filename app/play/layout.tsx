@@ -1,6 +1,6 @@
 import { Header } from "@/components/navigation/Header";
 import { LearnIcon } from "@/components/icons/LearnIcon";
-import Link from "next/link";
+import { LinkIcon } from "@/components/navigation/LinkIcon";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,15 +19,9 @@ export default function GameLayout({
       <Header>
         <nav className="text-xs">
           <div className="flex justify-center space-x-4">
-            <Link
-              href="/tutorial/how-to-play/001"
-              className="text-fg-100 flex space-x-2 items-center group"
-            >
-              <LearnIcon className="size-4 fill-fg-100" />
-              <span className="underline sm:group-hover:no-underline">
-                How to play
-              </span>
-            </Link>
+            <LinkIcon icon={LearnIcon} href="/tutorial/how-to-play/001">
+              How to play
+            </LinkIcon>
           </div>
         </nav>
       </Header>

@@ -1,7 +1,6 @@
-import Link from "next/link";
+import { Logo } from "./Logo";
 import React from "react";
 import classNames from "classnames";
-import { spaceMono } from "@/app/fonts";
 
 export function Header({ children }: React.PropsWithChildren) {
   const hasChildren = React.Children.count(children) > 0;
@@ -13,14 +12,7 @@ export function Header({ children }: React.PropsWithChildren) {
         "mt-8 mb-12 flex items-center"
       )}
     >
-      <hgroup>
-        <h1 className={spaceMono.className}>
-          <Link href="/">
-            <strong>MINESWEEPER</strong>
-            <span className="text-fg-alt">.MONSTER</span>
-          </Link>
-        </h1>
-      </hgroup>
+      <Logo />
 
       {hasChildren && children}
     </header>

@@ -4,7 +4,7 @@ import { ButtonWrapper } from "../layout/ButtonWrapper";
 import { FormButton } from "../form/FormButton";
 import { GamePlayFromLevelData } from "@/components/game/GamePlayFromLevelData";
 import { Heading } from "@/components/layout/Heading";
-import Link from "next/link";
+import { LinkInline } from "../navigation/LinkInline";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { track } from "@vercel/analytics";
 import { useCampaign } from "@/game/campaign/useCampaign";
@@ -29,13 +29,7 @@ export function GamePlayCampaign({
         </Paragraph>
         <Paragraph>
           Until then, why not try the{" "}
-          <Link
-            href="/play/daily#board"
-            className="underline sm:hover:no-underline"
-          >
-            Daily Puzzle
-          </Link>
-          ?
+          <LinkInline href="/play/daily#board">Daily Puzzle</LinkInline>?
         </Paragraph>
       </>
     );

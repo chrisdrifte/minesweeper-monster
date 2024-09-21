@@ -4,8 +4,8 @@ import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameStatic } from "@/components/game/GameStatic";
 import { Header } from "@/components/navigation/Header";
 import { LearnIcon } from "@/components/icons/LearnIcon";
-import Link from "next/link";
 import { LinkButton } from "@/components/navigation/LinkButton";
+import { LinkInline } from "@/components/navigation/LinkInline";
 import { MainMenu } from "@/components/game/MainMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { getCampaignLevel } from "@/game/campaign/getCampaignLevel";
@@ -31,20 +31,10 @@ export default function IndexPage() {
         <Paragraph align="center">
           Welcome to visitors from r/webdev and NextJS Weekly! 👋
           <br /> Start with a{" "}
-          <Link
-            href="/tutorial/how-to-play/001"
-            className="underline sm:hover:no-underline"
-          >
+          <LinkInline href="/tutorial/how-to-play/001">
             two minute tutorial
-          </Link>{" "}
-          or a{" "}
-          <Link
-            href="/play/custom#board"
-            className="underline sm:hover:no-underline"
-          >
-            quick game
-          </Link>
-          .
+          </LinkInline>{" "}
+          or a <LinkInline href="/play/custom#board">quick game</LinkInline>.
         </Paragraph>
 
         <Paragraph>Select a game mode:</Paragraph>

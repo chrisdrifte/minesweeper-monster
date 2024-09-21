@@ -1,5 +1,5 @@
 import { Center } from "../layout/Center";
-import Link from "next/link";
+import { LinkInline } from "./LinkInline";
 
 export function Footer({}: React.PropsWithChildren) {
   return (
@@ -8,31 +8,17 @@ export function Footer({}: React.PropsWithChildren) {
         <div className="flex space-x-2">
           <span>
             Built by{" "}
-            <a
-              href="https://www.linkedin.com/in/chris-drifte/"
-              target="_blank"
-              className="underline sm:hover:no-underline"
-            >
+            <LinkInline href="https://www.linkedin.com/in/chris-drifte/" newTab>
               Chris Drifte
-            </a>
+            </LinkInline>
           </span>
           <span>|</span>
           <span>
-            <Link
-              href="/user/theme"
-              className="underline sm:hover:no-underline"
-            >
-              Select Theme
-            </Link>
+            <LinkInline href="/user/theme">Select Theme</LinkInline>
           </span>
           <span>|</span>
           <span>
-            <Link
-              href="/about/terms"
-              className="underline sm:hover:no-underline"
-            >
-              Terms
-            </Link>
+            <LinkInline href="/about/terms">Terms</LinkInline>
           </span>
         </div>
       </Center>

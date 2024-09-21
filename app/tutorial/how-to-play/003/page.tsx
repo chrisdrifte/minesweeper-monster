@@ -1,6 +1,6 @@
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GamePlayFromLevelData } from "@/components/game/GamePlayFromLevelData";
-import Link from "next/link";
+import { LinkInline } from "@/components/navigation/LinkInline";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 
@@ -28,21 +28,12 @@ export default function TutorialIntro003() {
 
       <Paragraph>
         Congratulations! You now have all the skills you need to{" "}
-        <Link href="/" className="underline sm:hover:no-underline">
-          start playing for real
-        </Link>
-        .
+        <LinkInline href="/">start playing for real</LinkInline>.
       </Paragraph>
 
       <Paragraph>
         Why not keep practicing with the{" "}
-        <Link
-          href="/play/daily#board"
-          className="underline sm:hover:no-underline"
-        >
-          daily puzzle
-        </Link>
-        ?
+        <LinkInline href="/play/daily#board">daily puzzle</LinkInline>?
       </Paragraph>
 
       <PageMenu
