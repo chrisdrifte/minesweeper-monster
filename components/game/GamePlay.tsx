@@ -118,7 +118,7 @@ export function GamePlay({
     boardSize: `${gameState.width}x${gameState.height}`,
     numMines: gameState.numMines,
     showTimer: gameState.showTimer,
-    safeFirstClick: gameState.safeFirstClick,
+    noAdjacentMinesOnFirstClick: gameState.noAdjacentMinesOnFirstClick,
     revealContiguousNumbers: gameState.revealContiguousNumbers,
     revealBoardOnLoss: gameState.revealBoardOnLoss,
     autoRestart: gameState.autoRestart,

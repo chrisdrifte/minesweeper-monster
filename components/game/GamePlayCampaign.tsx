@@ -47,7 +47,7 @@ export function GamePlayCampaign({
         levelData={campaign.levelData}
         settings={{
           showTimer: false,
-          safeFirstClick: false,
+          noAdjacentMinesOnFirstClick: false,
           revealContiguousNumbers: false,
           revealBoardOnLoss: false,
           autoRestart: true,

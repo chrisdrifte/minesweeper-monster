@@ -5,6 +5,7 @@ import { flagAllMines } from "./flagAllMines";
 import { getCell } from "@/helpers/getCell";
 import { getHorizontalNeighbours } from "@/helpers/getHorizontalNeighbours";
 import { getNeighbours } from "@/helpers/getNeighbours";
+import { isInitialState } from "@/helpers/isInitialState";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
 import { revealBoard } from "./revealBoard";

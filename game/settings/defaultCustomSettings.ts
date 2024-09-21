@@ -5,7 +5,7 @@ export const defaultCustomSettings: GameSettings = Object.freeze({
   height: 9,
   numMines: 10,
   showTimer: false,
-  safeFirstClick: true,
+  noAdjacentMinesOnFirstClick: true,
   revealContiguousNumbers: true,
   revealBoardOnLoss: true,
   autoRestart: false,

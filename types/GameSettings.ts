@@ -4,7 +4,7 @@ export type GameSettings = {
   height: number;
   numMines: number;
   showTimer: boolean;
-  safeFirstClick: boolean;
+  noAdjacentMinesOnFirstClick: boolean;
   revealContiguousNumbers: boolean;
   revealBoardOnLoss: boolean;
   autoRestart: boolean;
