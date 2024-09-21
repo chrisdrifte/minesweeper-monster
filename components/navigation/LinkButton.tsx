@@ -2,17 +2,16 @@ import Link from "next/link";
 import classNames from "classnames";
 import { spaceMono } from "@/app/fonts";
 
-export type MenuButtonProps = {
-  text: string;
+export type LinkButtonProps = {
   isSecondary?: boolean;
   href: string;
 };
 
-export function MenuButton({
-  text,
+export function LinkButton({
+  children,
   href,
   isSecondary = false,
-}: MenuButtonProps) {
+}: React.PropsWithChildren<LinkButtonProps>) {
   return (
     <Link
       href={href}
@@ -25,7 +24,7 @@ export function MenuButton({
         "w-full border-2 text-fg-100 rounded-sm px-4 py-2 text-center text-sm sm:hover:bg-fg-100 sm:hover:text-bg active:bg-fg-100 active:text-bg"
       )}
     >
-      {text}
+      {children}
     </Link>
   );
 }

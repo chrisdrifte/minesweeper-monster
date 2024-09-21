@@ -1,7 +1,7 @@
 "use client";
 
-import { ButtonWrapper } from "../navigation/ButtonWrapper";
-import { MenuButton } from "../navigation/MenuButton";
+import { ButtonWrapper } from "../layout/ButtonWrapper";
+import { LinkButton } from "../navigation/LinkButton";
 import { useCampaign } from "@/game/campaign/useCampaign";
 
 export type MainMenuProps = {
@@ -13,15 +13,21 @@ export function MainMenu({ initialCampaignLevel }: MainMenuProps) {
 
   return (
     <ButtonWrapper>
-      <MenuButton text="Daily Puzzle" href="/play/daily#board" />
-      <MenuButton text="Classic Beginner" href="/play/beginner#board" />
-      <MenuButton text="Classic Intermediate" href="/play/intermediate#board" />
-      <MenuButton text="Classic Expert" href="/play/expert#board" />
-      <MenuButton
-        text={`Campaign ${campaign.progress}`}
-        href="/play/campaign#board"
-      />
-      <MenuButton text="Custom Game" href="/play/custom#board" />
+      <LinkButton href="/play/daily#board">Daily Puzzle</LinkButton>
+
+      <LinkButton href="/play/beginner#board">Classic Beginner</LinkButton>
+
+      <LinkButton href="/play/intermediate#board">
+        Classic Intermediate
+      </LinkButton>
+
+      <LinkButton href="/play/expert#board">Classic Expert</LinkButton>
+
+      <LinkButton href="/play/campaign#board">
+        Campaign {campaign.progress}
+      </LinkButton>
+
+      <LinkButton href="/play/custom#board">Custom Game</LinkButton>
     </ButtonWrapper>
   );
 }

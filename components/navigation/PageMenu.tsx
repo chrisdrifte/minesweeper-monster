@@ -1,5 +1,5 @@
-import { ButtonWrapper } from "./ButtonWrapper";
-import { MenuButton } from "./MenuButton";
+import { ButtonWrapper } from "../layout/ButtonWrapper";
+import { LinkButton } from "./LinkButton";
 
 export type PageMenuProps = {
   prev?: string;
@@ -14,8 +14,12 @@ export function PageMenu({ prev, next, nextText }: PageMenuProps) {
 
   return (
     <ButtonWrapper isHorizontal>
-      {prev && <MenuButton href={prev} text="Back" isSecondary />}
-      {next && <MenuButton href={next} text={nextText} />}
+      {prev && (
+        <LinkButton href={prev} isSecondary>
+          Back
+        </LinkButton>
+      )}
+      {next && <LinkButton href={next}>{nextText}</LinkButton>}
     </ButtonWrapper>
   );
 }

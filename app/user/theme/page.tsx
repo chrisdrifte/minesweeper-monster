@@ -2,12 +2,12 @@
 
 import { Annotation } from "@/types/Annotation";
 import { BoardWrapper } from "@/components/game/BoardWrapper";
-import { ButtonWrapper } from "@/components/navigation/ButtonWrapper";
+import { ButtonWrapper } from "@/components/layout/ButtonWrapper";
 import { Cell } from "@/types/Cell";
 import { CellId } from "@/types/CellId";
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { FormButton } from "@/components/navigation/FormButton";
+import { FormButton } from "@/components/form/FormButton";
 import { Heading } from "@/components/layout/Heading";
 import { RenderCell } from "@/components/cells/RenderCell";
 import { createCellId } from "@/helpers/createCellId";

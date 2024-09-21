@@ -1,12 +1,12 @@
-import { ButtonWrapper } from "@/components/navigation/ButtonWrapper";
+import { ButtonWrapper } from "@/components/layout/ButtonWrapper";
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameStatic } from "@/components/game/GameStatic";
 import { Header } from "@/components/navigation/Header";
 import { LearnIcon } from "@/components/icons/LearnIcon";
 import Link from "next/link";
+import { LinkButton } from "@/components/navigation/LinkButton";
 import { MainMenu } from "@/components/game/MainMenu";
-import { MenuButton } from "@/components/navigation/MenuButton";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { getCampaignLevel } from "@/game/campaign/getCampaignLevel";
 
@@ -61,14 +61,12 @@ export default function IndexPage() {
         </Paragraph>
 
         <ButtonWrapper>
-          <MenuButton
-            text="Minesweeper Rules"
-            href="/tutorial/how-to-play/001"
-          />
-          <MenuButton
-            text="Minesweeper Strategies"
-            href="/tutorial/strategies/001"
-          />
+          <LinkButton href="/tutorial/how-to-play/001">
+            Minesweeper Rules
+          </LinkButton>
+          <LinkButton href="/tutorial/strategies/001">
+            Minesweeper Strategies
+          </LinkButton>
         </ButtonWrapper>
       </ContentBlock>
     </>

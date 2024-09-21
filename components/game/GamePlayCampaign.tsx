@@ -1,7 +1,7 @@
 "use client";
 
-import { ButtonWrapper } from "../navigation/ButtonWrapper";
-import { FormButton } from "../navigation/FormButton";
+import { ButtonWrapper } from "../layout/ButtonWrapper";
+import { FormButton } from "../form/FormButton";
 import { GamePlayFromLevelData } from "@/components/game/GamePlayFromLevelData";
 import { Heading } from "@/components/layout/Heading";
 import Link from "next/link";

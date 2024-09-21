@@ -1,13 +1,13 @@
 "use client";
 
-import { ButtonWrapper } from "@/components/navigation/ButtonWrapper";
+import { ButtonWrapper } from "@/components/layout/ButtonWrapper";
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { FormButton } from "@/components/navigation/FormButton";
-import { FormField } from "@/components/navigation/FormField";
+import { FormButton } from "@/components/form/FormButton";
+import { FormField } from "@/components/form/FormField";
 import { GameSettings } from "@/types/GameSettings";
 import { Heading } from "@/components/layout/Heading";
-import { InputCheckbox } from "@/components/navigation/InputCheckbox";
-import { InputNumber } from "@/components/navigation/InputNumber";
+import { InputCheckbox } from "@/components/form/InputCheckbox";
+import { InputNumber } from "@/components/form/InputNumber";
 import { board } from "@/config/board";
 import { defaultCustomSettings } from "@/game/settings/defaultCustomSettings";
 import { useCustomSettings } from "@/game/settings/useCustomSettings";
