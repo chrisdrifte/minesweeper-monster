@@ -29,7 +29,7 @@ export default function IndexPage() {
       </Center>
       <ContentBlock>
         <Paragraph align="center">
-          Welcome to visitors from NextJS Weekly! 👋
+          Welcome to visitors from r/webdev and NextJS Weekly! 👋
           <br /> Start with a{" "}
           <Link
             href="/tutorial/how-to-play/001"
