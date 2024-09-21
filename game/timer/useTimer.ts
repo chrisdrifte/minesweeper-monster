@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const getTimestamp = () => performance.now() / 10;
+const getTimestamp = () => performance.now();
 
 export function useTimer(isEnabled = true) {
   const [startTimestamp, setStartTimestamp] = useState(getTimestamp);
@@ -40,7 +40,7 @@ export function useTimer(isEnabled = true) {
       return;
     }
 
-    setSeconds((getTimestamp() - startTimestamp) / 100);
+    setSeconds((getTimestamp() - startTimestamp) / 1000);
     const id = requestAnimationFrame(nextFrame);
 
     return () => {
