@@ -80,13 +80,26 @@ export function GamePlay({
   const hasFinished = hasWon || hasLost;
   const isPlaying = hasGeneratedMap && !hasFinished;
 
+  const getRevealedPercent = (gameState: GameState) => {
+    const numRevealed = gameState.cells.filter(
+      (cell) => cell.state === "visible" && !cell.hasMine
+    ).length;
+    const numRevealable = gameState.cells.filter(
+      (cell) => !cell.hasMine
+    ).length;
+
+    return ((numRevealed / numRevealable) * 100).toFixed(0) + "%";
+  };
+
   const getMessage = () => {
     if (hasWon) {
       return "Winner!";
     }
 
     if (hasLost) {
-      return "Game over...";
+      const revealedPercent = getRevealedPercent(gameState);
+
+      return `BOOM! (${revealedPercent} complete)`;
     }
 
     if (!numMines) {
