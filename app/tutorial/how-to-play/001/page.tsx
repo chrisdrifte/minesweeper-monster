@@ -1,7 +1,7 @@
 import { Caption } from "@/components/layout/Caption";
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { GameReplay } from "@/components/game/GameReplay";
+import { GameTutorial } from "@/components/game/GameTutorial";
 import { PageMenu } from "@/components/navigation/PageMenu";
 import { Paragraph } from "@/components/layout/Paragraph";
 
@@ -18,7 +18,7 @@ export default function TutorialIntro001() {
         <Center>
           <Caption>Use the slider to step through a winning game.</Caption>
 
-          <GameReplay
+          <GameTutorial
             levelData={`
               XXXXXX
               XXMXXX
