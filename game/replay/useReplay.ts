@@ -6,6 +6,8 @@ import { encodeGameStateDiff } from "./encodeGameStateDiff";
 import { encodeInitialGameState } from "./encodeInitialGameState";
 import { encodeTarget } from "./encodeTarget";
 import { encodeTime } from "./encodeTime";
+import { isLoseState } from "@/helpers/isLoseState";
+import { isWinState } from "@/helpers/isWinState";
 
 export function useGameRecorder() {
   const prevGameStateRef = useRef<GameState>();
@@ -43,17 +45,72 @@ export function useGameRecorder() {
       );
     }
 
+    const hasWon = isWinState(gameState);
+    const hasLost = isLoseState(gameState);
+
+    if (hasWon) {
+      replayDataRef.current += "WIN";
+    }
+
+    if (hasLost) {
+      replayDataRef.current += "LOSE";
+    }
+
+    if (hasWon || hasLost) {
+      saveReplayData();
+    }
+
     prevGameStateRef.current = gameState;
   }, []);
 
   const getReplayData = useCallback(() => {
-    return replayDataRef.current;
+    const time = startTimeRef.current;
+    const replayData = replayDataRef.current;
+
+    if (!time || !replayData) {
+      return;
+    }
+
+    const version = "V1";
+    const date = new Date(time).toISOString();
+
+    return `${version};${date};${replayData}`;
   }, []);
+
+  const saveReplayData = useCallback(() => {
+    if (!startTimeRef.current) {
+      return;
+    }
+
+    const indexKey = "replayDataKeys";
+    const dataKey = `replayData:${startTimeRef.current.toString()}`;
+    const data = getReplayData();
+
+    if (!data) {
+      return;
+    }
+
+    let existingKeys = [];
+
+    try {
+      existingKeys = JSON.parse(window.localStorage.getItem(indexKey) ?? "");
+    } catch (err) {
+      // do nothing
+    }
+
+    window.localStorage.setItem(
+      indexKey,
+      JSON.stringify(Array.from(new Set([...existingKeys, dataKey])))
+    );
+
+    window.localStorage.setItem(dataKey, data);
+  }, [getReplayData]);
 
   return {
     recordInteraction,
     recordGameState,
     getReplayData,
+    saveReplayData,
     resetReplayData,
   };
 }
