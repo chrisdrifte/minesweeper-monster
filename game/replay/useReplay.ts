@@ -49,11 +49,11 @@ export function useGameRecorder() {
     const hasLost = isLoseState(gameState);
 
     if (hasWon) {
-      replayDataRef.current += "WIN";
+      replayDataRef.current += "W";
     }
 
     if (hasLost) {
-      replayDataRef.current += "LOSE";
+      replayDataRef.current += "L";
     }
 
     if (hasWon || hasLost) {
