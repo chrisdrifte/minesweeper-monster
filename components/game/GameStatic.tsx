@@ -18,9 +18,10 @@ export function GameStatic({
   levelData,
   annotations = {},
   revealAllCells = false,
+  allowInvalid = false,
 }: GameStaticProps) {
   const gameState = useMemo(() => {
-    const _gameState = loadGameState(levelData);
+    const _gameState = loadGameState(levelData, undefined, allowInvalid);
 
     // reveal all cells
     if (revealAllCells) {

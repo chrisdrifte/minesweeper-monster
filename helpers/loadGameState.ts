@@ -18,10 +18,11 @@ export function loadGameState(
   settings: Omit<
     GameSettings,
     "width" | "height" | "numMines"
-  > = defaultSettings
+  > = defaultSettings,
+  allowInvalid = false
 ): GameState {
   const parsedLevelData = levelData
-    .replace(/[^XMDF0-9\n]/g, "")
+    .replace(/[^XMDFE0-9\n]/g, "")
     .split("\n")
     .filter(Boolean)
     .map((str) => [...str]);
@@ -30,12 +31,14 @@ export function loadGameState(
   const height = parsedLevelData.length;
 
   // ensure all rows have same number of columns
-  for (const row of parsedLevelData) {
-    const rowWidth = row.length;
-    if (rowWidth !== width) {
-      throw new Error(
-        "Invalid level data: all rows must have the same number of columns"
-      );
+  if (!allowInvalid) {
+    for (const row of parsedLevelData) {
+      const rowWidth = row.length;
+      if (rowWidth !== width) {
+        throw new Error(
+          "Invalid level data: all rows must have the same number of columns"
+        );
+      }
     }
   }
 
@@ -82,6 +85,13 @@ export function loadGameState(
           ...baseCell,
           state: "flagged",
         };
+
+      case "E":
+        return {
+          ...baseCell,
+          state: "visible",
+          hasMine: true,
+        };
     }
 
     return {
@@ -125,6 +135,11 @@ export function loadGameState(
 
     const assignedCount = cell.count;
     const realCount = getCount(gameState, cell);
+
+    if (allowInvalid) {
+      cell.count = assignedCount;
+      continue;
+    }
 
     if (typeof assignedCount === "number" && assignedCount !== realCount) {
       throw new Error(

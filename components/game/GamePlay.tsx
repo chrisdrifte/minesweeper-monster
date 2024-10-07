@@ -226,6 +226,8 @@ export function GamePlay({
         return;
       }
 
+      recordInteraction(cell);
+
       setGameState((prevGameState) => flag(prevGameState, cell));
     },
     [isPlaying]
