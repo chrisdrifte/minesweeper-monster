@@ -31,11 +31,13 @@ import { selectFlag } from "@/game/actions/selectFlag";
 import { toParamsString } from "@/helpers/toParams";
 import { track } from "@vercel/analytics";
 import { useCurrentTheme } from "@/game/theme/useCurrentTheme";
+import { useGameRecorder } from "@/game/replay/useReplay";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { useTimer } from "@/game/timer/useTimer";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export type GamePlayProps = {
+  gameModeKey: string;
   initialGameState: GameState;
   settingsHref?: string;
   tipText?: string;
@@ -44,6 +46,7 @@ export type GamePlayProps = {
 };
 
 export function GamePlay({
+  gameModeKey,
   initialGameState,
   settingsHref,
   tipText,
@@ -65,6 +68,9 @@ export function GamePlay({
     set: timerSet,
     seconds: timerSeconds,
   } = useTimer(gameState.showTimer);
+
+  const { recordInteraction, recordGameState, resetReplayData } =
+    useGameRecorder(gameModeKey);
 
   const numMines = gameState.cells.filter((cell) => cell.hasMine).length;
 
@@ -187,13 +193,16 @@ export function GamePlay({
   const handleRestart = useCallback(() => {
     setGameState(initialGameState);
     timerReset();
-  }, [initialGameState, timerReset]);
+    resetReplayData();
+  }, [initialGameState, timerReset, resetReplayData]);
 
   const handleClickCell = useCallback(
     (cell: Cell) => {
       if (hasFinished) {
         return;
       }
+
+      recordInteraction(cell);
 
       if (!hasGeneratedMap) {
         handleStart(cell);
@@ -210,7 +219,7 @@ export function GamePlay({
           return;
       }
     },
-    [hasFinished, hasGeneratedMap, handleStart, action]
+    [hasFinished, recordInteraction, hasGeneratedMap, handleStart, action]
   );
 
   const handleAltClickCell = useCallback(
@@ -218,6 +227,8 @@ export function GamePlay({
       if (!isPlaying) {
         return;
       }
+
+      recordInteraction(cell);
 
       setGameState((prevGameState) => flag(prevGameState, cell));
     },
@@ -308,6 +319,11 @@ export function GamePlay({
       clearTimeout(timeoutId);
     };
   }, [autoRestart, hasLost, handleRestart]);
+
+  // record game
+  useEffect(() => {
+    recordGameState(gameState);
+  }, [recordGameState, gameState]);
 
   // fire event listeners
   useEffect(() => {
