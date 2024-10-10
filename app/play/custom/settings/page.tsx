@@ -150,8 +150,10 @@ export default function CustomSettings() {
       </ContentBlock>
 
       <ButtonWrapper>
-        <FormButton text="Save settings" onClick={handleSaveSettings} />
-        <FormButton text="Use default settings" onClick={handleResetSettings} />
+        <FormButton onClick={handleSaveSettings}>Save settings</FormButton>
+        <FormButton onClick={handleResetSettings}>
+          Use default settings
+        </FormButton>
       </ButtonWrapper>
     </form>
   );

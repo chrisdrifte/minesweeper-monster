@@ -122,7 +122,7 @@ export function GameTour({
               key={cell.id}
               cell={cell}
               action={requiredAction?.type}
-              isHighlighted={cell.id === highlightedCellId}
+              highlight={cell.id === highlightedCellId ? "always" : "none"}
               onClick={() => {
                 if (
                   requiredAction?.type !== gameState.action ||

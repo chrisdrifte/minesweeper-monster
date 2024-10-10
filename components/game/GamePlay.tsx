@@ -313,17 +313,17 @@ export function GamePlay({
     };
   }, [autoRestart, hasLost, handleRestart]);
 
+  // record game
+  useEffect(() => {
+    recordGameState(gameState);
+  }, [recordGameState, gameState]);
+
   // fire event listeners
   useEffect(() => {
     if (hasWon) {
       onWin(gameState);
     }
   }, [gameState, hasWon, onWin]);
-
-  // record game
-  useEffect(() => {
-    recordGameState(gameState);
-  }, [recordGameState, gameState]);
 
   return (
     <div>

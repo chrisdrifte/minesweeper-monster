@@ -10,6 +10,7 @@ import { useMemo } from "react";
 export type GameStaticProps = {
   levelData: string;
   annotations?: Record<CellId, Annotation>;
+  highlightedCellId?: CellId;
   revealAllCells?: boolean;
   allowInvalid?: boolean;
 };
@@ -17,6 +18,7 @@ export type GameStaticProps = {
 export function GameStatic({
   levelData,
   annotations = {},
+  highlightedCellId = undefined,
   revealAllCells = false,
   allowInvalid = false,
 }: GameStaticProps) {
@@ -41,6 +43,7 @@ export function GameStatic({
             key={cell.id}
             cell={cell}
             annotation={annotations[cell.id]}
+            highlight={cell.id === highlightedCellId ? "once" : "none"}
           />
         ))}
       </BoardWrapper>
