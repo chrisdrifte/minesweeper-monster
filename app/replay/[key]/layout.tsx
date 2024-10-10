@@ -16,7 +16,7 @@ export default function ReplayLayout({
       <Header>
         <nav className="text-xs">
           <div className="flex justify-center space-x-4">
-            <LinkInline href="/replay/history">Your Game History</LinkInline>
+            <LinkInline href="/replay/history">Game History</LinkInline>
           </div>
         </nav>
       </Header>

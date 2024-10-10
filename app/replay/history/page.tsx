@@ -6,6 +6,8 @@ import { FormButton } from "@/components/form/FormButton";
 import { Heading } from "@/components/layout/Heading";
 import { LinkInline } from "@/components/navigation/LinkInline";
 import { Paragraph } from "@/components/layout/Paragraph";
+import { decodeReplayKey } from "@/game/replay/decodeReplayKey";
+import { encodeReplayKey } from "@/game/replay/encodeReplayKey";
 
 export default function ReplayHistoryPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,9 +37,9 @@ export default function ReplayHistoryPage() {
   }, []);
 
   const handleDelete = (key: string) => {
-    const dataKey = `replayData:${key}`;
-    const remainingKeys = replayDataKeys.filter((key) => key !== dataKey);
-    window.localStorage.removeItem(dataKey);
+    const encodedKey = encodeReplayKey(key);
+    const remainingKeys = replayDataKeys.filter((key) => key !== encodedKey);
+    window.localStorage.removeItem(encodedKey);
     window.localStorage.setItem(
       "replayDataKeys",
       JSON.stringify(remainingKeys)
@@ -56,12 +58,12 @@ export default function ReplayHistoryPage() {
       {!replayDataKeys.length && <Paragraph>No game history found.</Paragraph>}
 
       <table className="w-full">
-        {replayDataKeys.map((dataKey) => {
+        {replayDataKeys.map((encodedKey) => {
           if (typeof window === "undefined") {
             return;
           }
 
-          const replayData = window.localStorage.getItem(dataKey);
+          const replayData = window.localStorage.getItem(encodedKey);
 
           if (!replayData) {
             return;
@@ -73,7 +75,7 @@ export default function ReplayHistoryPage() {
             return;
           }
 
-          const key = dataKey.split(":")[1];
+          const key = decodeReplayKey(encodedKey);
 
           const date = new Date(isoDateString);
 
