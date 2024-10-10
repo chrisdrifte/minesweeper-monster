@@ -2,9 +2,10 @@ import { useCallback, useRef } from "react";
 
 import { GameState } from "@/types/GameState";
 import { Target } from "@/types/Target";
+import { encodeBoardData } from "./encodeBoardData";
 import { encodeGameStateDiff } from "./encodeGameStateDiff";
-import { encodeInitialGameState } from "./encodeInitialGameState";
-import { encodeTarget } from "./encodeTarget";
+import { encodeInteraction } from "./encodeInteraction";
+import { encodeReplayKey } from "./encodeReplayKey";
 import { encodeTime } from "./encodeTime";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
@@ -30,12 +31,12 @@ export function useGameRecorder() {
       startTimeRef.current = now;
     }
 
-    replayDataRef.current += encodeTime(time) + encodeTarget(target);
+    replayDataRef.current += encodeTime(time) + encodeInteraction(target);
   }, []);
 
   const recordGameState = useCallback((gameState: GameState) => {
     if (!prevGameStateRef.current) {
-      replayDataRef.current = encodeInitialGameState(gameState);
+      replayDataRef.current = encodeBoardData(gameState);
     }
 
     if (prevGameStateRef.current) {
@@ -83,7 +84,7 @@ export function useGameRecorder() {
     }
 
     const indexKey = "replayDataKeys";
-    const dataKey = `replayData:${startTimeRef.current.toString()}`;
+    const encodedKey = encodeReplayKey(startTimeRef.current.toString());
     const data = getReplayData();
 
     if (!data) {
@@ -100,10 +101,10 @@ export function useGameRecorder() {
 
     window.localStorage.setItem(
       indexKey,
-      JSON.stringify(Array.from(new Set([...existingKeys, dataKey])))
+      JSON.stringify(Array.from(new Set([...existingKeys, encodedKey])))
     );
 
-    window.localStorage.setItem(dataKey, data);
+    window.localStorage.setItem(encodedKey, data);
   }, [getReplayData]);
 
   return {
