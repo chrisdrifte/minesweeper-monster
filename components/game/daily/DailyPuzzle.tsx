@@ -23,6 +23,7 @@ export function DailyPuzzle({ initialDailySolution }: DailyPuzzleProps) {
   if (dailySolution.levelData && dailySolution.seed === dailySeed) {
     return (
       <GamePlayFromLevelData
+        gameModeKey="daily-solution"
         levelData={dailySolution.levelData}
         tipText={tipText}
       />
@@ -31,6 +32,7 @@ export function DailyPuzzle({ initialDailySolution }: DailyPuzzleProps) {
 
   return (
     <GamePlayFromSettings
+      gameModeKey="daily"
       settings={{
         seed: dailySeed,
         ...difficulties["daily"],

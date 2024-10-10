@@ -37,6 +37,7 @@ import { useTimer } from "@/game/timer/useTimer";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export type GamePlayProps = {
+  gameModeKey: string;
   initialGameState: GameState;
   settingsHref?: string;
   tipText?: string;
@@ -45,6 +46,7 @@ export type GamePlayProps = {
 };
 
 export function GamePlay({
+  gameModeKey,
   initialGameState,
   settingsHref,
   tipText,
@@ -68,7 +70,7 @@ export function GamePlay({
   } = useTimer(gameState.showTimer);
 
   const { recordInteraction, recordGameState, resetReplayData } =
-    useGameRecorder();
+    useGameRecorder(gameModeKey);
 
   const numMines = gameState.cells.filter((cell) => cell.hasMine).length;
 

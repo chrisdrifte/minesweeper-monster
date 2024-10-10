@@ -15,7 +15,11 @@ export default function TutorialStrategies002() {
           Test out your new strategies with a quick game of minesweeper:
         </Paragraph>
 
-        <GamePlayFromSettings settings={difficulties["practice"]} showRestart />
+        <GamePlayFromSettings
+          gameModeKey="practice"
+          settings={difficulties["practice"]}
+          showRestart
+        />
 
         <Paragraph>
           Or see if you can complete all the levels in{" "}

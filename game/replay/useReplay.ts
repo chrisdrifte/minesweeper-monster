@@ -10,7 +10,7 @@ import { encodeTime } from "./encodeTime";
 import { isLoseState } from "@/helpers/isLoseState";
 import { isWinState } from "@/helpers/isWinState";
 
-export function useGameRecorder() {
+export function useGameRecorder(gameModeKey: string) {
   const prevGameStateRef = useRef<GameState>();
   const startTimeRef = useRef<number>();
   const replayDataRef = useRef<string>();
@@ -75,7 +75,7 @@ export function useGameRecorder() {
     const version = "V1";
     const date = new Date(time).toISOString();
 
-    return `${version};${date};${replayData}`;
+    return `${version};${date};${gameModeKey};${replayData}`;
   }, []);
 
   const saveReplayData = useCallback(() => {
