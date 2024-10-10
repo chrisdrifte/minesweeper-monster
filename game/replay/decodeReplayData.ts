@@ -3,6 +3,7 @@ import { CellId } from "@/types/CellId";
 import { ChangedCell } from "@/types/ChangedCell";
 import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
 import { Target } from "@/types/Target";
+import { chunks } from "@/helpers/chunks";
 import { createCellId } from "@/helpers/createCellId";
 import { decodeNumber } from "./decodeNumber";
 
@@ -112,22 +113,29 @@ export function decodeReplayData(replayData: string) {
       }
 
       /**
-       * The diff between game states is represented by 3 characters, eg. $M12
+       * The diff between game states is represented by any number of
+       * characters, eg. $M1234
        *
        * $ = enable cell diff mode
        * M = the cell value
-       * 0 = x position
-       * 2 = y position
+       * 0 = cell 1 x position
+       * 2 = cell 1 y position
+       * 3 = cell 2 x position
+       * 4 = cell 3 y position
        */
       case ReplayDataMode.Cell: {
-        const [value, x, y] = dataUnit;
-        const cell = {
-          x: decodeNumber(x),
-          y: decodeNumber(y),
-          value,
-        };
+        const [value, ...cellCoords] = dataUnit;
+        const cellChunks = chunks(cellCoords, 2);
 
-        changedCells.push(cell);
+        for (const [x, y] of cellChunks) {
+          const cell = {
+            x: decodeNumber(x),
+            y: decodeNumber(y),
+            value,
+          };
+
+          changedCells.push(cell);
+        }
         break;
       }
     }

@@ -1,5 +1,6 @@
 import { Cell } from "@/types/Cell";
 import { GameState } from "@/types/GameState";
+import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
 import { encodeChangedCell } from "./encodeChangedCell";
 
 export const encodeGameStateDiff = (
@@ -18,5 +19,17 @@ export const encodeGameStateDiff = (
     }
   }
 
-  return changedCells.map(encodeChangedCell).join("");
+  const groupedChangedCells: Record<string, string> = {};
+
+  changedCells.map(encodeChangedCell).forEach((changedCell) => {
+    const [, value, ...coords] = changedCell.split("");
+    groupedChangedCells[value] ??= "";
+    groupedChangedCells[value] += coords.join("");
+  });
+
+  return Object.keys(groupedChangedCells)
+    .map(
+      (value) => `${ReplayDataMode.Cell}${value}${groupedChangedCells[value]}`
+    )
+    .join("");
 };
