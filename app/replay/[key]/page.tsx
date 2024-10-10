@@ -203,7 +203,7 @@ function toPlayableData(replayData: string) {
     changedCells,
   }: {
     boardData: BoardData;
-    target: Target;
+    target?: Target;
     time: number;
     changedCells: ChangedCell[];
   }) => {
@@ -250,8 +250,10 @@ function toPlayableData(replayData: string) {
       case undefined: {
         if (changedCells.length) {
           if (mode !== "$" || head === "W" || head === "L") {
-            if (!boardData || !target) {
-              throw new Error("Invalid replay data");
+            if (!boardData) {
+              throw new Error(
+                "Invalid replay data: missing board data or target"
+              );
             }
 
             makeFrame({ boardData, target, time, changedCells });
@@ -273,7 +275,7 @@ function toPlayableData(replayData: string) {
   }
 
   if (mem) {
-    throw new Error("Invalid replay data");
+    throw new Error("Invalid replay data: leftover data " + mem);
   }
 
   return { levelDataByTime, targetsByTime: cellIdsByTime };

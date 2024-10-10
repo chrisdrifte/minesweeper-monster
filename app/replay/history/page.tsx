@@ -31,7 +31,7 @@ export default function ReplayHistoryPage() {
       return;
     }
 
-    setReplayDataKeys(parsedKeys);
+    setReplayDataKeys(parsedKeys.reverse());
   }, []);
 
   const handleDelete = (key: string) => {
