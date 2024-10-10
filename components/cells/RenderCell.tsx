@@ -42,7 +42,7 @@ export function RenderCell({
             <div
               className={classNames(
                 {
-                  "bg-hightlight-dig": highlight,
+                  "bg-hightlight-dig": highlight !== "none",
                 },
                 "size-full sm:hover:bg-highlight-dig active:bg-highlight-dig rounded-sm"
               )}
@@ -53,8 +53,8 @@ export function RenderCell({
               <FlagIcon
                 className={classNames(
                   {
-                    hidden: !highlight,
-                    block: highlight,
+                    hidden: highlight === "none",
+                    block: highlight !== "none",
                   },
                   "fill-flag-fg sm:group-hover:block group-active:block"
                 )}
