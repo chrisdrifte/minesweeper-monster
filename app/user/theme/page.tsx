@@ -115,7 +115,7 @@ export default function ThemePage() {
                 key={cell.id}
                 cell={cell}
                 annotation={annotations[cell.id]}
-                isHighlighted={cell.id === "2,1"}
+                highlight={cell.id === "2,1" ? "always" : "none"}
                 action={cell.id === "0,0" ? "dig" : undefined}
               />
             ))}
@@ -128,10 +128,11 @@ export default function ThemePage() {
           {themes.map((theme) => (
             <FormButton
               key={theme.id}
-              text={theme.name}
               isActive={theme.id === currentTheme.id}
               onClick={() => handleUpdateTheme(theme.id)}
-            />
+            >
+              {theme.name}
+            </FormButton>
           ))}
         </ButtonWrapper>
       </ContentBlock>

@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       animation: {
         explode: "shake 100ms 5",
+        interact: "ping 0.75s cubic-bezier(0, 0, 0.2, 1) 1 forwards",
       },
       keyframes: {
         shake: {

@@ -73,7 +73,7 @@ export function GameTutorial({ levelData, steps = [] }: GameTutorialProps) {
                 key={cell.id}
                 cell={cell}
                 action={nextAction?.type}
-                isHighlighted={highlightedCellId === cell.id}
+                highlight={highlightedCellId === cell.id ? "always" : "none"}
               />
             ))}
           </BoardWrapper>

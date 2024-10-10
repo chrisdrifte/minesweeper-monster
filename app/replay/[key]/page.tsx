@@ -2,11 +2,14 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+import { CellId } from "@/types/CellId";
 import { Center } from "@/components/layout/Center";
 import { GameStatic } from "@/components/game/GameStatic";
+import { PlayIcon } from "@/components/icons/PlayIcon";
 import { Slider } from "@/components/slider/Slider";
 import { Target } from "@/types/Target";
 import { Timer } from "@/components/game/Timer";
+import { createCellId } from "@/helpers/createCellId";
 
 const MIN_TIME = -1;
 
@@ -44,9 +47,9 @@ export default function ReplayPage({ params }: ReplayPageProps) {
     setIsPlaying((isPlaying) => !isPlaying);
   };
 
-  const levelDataByTime = useMemo(() => {
+  const { levelDataByTime, targetsByTime } = useMemo(() => {
     if (!replayData) {
-      return {};
+      return { levelDataByTime: {}, targetsByTime: {} };
     }
 
     return toPlayableData(replayData);
@@ -68,6 +71,7 @@ export default function ReplayPage({ params }: ReplayPageProps) {
   }
 
   const levelData = levelDataByTime?.[keyTime];
+  const highlightedCellId = targetsByTime?.[keyTime];
 
   useEffect(() => {
     if (!isPlaying) {
@@ -99,23 +103,27 @@ export default function ReplayPage({ params }: ReplayPageProps) {
   return (
     <Center>
       <div className="grid gap-4 grid-cols-[1fr,min-content] mb-8 w-full">
-        <div className="self-center justify-self-start text-sm text-fg-50 font-bold">
-          Game Replay
+        <div className="self-center justify-self-start text-sm text-fg-50 font-bold flex items-center space-x-4">
+          <button onClick={togglePlay}>
+            <PlayIcon className="size-8 fill-fg-100" />
+          </button>
+
+          <Slider
+            min={MIN_TIME}
+            max={maxTime}
+            onValueChange={setCurrentTime}
+            value={currentTime}
+          />
         </div>
         <div className="self-center justify-self-end">
           <Timer seconds={Math.max(0, currentTime / 1000)} />
         </div>
       </div>
 
-      <GameStatic levelData={levelData} allowInvalid />
-
-      <button onClick={togglePlay}>Play</button>
-
-      <Slider
-        min={MIN_TIME}
-        max={maxTime}
-        onValueChange={setCurrentTime}
-        value={currentTime}
+      <GameStatic
+        levelData={levelData}
+        highlightedCellId={highlightedCellId}
+        allowInvalid
       />
     </Center>
   );
@@ -184,7 +192,7 @@ function toPlayableData(replayData: string) {
   };
 
   const levelDataByTime: Record<number, string> = {};
-  const targetsByTime: Record<number, Target> = {};
+  const cellIdsByTime: Record<number, CellId> = {};
 
   let prevLevelData: string | undefined;
 
@@ -217,12 +225,15 @@ function toPlayableData(replayData: string) {
     const levelData = levelData2dArray.map((row) => row.join("")).join("\n");
 
     levelDataByTime[time] = levelData;
-    targetsByTime[time] = target;
+
+    if (target) {
+      cellIdsByTime[time] = createCellId(target);
+    }
 
     prevLevelData = levelData;
   };
 
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i <= data.length; i++) {
     const head = data[i];
 
     switch (head) {
@@ -235,7 +246,8 @@ function toPlayableData(replayData: string) {
       case "#":
       case "$":
       case "W":
-      case "L": {
+      case "L":
+      case undefined: {
         if (changedCells.length) {
           if (mode !== "$" || head === "W" || head === "L") {
             if (!boardData || !target) {
@@ -264,7 +276,7 @@ function toPlayableData(replayData: string) {
     throw new Error("Invalid replay data");
   }
 
-  return levelDataByTime;
+  return { levelDataByTime, targetsByTime: cellIdsByTime };
 }
 
 function decodeNumber(n: string | string[]) {

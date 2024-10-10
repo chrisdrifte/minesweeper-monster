@@ -5,16 +5,15 @@ import { noop } from "@/helpers/noop";
 import { spaceMono } from "@/app/fonts";
 
 export type FormButtonProps = {
-  text: string;
   isActive?: boolean;
   onClick?: VoidFunction;
 };
 
 export function FormButton({
-  text,
+  children,
   isActive,
   onClick = noop,
-}: FormButtonProps) {
+}: React.PropsWithChildren<FormButtonProps>) {
   return (
     <button
       className={classNames(
@@ -32,7 +31,7 @@ export function FormButton({
         onClick();
       }}
     >
-      {text}
+      {children}
     </button>
   );
 }
