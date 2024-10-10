@@ -16,6 +16,7 @@ export default function TutorialIntro003() {
         <Paragraph>Are you feeling lucky?</Paragraph>
 
         <GamePlayFromLevelData
+          gameModeKey="luck"
           levelData={`
             XMMX
             X22X

@@ -14,14 +14,15 @@ export function decodeReplayData(replayData: string) {
    *
    * 1. Version, to allow for future changes to the encoding logic
    * 2. UTC String, representing the date the game was started
-   * 3. Game data, representing all the states of the game
+   * 3. Game mode, represent the game mode the game was played in
+   * 4. Game data, representing all the states of the game
    *
    * The game data is designed to be readable as a stream to support possible
    * future features such as multiplayer or watching other players live.
    */
   const replayDataParts = replayData.split(";");
   const version = replayDataParts[0];
-  const data = replayDataParts[2];
+  const data = replayDataParts[3];
 
   if (version !== "V1") {
     throw new Error("Unsupported version");
