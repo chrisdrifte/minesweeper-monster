@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 
+import { Caption } from "@/components/layout/Caption";
 import { FormButton } from "@/components/form/FormButton";
 import { Heading } from "@/components/layout/Heading";
 import { LinkInline } from "@/components/navigation/LinkInline";
 import { Paragraph } from "@/components/layout/Paragraph";
+import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
 import { decodeReplayKey } from "@/game/replay/decodeReplayKey";
 import { encodeReplayKey } from "@/game/replay/encodeReplayKey";
 
@@ -53,52 +55,69 @@ export default function ReplayHistoryPage() {
 
   return (
     <>
-      <Heading>Your Game history</Heading>
+      <Heading>Game history</Heading>
 
       {!replayDataKeys.length && <Paragraph>No game history found.</Paragraph>}
 
       <table className="w-full">
-        {replayDataKeys.map((encodedKey) => {
-          if (typeof window === "undefined") {
-            return;
-          }
+        <tbody>
+          {replayDataKeys.map((encodedKey) => {
+            if (typeof window === "undefined") {
+              return;
+            }
 
-          const replayData = window.localStorage.getItem(encodedKey);
+            const replayData = window.localStorage.getItem(encodedKey);
 
-          if (!replayData) {
-            return;
-          }
+            if (!replayData) {
+              return;
+            }
 
-          const [version, isoDateString, data] = replayData.split(";");
+            const [version, isoDateString, gameModeKey, data] =
+              replayData.split(";");
 
-          if (version !== "V1") {
-            return;
-          }
+            if (version !== "V1") {
+              return;
+            }
 
-          const key = decodeReplayKey(encodedKey);
+            const key = decodeReplayKey(encodedKey);
 
-          const date = new Date(isoDateString);
+            const date = new Date(isoDateString);
 
-          const outcome = data.endsWith("W")
-            ? "Winning Game"
-            : data.endsWith("L")
-            ? "Losing Game"
-            : "Unfinished Game";
+            const numInteractions = data
+              .split("")
+              .reduce(
+                (total, char) =>
+                  char === ReplayDataMode.Interaction ? total + 1 : total,
+                0
+              );
 
-          return (
-            <tr key={key}>
-              <td>
-                <LinkInline href={`/replay/${key}`}>{outcome}</LinkInline>
-              </td>
-              <td>{date.toDateString()}</td>
-              <td>
-                <FormButton onClick={() => handleDelete(key)}>
-                  Delete
-                </FormButton>
-              </td>
-            </tr>
-          );
-        })}
+            const outcome = data.endsWith("W")
+              ? "Won"
+              : data.endsWith("L")
+              ? "Lost"
+              : "Unfinished";
+
+            return (
+              <tr key={key}>
+                <td>
+                  <LinkInline href={`/replay/${key}`}>
+                    {outcome} in {numInteractions} move
+                    {numInteractions !== 1 ? "s" : ""} ({gameModeKey})
+                  </LinkInline>
+                  <br />
+                  <div className="text-sm text-fg-50 font-bold">
+                    {date.toLocaleString()}
+                  </div>
+                </td>
+                <td>
+                  <FormButton onClick={() => handleDelete(key)}>
+                    Delete
+                  </FormButton>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </>
   );
