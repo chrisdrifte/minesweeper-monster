@@ -11,7 +11,7 @@ export type FormButtonProps = {
 
 export function FormButton({
   children,
-  isActive,
+  isActive = false,
   onClick = noop,
 }: React.PropsWithChildren<FormButtonProps>) {
   return (

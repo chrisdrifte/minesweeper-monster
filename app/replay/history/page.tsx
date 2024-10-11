@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-import { Caption } from "@/components/layout/Caption";
 import { FormButton } from "@/components/form/FormButton";
 import { Heading } from "@/components/layout/Heading";
 import { LinkInline } from "@/components/navigation/LinkInline";
 import { Paragraph } from "@/components/layout/Paragraph";
+import type { PutBlobResult } from "@vercel/blob";
 import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
+import { TrashIcon } from "@/components/icons/TrashIcon";
 import { decodeNumber } from "@/game/replay/decodeNumber";
 import { decodeReplayKey } from "@/game/replay/decodeReplayKey";
 import { encodeReplayKey } from "@/game/replay/encodeReplayKey";
@@ -15,6 +16,8 @@ import { encodeReplayKey } from "@/game/replay/encodeReplayKey";
 export default function ReplayHistoryPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [replayDataKeys, setReplayDataKeys] = useState<string[]>([]);
+
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
 
   useEffect(() => {
     const listKey = `replayDataKeys`;
@@ -121,10 +124,46 @@ export default function ReplayHistoryPage() {
                     {duration !== 1 ? "s" : ""} - {date.toLocaleString()}
                   </div>
                 </td>
-                <td>
-                  <FormButton onClick={() => handleDelete(key)}>
-                    Delete
+                <td className="p-4">
+                  <FormButton
+                    onClick={async () => {
+                      const response = await fetch(`/api/replay/upload`, {
+                        method: "POST",
+                        body: replayData,
+                      });
+
+                      const newBlob = (await response.json()) as PutBlobResult;
+
+                      const indexKey = "uploadedReplayData";
+                      let existingObject = {};
+
+                      try {
+                        existingObject = JSON.parse(
+                          window.localStorage.getItem(indexKey) ?? ""
+                        );
+                      } catch (err) {
+                        // do nothing
+                      }
+
+                      window.localStorage.setItem(
+                        indexKey,
+                        JSON.stringify({
+                          ...existingObject,
+                          [encodedKey]: newBlob.pathname,
+                        })
+                      );
+
+                      window.location.href = `/replay/share/${newBlob.pathname}`;
+                    }}
+                  >
+                    Share
                   </FormButton>
+                </td>
+                <td className="py-4">
+                  <TrashIcon
+                    className="size-8 fill-fg-100 cursor-pointer"
+                    onClick={() => handleDelete(key)}
+                  />
                 </td>
               </tr>
             );
