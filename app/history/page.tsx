@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 export default function ReplayHistoryPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [sharingKey, setSharingKey] = useState<string>();
+  const [sharingError, setSharingError] = useState<string>();
   const [replayDataKeys, setReplayDataKeys] = useState<string[]>([]);
 
   const router = useRouter();
@@ -61,6 +62,12 @@ export default function ReplayHistoryPage() {
   return (
     <>
       <Heading>Game history</Heading>
+
+      {sharingError && (
+        <Paragraph>
+          <span className="text-fg-alt">{sharingError}</span>
+        </Paragraph>
+      )}
 
       {!replayDataKeys.length && <Paragraph>No game history found.</Paragraph>}
 
@@ -118,6 +125,7 @@ export default function ReplayHistoryPage() {
               }
 
               setSharingKey(encodedKey);
+              setSharingError(undefined);
 
               const response = await fetch(`/api/replay/upload`, {
                 method: "POST",
@@ -126,9 +134,17 @@ export default function ReplayHistoryPage() {
 
               const responseJson = await response.json();
 
+              if (!response.ok) {
+                setSharingError(responseJson.message ?? "Something went wrong");
+                setSharingKey(undefined);
+                console.error(response.status, responseJson);
+                return;
+              }
+
               if (
                 !("ref" in responseJson || typeof responseJson.ref !== "string")
               ) {
+                setSharingError("Got an unexpected response");
                 setSharingKey(undefined);
                 return;
               }

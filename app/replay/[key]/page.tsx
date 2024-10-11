@@ -48,8 +48,7 @@ export default function ReplayPage({ params }: ReplayPageProps) {
         </Paragraph>
         <Paragraph>
           Try using the share button on the{" "}
-          <LinkInline href="/replay/history">Game History</LinkInline> page
-          instead.
+          <LinkInline href="/history">Game History</LinkInline> page instead.
         </Paragraph>
       </ContentBlock>
     );

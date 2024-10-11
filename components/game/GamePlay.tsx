@@ -338,7 +338,7 @@ export function GamePlay({
 
   const handleSaveReplayData = () => {
     saveReplayData();
-    router.push("/replay/history");
+    router.push("/history");
   };
 
   return (

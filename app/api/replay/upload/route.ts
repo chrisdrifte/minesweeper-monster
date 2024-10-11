@@ -14,7 +14,10 @@ export async function POST(request: Request): Promise<NextResponse> {
   const replayData = await new Response(request.body).text();
 
   if (replayData.length > MAX_UPLOAD_SIZE_BYTES) {
-    return NextResponse.json({ message: "Too large" }, { status: 413 });
+    return NextResponse.json(
+      { message: "This game is too large to upload." },
+      { status: 413 }
+    );
   }
 
   try {
@@ -39,7 +42,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
   } catch (err) {
     console.log(err);
-    return NextResponse.json({ message: "Upload failed" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Something went wrong during the upload, please try again." },
+      { status: 500 }
+    );
   }
 
   // create new replay data
@@ -52,7 +58,12 @@ export async function POST(request: Request): Promise<NextResponse> {
       });
     } catch (err) {
       console.log(err);
-      return NextResponse.json({ message: "Upload failed" }, { status: 500 });
+      return NextResponse.json(
+        {
+          message: "Something went wrong during the upload, please try again.",
+        },
+        { status: 500 }
+      );
     }
   }
 

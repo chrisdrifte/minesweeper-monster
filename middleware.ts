@@ -51,7 +51,10 @@ export default async function middleware(request: NextRequest) {
   }
 
   if (request.nextUrl.pathname.startsWith("/api")) {
-    return NextResponse.json({ message: "Too Many Requests" }, { status: 429 });
+    return NextResponse.json(
+      { message: "Please wait a while and try again." },
+      { status: 429 }
+    );
   }
 
   return NextResponse.rewrite(new URL("/rateLimit", request.nextUrl));
