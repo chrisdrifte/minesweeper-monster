@@ -8,6 +8,7 @@ import { createCellId } from "@/helpers/createCellId";
 import { decodeNumber } from "./decodeNumber";
 
 const MIN_TIME = -1; // -1 represents the time before the game has begun
+const replayDataRegExp = /^V1;[0-9TZ:.-]+;[a-z-]+;[!@#$A-Za-z0-9]+$/;
 
 export function decodeReplayData(replayData: string) {
   /**
@@ -27,6 +28,10 @@ export function decodeReplayData(replayData: string) {
 
   if (version !== "V1") {
     throw new Error("Unsupported version");
+  }
+
+  if (!replayDataRegExp.test(replayData)) {
+    throw new Error("Invalid format");
   }
 
   // the stream is appended to this variable until it represents a full unit of
