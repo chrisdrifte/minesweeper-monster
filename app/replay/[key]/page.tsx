@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Center } from "@/components/layout/Center";
 import { GameStatic } from "@/components/game/GameStatic";
+import { PauseIcon } from "@/components/icons/PauseIcon";
 import { PlayIcon } from "@/components/icons/PlayIcon";
 import { Slider } from "@/components/slider/Slider";
 import { Timer } from "@/components/game/Timer";
@@ -104,7 +105,8 @@ export default function ReplayPage({ params }: ReplayPageProps) {
       <div className="grid gap-4 grid-cols-[1fr,min-content] mb-8 w-full">
         <div className="self-center justify-between text-sm text-fg-100 font-bold flex items-center space-x-4">
           <button onClick={togglePlay}>
-            <PlayIcon className="size-8 fill-fg-100" />
+            {!isPlaying && <PlayIcon className="size-8 fill-fg-100" />}
+            {isPlaying && <PauseIcon className="size-8 fill-fg-100" />}
           </button>
 
           <Slider
