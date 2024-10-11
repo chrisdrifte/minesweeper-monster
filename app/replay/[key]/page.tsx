@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from "react";
 
+import { Center } from "@/components/layout/Center";
+import { ContentBlock } from "@/components/layout/ContentBlock";
 import { GameVideo } from "@/components/game/GamePlayFromReplayData";
+import { Heading } from "@/components/layout/Heading";
+import { LinkInline } from "@/components/navigation/LinkInline";
+import { Paragraph } from "@/components/layout/Paragraph";
 import { encodeReplayKey } from "@/game/replay/encodeReplayKey";
 
 export type ReplayPageProps = {
@@ -19,11 +24,12 @@ export default function ReplayPage({ params }: ReplayPageProps) {
     const encodedKey = encodeReplayKey(key);
     const savedReplayData = window.localStorage.getItem(encodedKey);
 
+    setIsLoading(false);
+
     if (!savedReplayData) {
       return;
     }
 
-    setIsLoading(false);
     setReplayData(savedReplayData);
   }, [key]);
 
@@ -32,7 +38,21 @@ export default function ReplayPage({ params }: ReplayPageProps) {
   }
 
   if (!replayData) {
-    return <div>Failed to load!</div>;
+    return (
+      <ContentBlock>
+        <Center>
+          <Heading>Failed to load game data</Heading>
+        </Center>
+        <Paragraph>
+          This page can only access games that have been played on this device.
+        </Paragraph>
+        <Paragraph>
+          Try using the share button on the{" "}
+          <LinkInline href="/replay/history">Game History</LinkInline> page
+          instead.
+        </Paragraph>
+      </ContentBlock>
+    );
   }
 
   return <GameVideo replayData={replayData} />;
