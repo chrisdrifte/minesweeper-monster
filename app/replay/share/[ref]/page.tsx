@@ -1,40 +1,36 @@
 import { GameVideo } from "@/components/game/GamePlayFromReplayData";
-import { list } from "@vercel/blob";
 import { notFound } from "next/navigation";
 
 export type ReplayPageProps = {
-  params: { hash: string };
+  params: { ref: string };
 };
 
-const hashRegExp = /^[0-9a-zA-Z]{64}$/;
-
 export default async function ReplayPage({ params }: ReplayPageProps) {
-  const { hash } = params;
+  const { ref } = params;
 
-  if (!hash) {
+  if (!ref) {
     notFound();
   }
 
-  if (hash.length !== 64) {
+  let blobUrl: string | undefined;
+
+  try {
+    blobUrl = Buffer.from(decodeURIComponent(ref), "base64").toString();
+    new URL(blobUrl);
+  } catch (err) {
     notFound();
   }
 
-  if (!hashRegExp.test(hash)) {
+  if (!blobUrl) {
     notFound();
   }
 
-  const { blobs } = await list({
-    prefix: hash,
-    token: process.env.REPLAY_DATA_READ_WRITE_TOKEN,
-  });
+  const response = await fetch(blobUrl, { cache: "force-cache" });
 
-  const url = blobs[0]?.url;
-
-  if (!url) {
+  if (!response.ok) {
     notFound();
   }
 
-  const response = await fetch(url, { cache: "force-cache" });
   const replayData = await response.text();
 
   if (!replayData) {

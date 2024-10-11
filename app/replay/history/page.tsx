@@ -125,7 +125,14 @@ export default function ReplayHistoryPage() {
                 body: replayData,
               });
 
-              const newBlob = (await response.json()) as PutBlobResult;
+              const responseJson = await response.json();
+
+              if (
+                !("ref" in responseJson || typeof responseJson.ref !== "string")
+              ) {
+                setSharingKey(undefined);
+                return;
+              }
 
               const indexKey = "uploadedReplayData";
               let existingObject = {};
@@ -138,17 +145,15 @@ export default function ReplayHistoryPage() {
                 // do nothing
               }
 
-              const hash = newBlob.pathname;
-
               window.localStorage.setItem(
                 indexKey,
                 JSON.stringify({
                   ...existingObject,
-                  [encodedKey]: hash,
+                  [encodedKey]: responseJson.ref,
                 })
               );
 
-              router.push(`/replay/share/${hash}`);
+              router.push(`/replay/share/${responseJson.ref}`);
             };
 
             return (

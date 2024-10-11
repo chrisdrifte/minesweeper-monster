@@ -1,4 +1,4 @@
-import { list, put } from "@vercel/blob";
+import { ListBlobResultBlob, PutBlobResult, list, put } from "@vercel/blob";
 
 import { NextResponse } from "next/server";
 import crypto from "node:crypto";
@@ -23,19 +23,28 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   const hash = crypto.createHash("sha256").update(replayData).digest("hex");
 
+  let blob: PutBlobResult | ListBlobResultBlob | undefined;
+
   const { blobs } = await list({
     prefix: hash,
     token: process.env.REPLAY_DATA_READ_WRITE_TOKEN,
   });
 
   if (blobs.length) {
-    return NextResponse.json(blobs[0]);
+    blob = blobs[0];
   }
 
-  const blob = await put(hash, replayData, {
-    access: "public",
-    token: process.env.REPLAY_DATA_READ_WRITE_TOKEN,
-  });
+  if (!blob) {
+    blob = await put(hash, replayData, {
+      access: "public",
+      token: process.env.REPLAY_DATA_READ_WRITE_TOKEN,
+      contentType: "text/plain",
+    });
+  }
 
-  return NextResponse.json(blob);
+  const ref = encodeURIComponent(Buffer.from(blob.url).toString("base64"));
+
+  return NextResponse.json({
+    ref,
+  });
 }
