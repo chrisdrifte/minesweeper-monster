@@ -6,7 +6,6 @@ import { LinkButton } from "../navigation/LinkButton";
 import { useCampaign } from "@/game/campaign/useCampaign";
 import { useDailySolution } from "./daily/useDailySolution";
 import { useFormattedTimeToNextDailyPuzzle } from "./daily/useFormattedTimeToNextDailyPuzzle";
-import { useState } from "react";
 
 export type MainMenuProps = {
   initialDailySolution?: DailySolution;
