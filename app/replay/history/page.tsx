@@ -171,7 +171,7 @@ export default function ReplayHistoryPage() {
                 </td>
                 <td className="p-4">
                   <FormButton onClick={handleShare}>
-                    {sharingKey !== encodedKey ? "Share" : "Sharing..."}
+                    {sharingKey !== encodedKey ? "Share" : "Uploading..."}
                   </FormButton>
                 </td>
                 <td className="py-4">
