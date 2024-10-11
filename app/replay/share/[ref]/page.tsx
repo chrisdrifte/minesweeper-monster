@@ -1,4 +1,5 @@
 import { GameVideo } from "@/components/game/GamePlayFromReplayData";
+import { decodeReplayData } from "@/game/replay/decodeReplayData";
 import { notFound } from "next/navigation";
 
 const hostnameWhitelist = [".vercel-storage.com"];
@@ -42,6 +43,12 @@ export default async function ReplayPage({ params }: ReplayPageProps) {
   }
 
   const replayData = await response.text();
+
+  try {
+    decodeReplayData(replayData);
+  } catch (err) {
+    notFound();
+  }
 
   if (!replayData) {
     return <div>Failed to load!</div>;

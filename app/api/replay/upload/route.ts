@@ -48,7 +48,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       blob = await put(hash, replayData, {
         access: "public",
         token: process.env.REPLAY_DATA_READ_WRITE_TOKEN,
-        contentType: "text/plain",
+        contentType: "text/plain; charset=UTF-8",
       });
     } catch (err) {
       console.log(err);
