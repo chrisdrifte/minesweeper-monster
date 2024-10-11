@@ -102,7 +102,7 @@ export default function ReplayPage({ params }: ReplayPageProps) {
   return (
     <Center>
       <div className="grid gap-4 grid-cols-[1fr,min-content] mb-8 w-full">
-        <div className="self-center justify-self-start text-sm text-fg-50 font-bold flex items-center space-x-4">
+        <div className="self-center justify-between text-sm text-fg-100 font-bold flex items-center space-x-4">
           <button onClick={togglePlay}>
             <PlayIcon className="size-8 fill-fg-100" />
           </button>
@@ -113,8 +113,7 @@ export default function ReplayPage({ params }: ReplayPageProps) {
             onValueChange={setCurrentTime}
             value={currentTime}
           />
-        </div>
-        <div className="self-center justify-self-end">
+
           <Timer seconds={Math.max(0, currentTime / 1000)} />
         </div>
       </div>
