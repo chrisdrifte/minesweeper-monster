@@ -6,7 +6,6 @@ import { FormButton } from "@/components/form/FormButton";
 import { Heading } from "@/components/layout/Heading";
 import { LinkInline } from "@/components/navigation/LinkInline";
 import { Paragraph } from "@/components/layout/Paragraph";
-import type { PutBlobResult } from "@vercel/blob";
 import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
 import { TrashIcon } from "@/components/icons/TrashIcon";
 import { decodeNumber } from "@/game/replay/decodeNumber";
