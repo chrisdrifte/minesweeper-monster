@@ -1,6 +1,8 @@
 import { GameVideo } from "@/components/game/GamePlayFromReplayData";
 import { notFound } from "next/navigation";
 
+const hostnameWhitelist = [".vercel-storage.com"];
+
 export type ReplayPageProps = {
   params: { ref: string };
 };
@@ -16,12 +18,20 @@ export default async function ReplayPage({ params }: ReplayPageProps) {
 
   try {
     blobUrl = Buffer.from(decodeURIComponent(ref), "base64").toString();
-    new URL(blobUrl);
+    new URL(blobUrl); // ensure valid url
   } catch (err) {
     notFound();
   }
 
   if (!blobUrl) {
+    notFound();
+  }
+
+  if (
+    !hostnameWhitelist.some((safeHostname) =>
+      new URL(blobUrl).hostname.endsWith(safeHostname)
+    )
+  ) {
     notFound();
   }
 
