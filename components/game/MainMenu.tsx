@@ -6,6 +6,7 @@ import { LinkButton } from "../navigation/LinkButton";
 import { useCampaign } from "@/game/campaign/useCampaign";
 import { useDailySolution } from "./daily/useDailySolution";
 import { useFormattedTimeToNextDailyPuzzle } from "./daily/useFormattedTimeToNextDailyPuzzle";
+import { useState } from "react";
 
 export type MainMenuProps = {
   initialDailySolution?: DailySolution;
@@ -46,6 +47,8 @@ export function MainMenu({
       </LinkButton>
 
       <LinkButton href="/play/custom#board">Custom Game</LinkButton>
+
+      <LinkButton href="/replay/history">Game History</LinkButton>
     </ButtonWrapper>
   );
 }
