@@ -98,11 +98,13 @@ export function GameVideo({ replayData }: GameVideoProps) {
         </div>
       </div>
 
-      <GameStatic
-        levelData={levelData}
-        highlightedCellId={highlightedCellId}
-        allowInvalid
-      />
+      <div onClick={togglePlay}>
+        <GameStatic
+          levelData={levelData}
+          highlightedCellId={highlightedCellId}
+          allowInvalid
+        />
+      </div>
     </Center>
   );
 }
