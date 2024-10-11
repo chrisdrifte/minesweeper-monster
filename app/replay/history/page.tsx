@@ -17,8 +17,6 @@ export default function ReplayHistoryPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [replayDataKeys, setReplayDataKeys] = useState<string[]>([]);
 
-  const [blob, setBlob] = useState<PutBlobResult | null>(null);
-
   useEffect(() => {
     const listKey = `replayDataKeys`;
     const savedReplayDataKeys = window.localStorage.getItem(listKey);
@@ -111,6 +109,38 @@ export default function ReplayHistoryPage() {
               ? "Lost"
               : "Unfinished";
 
+            const handleShare = async () => {
+              const response = await fetch(`/api/replay/upload`, {
+                method: "POST",
+                body: replayData,
+              });
+
+              const newBlob = (await response.json()) as PutBlobResult;
+
+              const indexKey = "uploadedReplayData";
+              let existingObject = {};
+
+              try {
+                existingObject = JSON.parse(
+                  window.localStorage.getItem(indexKey) ?? ""
+                );
+              } catch (err) {
+                // do nothing
+              }
+
+              const hash = newBlob.pathname;
+
+              window.localStorage.setItem(
+                indexKey,
+                JSON.stringify({
+                  ...existingObject,
+                  [encodedKey]: hash,
+                })
+              );
+
+              window.location.href = `/replay/share/${hash}`;
+            };
+
             return (
               <tr key={key}>
                 <td>
@@ -125,39 +155,7 @@ export default function ReplayHistoryPage() {
                   </div>
                 </td>
                 <td className="p-4">
-                  <FormButton
-                    onClick={async () => {
-                      const response = await fetch(`/api/replay/upload`, {
-                        method: "POST",
-                        body: replayData,
-                      });
-
-                      const newBlob = (await response.json()) as PutBlobResult;
-
-                      const indexKey = "uploadedReplayData";
-                      let existingObject = {};
-
-                      try {
-                        existingObject = JSON.parse(
-                          window.localStorage.getItem(indexKey) ?? ""
-                        );
-                      } catch (err) {
-                        // do nothing
-                      }
-
-                      window.localStorage.setItem(
-                        indexKey,
-                        JSON.stringify({
-                          ...existingObject,
-                          [encodedKey]: newBlob.pathname,
-                        })
-                      );
-
-                      window.location.href = `/replay/share/${newBlob.pathname}`;
-                    }}
-                  >
-                    Share
-                  </FormButton>
+                  <FormButton onClick={handleShare}>Share</FormButton>
                 </td>
                 <td className="py-4">
                   <TrashIcon
