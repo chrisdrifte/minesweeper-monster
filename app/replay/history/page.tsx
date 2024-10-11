@@ -8,6 +8,7 @@ import { Heading } from "@/components/layout/Heading";
 import { LinkInline } from "@/components/navigation/LinkInline";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
+import { decodeNumber } from "@/game/replay/decodeNumber";
 import { decodeReplayKey } from "@/game/replay/decodeReplayKey";
 import { encodeReplayKey } from "@/game/replay/encodeReplayKey";
 
@@ -83,13 +84,23 @@ export default function ReplayHistoryPage() {
 
             const date = new Date(isoDateString);
 
-            const numInteractions = data
-              .split("")
-              .reduce(
-                (total, char) =>
-                  char === ReplayDataMode.Interaction ? total + 1 : total,
-                0
-              );
+            const timeRegex = new RegExp(
+              `${ReplayDataMode.Time}[0-9a-z]+`,
+              "g"
+            );
+
+            const timeMatches = data.match(timeRegex);
+
+            const duration =
+              decodeNumber(timeMatches?.at(-1)?.slice(1) ?? "0") / 1000;
+
+            const numInteractionsRegex = new RegExp(
+              `${ReplayDataMode.Interaction}`,
+              "g"
+            );
+
+            const numInteractions =
+              data.match(numInteractionsRegex)?.length ?? 0;
 
             const outcome = data.endsWith("W")
               ? "Won"
@@ -106,7 +117,8 @@ export default function ReplayHistoryPage() {
                   </LinkInline>
                   <br />
                   <div className="text-sm text-fg-50 font-bold">
-                    {date.toLocaleString()}
+                    {duration}
+                    {duration !== 1 ? "s" : ""} - {date.toLocaleString()}
                   </div>
                 </td>
                 <td>
