@@ -12,10 +12,14 @@ import { TrashIcon } from "@/components/icons/TrashIcon";
 import { decodeNumber } from "@/game/replay/decodeNumber";
 import { decodeReplayKey } from "@/game/replay/decodeReplayKey";
 import { encodeReplayKey } from "@/game/replay/encodeReplayKey";
+import { useRouter } from "next/navigation";
 
 export default function ReplayHistoryPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [sharingKey, setSharingKey] = useState<string>();
   const [replayDataKeys, setReplayDataKeys] = useState<string[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     const listKey = `replayDataKeys`;
@@ -110,6 +114,12 @@ export default function ReplayHistoryPage() {
               : "Unfinished";
 
             const handleShare = async () => {
+              if (sharingKey) {
+                return;
+              }
+
+              setSharingKey(encodedKey);
+
               const response = await fetch(`/api/replay/upload`, {
                 method: "POST",
                 body: replayData,
@@ -138,7 +148,7 @@ export default function ReplayHistoryPage() {
                 })
               );
 
-              window.location.href = `/replay/share/${hash}`;
+              router.push(`/replay/share/${hash}`);
             };
 
             return (
@@ -155,7 +165,9 @@ export default function ReplayHistoryPage() {
                   </div>
                 </td>
                 <td className="p-4">
-                  <FormButton onClick={handleShare}>Share</FormButton>
+                  <FormButton onClick={handleShare}>
+                    {sharingKey !== encodedKey ? "Share" : "Sharing..."}
+                  </FormButton>
                 </td>
                 <td className="py-4">
                   <TrashIcon
