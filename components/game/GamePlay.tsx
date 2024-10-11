@@ -227,7 +227,7 @@ export function GamePlay({
 
       setGameState((prevGameState) => flag(prevGameState, cell));
     },
-    [isPlaying]
+    [isPlaying, recordInteraction]
   );
 
   const handleSelectDig = useCallback(() => {

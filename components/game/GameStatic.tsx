@@ -33,7 +33,7 @@ export function GameStatic({
     }
 
     return _gameState;
-  }, [levelData, revealAllCells]);
+  }, [levelData, allowInvalid, revealAllCells]);
 
   return (
     <div className="pointer-events-none">
