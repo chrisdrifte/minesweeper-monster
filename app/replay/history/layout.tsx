@@ -16,7 +16,7 @@ export default function ReplayLayout({
       <Header>
         <nav className="text-xs">
           <div className="flex justify-center space-x-4">
-            <LinkInline href="/play/beginner">Play now</LinkInline>
+            <LinkInline href="/">Main menu</LinkInline>
           </div>
         </nav>
       </Header>

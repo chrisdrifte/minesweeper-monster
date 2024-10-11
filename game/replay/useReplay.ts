@@ -1,6 +1,7 @@
 import { useCallback, useRef } from "react";
 
 import { GameState } from "@/types/GameState";
+import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
 import { Target } from "@/types/Target";
 import { encodeBoardData } from "./encodeBoardData";
 import { encodeGameStateDiff } from "./encodeGameStateDiff";
@@ -57,10 +58,6 @@ export function useGameRecorder(gameModeKey: string) {
       replayDataRef.current += "L";
     }
 
-    if (hasWon || hasLost) {
-      saveReplayData();
-    }
-
     prevGameStateRef.current = gameState;
   }, []);
 
@@ -88,6 +85,14 @@ export function useGameRecorder(gameModeKey: string) {
     const data = getReplayData();
 
     if (!data) {
+      return;
+    }
+
+    const hasWon = data.endsWith(ReplayDataMode.Win);
+    const hasLost = data.endsWith(ReplayDataMode.Lose);
+
+    if (!hasWon && !hasLost) {
+      console.error("Cannot save unfinished game");
       return;
     }
 

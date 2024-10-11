@@ -29,6 +29,7 @@ export default async function GamePage({ params }: GamePageProps) {
           settings={difficulties[difficulty]}
           tipText="Tip: You can also right click to place flags"
           showRestart
+          showSaveReplay
         />
       );
 
