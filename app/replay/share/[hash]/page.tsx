@@ -24,7 +24,7 @@ export default async function ReplayPage({ params }: ReplayPageProps) {
     notFound();
   }
 
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "force-cache" });
   const replayData = await response.text();
 
   if (!replayData) {
