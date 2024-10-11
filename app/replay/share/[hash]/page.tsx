@@ -6,10 +6,20 @@ export type ReplayPageProps = {
   params: { hash: string };
 };
 
+const hashRegExp = /^[0-9a-zA-Z]{64}$/;
+
 export default async function ReplayPage({ params }: ReplayPageProps) {
   const { hash } = params;
 
   if (!hash) {
+    notFound();
+  }
+
+  if (hash.length !== 64) {
+    notFound();
+  }
+
+  if (!hashRegExp.test(hash)) {
     notFound();
   }
 
