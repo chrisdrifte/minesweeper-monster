@@ -3,7 +3,7 @@ import { CellId } from "@/types/CellId";
 import { ChangedCell } from "@/types/ChangedCell";
 import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
 import { Target } from "@/types/Target";
-import { chunks } from "@/helpers/chunks";
+import { arrayChunks } from "@/helpers/arrayChunks";
 import { createCellId } from "@/helpers/createCellId";
 import { decodeNumber } from "./decodeNumber";
 
@@ -130,7 +130,7 @@ export function decodeReplayData(replayData: string) {
        */
       case ReplayDataMode.Cell: {
         const [value, ...cellCoords] = dataUnit;
-        const cellChunks = chunks(cellCoords, 2);
+        const cellChunks = arrayChunks(cellCoords, 2);
 
         for (const [x, y] of cellChunks) {
           const cell = {

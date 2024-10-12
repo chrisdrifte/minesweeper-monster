@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FormButton } from "@/components/form/FormButton";
 import { Heading } from "@/components/layout/Heading";
 import { LinkInline } from "@/components/navigation/LinkInline";
+import { Pagination } from "@/components/navigation/Pagination";
 import { Paragraph } from "@/components/layout/Paragraph";
 import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
 import { TrashIcon } from "@/components/icons/TrashIcon";
@@ -13,13 +14,27 @@ import { decodeReplayKey } from "@/game/replay/decodeReplayKey";
 import { encodeReplayKey } from "@/game/replay/encodeReplayKey";
 import { useRouter } from "next/navigation";
 
+const ITEMS_PER_PAGE = 10;
+
 export default function ReplayHistoryPage() {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(true);
   const [sharingKey, setSharingKey] = useState<string>();
   const [sharingError, setSharingError] = useState<string>();
   const [replayDataKeys, setReplayDataKeys] = useState<string[]>([]);
 
-  const router = useRouter();
+  const numItems = replayDataKeys.length;
+  const numPages = Math.ceil(numItems / ITEMS_PER_PAGE);
+  const firstPage = 0;
+  const lastPage = numPages - 1;
+
+  const [currentPage, setCurrentPage] = useState(firstPage);
+
+  const startIndex = currentPage * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+
+  const paginatedReplayDataKeys = replayDataKeys.slice(startIndex, endIndex);
 
   useEffect(() => {
     const listKey = `replayDataKeys`;
@@ -73,7 +88,7 @@ export default function ReplayHistoryPage() {
 
       <table className="w-full">
         <tbody>
-          {replayDataKeys.map((encodedKey) => {
+          {paginatedReplayDataKeys.map((encodedKey) => {
             if (typeof window === "undefined") {
               return;
             }
@@ -200,6 +215,14 @@ export default function ReplayHistoryPage() {
           })}
         </tbody>
       </table>
+
+      <Pagination
+        currentPage={currentPage}
+        numPages={numPages}
+        onPrev={() => setCurrentPage((page) => Math.max(firstPage, page - 1))}
+        onNext={() => setCurrentPage((page) => Math.min(page + 1, lastPage))}
+        onSelect={setCurrentPage}
+      />
     </>
   );
 }

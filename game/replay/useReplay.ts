@@ -3,6 +3,7 @@ import { useCallback, useRef } from "react";
 import { GameState } from "@/types/GameState";
 import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
 import { Target } from "@/types/Target";
+import { arrayUnique } from "@/helpers/arrayUnique";
 import { encodeBoardData } from "./encodeBoardData";
 import { encodeGameStateDiff } from "./encodeGameStateDiff";
 import { encodeInteraction } from "./encodeInteraction";
@@ -106,7 +107,7 @@ export function useGameRecorder(gameModeKey: string) {
 
     window.localStorage.setItem(
       indexKey,
-      JSON.stringify(Array.from(new Set([...existingKeys, encodedKey])))
+      JSON.stringify(arrayUnique([...existingKeys, encodedKey]))
     );
 
     window.localStorage.setItem(encodedKey, data);
