@@ -18,7 +18,7 @@ const ratelimits: Record<string, Ratelimit> = {
   }),
   "^/play/(.*)$": new Ratelimit({
     redis: kv,
-    limiter: Ratelimit.slidingWindow(5, "10 s"),
+    limiter: Ratelimit.slidingWindow(60, "60 s"),
   }),
 };
 
