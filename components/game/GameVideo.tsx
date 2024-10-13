@@ -9,6 +9,7 @@ import { PlayIcon } from "@/components/icons/PlayIcon";
 import { Slider } from "@/components/slider/Slider";
 import { Timer } from "@/components/game/Timer";
 import { decodeReplayData } from "@/game/replay/decodeReplayData";
+import { usePointerUp } from "@/hooks/usePointerUp";
 
 const MIN_TIME = -1;
 
@@ -18,6 +19,9 @@ export type GameVideoProps = {
 
 export function GameVideo({ replayData }: GameVideoProps) {
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const [isScrubbing, setIsScrubbing] = useState(false);
+  usePointerUp(() => setIsScrubbing(false));
 
   const [currentTime, setCurrentTime] = useState(MIN_TIME);
 
@@ -56,7 +60,7 @@ export function GameVideo({ replayData }: GameVideoProps) {
   const highlightedCellId = targetsByTime?.[keyTime];
 
   useEffect(() => {
-    if (!isPlaying) {
+    if (!isPlaying || isScrubbing) {
       return;
     }
 
@@ -72,7 +76,7 @@ export function GameVideo({ replayData }: GameVideoProps) {
     return () => {
       cancelAnimationFrame(id);
     };
-  }, [isPlaying, currentTime, maxTime]);
+  }, [isPlaying, isScrubbing, currentTime, maxTime]);
 
   if (!levelData) {
     return <div>Failed to load!</div>;
@@ -87,12 +91,14 @@ export function GameVideo({ replayData }: GameVideoProps) {
             {isPlaying && <PauseIcon className="size-8 fill-fg-100" />}
           </button>
 
-          <Slider
-            min={MIN_TIME}
-            max={maxTime}
-            onValueChange={setCurrentTime}
-            value={currentTime}
-          />
+          <div onPointerDown={() => setIsScrubbing(true)}>
+            <Slider
+              min={MIN_TIME}
+              max={maxTime}
+              onValueChange={setCurrentTime}
+              value={currentTime}
+            />
+          </div>
 
           <Timer seconds={Math.max(0, currentTime / 1000)} />
         </div>
