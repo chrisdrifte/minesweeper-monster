@@ -19,7 +19,6 @@ import classNames from "classnames";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
 import { generate } from "@/game/actions/generate";
-import { generateFromSeed } from "@/game/actions/generateFromSeed";
 import { isFlaggableState } from "@/helpers/isFlaggableState";
 import { isInitialState } from "@/helpers/isInitialState";
 import { isLoseState } from "@/helpers/isLoseState";
@@ -131,6 +130,7 @@ export function GamePlay({
     boardSize: `${gameState.width}x${gameState.height}`,
     numMines: gameState.numMines,
     showTimer: gameState.showTimer,
+    noGuess: gameState.noGuess,
     noAdjacentMinesOnFirstClick: gameState.noAdjacentMinesOnFirstClick,
     revealContiguousNumbers: gameState.revealContiguousNumbers,
     revealBoardOnLoss: gameState.revealBoardOnLoss,
@@ -153,14 +153,9 @@ export function GamePlay({
       }
 
       setGameState((prevGameState) => {
-        const seed = prevGameState.seed;
-
         let nextGameState: GameState;
 
-        nextGameState = seed
-          ? generateFromSeed(prevGameState)
-          : generate(prevGameState, cell);
-
+        nextGameState = generate(prevGameState, cell);
         nextGameState = dig(nextGameState, cell);
 
         return nextGameState;
