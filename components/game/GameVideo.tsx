@@ -110,7 +110,7 @@ export function GameVideo({ replayData }: GameVideoProps) {
     return () => {
       cancelAnimationFrame(id);
     };
-  }, [isPlaying, isScrubbing, currentTime, maxTime]);
+  }, [isPlaying, isScrubbing, currentTime, maxTime, replaySpeed]);
 
   if (!levelData) {
     return <div>Failed to load!</div>;
