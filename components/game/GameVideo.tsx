@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Center } from "@/components/layout/Center";
 import { GameStatic } from "@/components/game/GameStatic";
@@ -9,7 +9,9 @@ import { PlayIcon } from "@/components/icons/PlayIcon";
 import { Slider } from "@/components/slider/Slider";
 import { Timer } from "@/components/game/Timer";
 import { decodeReplayData } from "@/game/replay/decodeReplayData";
+import { now } from "@/helpers/now";
 import { usePointerUp } from "@/hooks/usePointerUp";
+import { useReplaySpeed } from "@/game/replay/useReplaySpeed";
 
 const MIN_TIME = -1;
 
@@ -19,27 +21,39 @@ export type GameVideoProps = {
 
 export function GameVideo({ replayData }: GameVideoProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [playSpeed, setPlaySpeed] = useState(1);
-
   const [isScrubbing, setIsScrubbing] = useState(false);
-  usePointerUp(() => setIsScrubbing(false));
+
+  const { replaySpeed, toggleReplaySpeed } = useReplaySpeed();
+
+  usePointerUp(() => {
+    setIsScrubbing(false);
+    frameTimeRef.current = now();
+  });
 
   const [currentTime, setCurrentTime] = useState(MIN_TIME);
+  const frameTimeRef = useRef<number>();
 
   const togglePlay = () => {
     if (currentTime >= maxTime) {
       setCurrentTime(0);
     }
 
-    setIsPlaying((isPlaying) => !isPlaying);
+    if (!isPlaying) {
+      startPlaying();
+      return;
+    }
+
+    stopPlaying();
   };
 
-  const togglePlaySpeed = () => {
-    const speeds = [1, 2, 3];
+  const startPlaying = () => {
+    setIsPlaying(true);
+    frameTimeRef.current = now();
+  };
 
-    setPlaySpeed(
-      (playSpeed) => speeds[speeds.indexOf(playSpeed) + 1] || speeds[0]
-    );
+  const stopPlaying = () => {
+    setIsPlaying(false);
+    frameTimeRef.current = undefined;
   };
 
   const { levelDataByTime, targetsByTime } = useMemo(() => {
@@ -74,14 +88,23 @@ export function GameVideo({ replayData }: GameVideoProps) {
     }
 
     if (currentTime >= maxTime) {
-      setIsPlaying(false);
+      stopPlaying();
       return;
     }
 
     const id = requestAnimationFrame(() => {
-      const delta = 40 * playSpeed;
+      const frameTime = frameTimeRef.current;
 
-      setCurrentTime((currentTime) => (currentTime += delta));
+      frameTimeRef.current = now();
+
+      if (typeof frameTime === "undefined") {
+        return;
+      }
+
+      const frameDuration = now() - frameTime;
+      const delta = frameDuration * replaySpeed;
+
+      setCurrentTime((currentTime) => currentTime + delta);
     });
 
     return () => {
@@ -102,8 +125,8 @@ export function GameVideo({ replayData }: GameVideoProps) {
             {isPlaying && <PauseIcon className="size-8 fill-fg-100" />}
           </button>
 
-          <button className="text-fg-50 font-bold" onClick={togglePlaySpeed}>
-            {playSpeed}x
+          <button className="text-fg-50 font-bold" onClick={toggleReplaySpeed}>
+            {replaySpeed}x
           </button>
         </div>
 
