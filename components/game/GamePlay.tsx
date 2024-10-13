@@ -152,11 +152,14 @@ export function GamePlay({
         return;
       }
 
-      let nextGameState: GameState;
-      nextGameState = await generate(gameState, cell);
-      nextGameState = dig(nextGameState, cell);
+      setGameState((prevGameState) => {
+        let nextGameState: GameState;
 
-      setGameState(nextGameState);
+        nextGameState = generate(prevGameState, cell);
+        nextGameState = dig(nextGameState, cell);
+
+        return nextGameState;
+      });
       timerStart();
 
       // only two custom event properties allowed on vercel pro
