@@ -15,6 +15,7 @@ import { encodeReplayKey } from "@/game/replay/encodeReplayKey";
 import { useRouter } from "next/navigation";
 
 const ITEMS_PER_PAGE = 10;
+const SHARE_TIMEOUT_MS = 15 * 1000;
 
 export default function ReplayHistoryPage() {
   const router = useRouter();
@@ -142,10 +143,22 @@ export default function ReplayHistoryPage() {
               setSharingKey(encodedKey);
               setSharingError(undefined);
 
+              const controller = new AbortController();
+
+              const abortTimeoutId = setTimeout(() => {
+                controller.abort("timeout");
+
+                setSharingError("Took too long, please try again.");
+                setSharingKey(undefined);
+              }, SHARE_TIMEOUT_MS);
+
               const response = await fetch(`/api/replay/upload`, {
                 method: "POST",
                 body: replayData,
+                signal: controller.signal,
               });
+
+              clearTimeout(abortTimeoutId);
 
               const responseJson = await response.json();
 
