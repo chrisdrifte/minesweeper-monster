@@ -125,7 +125,10 @@ export function GameVideo({ replayData }: GameVideoProps) {
             {isPlaying && <PauseIcon className="size-8 fill-fg-100" />}
           </button>
 
-          <button className="text-fg-50 font-bold" onClick={toggleReplaySpeed}>
+          <button
+            className="text-fg-50 font-bold select-none"
+            onClick={toggleReplaySpeed}
+          >
             {replaySpeed}x
           </button>
         </div>
