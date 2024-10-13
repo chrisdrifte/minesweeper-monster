@@ -4,9 +4,10 @@ import { Target } from "@/types/Target";
 import { getCell } from "@/helpers/getCell";
 import { getCount } from "@/helpers/getCount";
 import { getNeighbours } from "@/helpers/getNeighbours";
+import { isNoGuess } from "@/helpers/isNoGuess";
 import { shuffle } from "@/helpers/shuffle";
 
-export function generate(gameState: GameState, target: Target) {
+export async function generate(gameState: GameState, target: Target) {
   const nextGameState = structuredClone(gameState);
 
   const cells = nextGameState.cells;
@@ -19,7 +20,7 @@ export function generate(gameState: GameState, target: Target) {
   // detect cells to which mines can be added
   let safeCells: Cell[] = [targetCell];
 
-  if (gameState.noAdjacentMinesOnFirstClick) {
+  if (gameState.noGuess || gameState.noAdjacentMinesOnFirstClick) {
     safeCells.push(...getNeighbours(nextGameState, targetCell));
   }
 
@@ -39,6 +40,10 @@ export function generate(gameState: GameState, target: Target) {
     }
 
     cell.count = getCount(nextGameState, cell);
+  }
+
+  if (gameState.noGuess && !isNoGuess(nextGameState, target)) {
+    return generate(gameState, target);
   }
 
   return nextGameState;

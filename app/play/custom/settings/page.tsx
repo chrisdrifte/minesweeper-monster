@@ -32,9 +32,10 @@ export default function CustomSettings() {
 
   const [showTimer, setShowTimer] = useState(customSettings.showTimer);
 
-  const [noAdjacentMinesOnFirstClick, setSafeFirstClick] = useState(
-    customSettings.noAdjacentMinesOnFirstClick
-  );
+  const [noGuess, setNoGuess] = useState(customSettings.noGuess);
+
+  const [noAdjacentMinesOnFirstClick, setNoAdjacentMinesOnFirstClick] =
+    useState(customSettings.noAdjacentMinesOnFirstClick);
 
   const [revealContiguousNumbers, setRevealContiguousNumbers] = useState(
     customSettings.revealContiguousNumbers
@@ -48,6 +49,7 @@ export default function CustomSettings() {
       height: Math.min(parseInt(height), board.maxHeight),
       numMines: parseInt(numMines),
       showTimer,
+      noGuess,
       noAdjacentMinesOnFirstClick,
       revealContiguousNumbers,
       revealBoardOnLoss: true,
@@ -124,10 +126,14 @@ export default function CustomSettings() {
           <InputCheckbox checked={showTimer} onChange={setShowTimer} />
         </FormField>
 
+        <FormField label="No guess">
+          <InputCheckbox checked={noGuess} onChange={setNoGuess} />
+        </FormField>
+
         <FormField label="No adjacent mines on first click">
           <InputCheckbox
             checked={noAdjacentMinesOnFirstClick}
-            onChange={setSafeFirstClick}
+            onChange={setNoAdjacentMinesOnFirstClick}
           />
         </FormField>
 

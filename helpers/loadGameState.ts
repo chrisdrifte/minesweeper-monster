@@ -6,6 +6,7 @@ import { getCount } from "./getCount";
 
 const defaultSettings = {
   showTimer: false,
+  noGuess: false,
   noAdjacentMinesOnFirstClick: false,
   revealContiguousNumbers: false,
   revealBoardOnLoss: false,

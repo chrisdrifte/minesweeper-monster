@@ -131,6 +131,7 @@ export function GamePlay({
     boardSize: `${gameState.width}x${gameState.height}`,
     numMines: gameState.numMines,
     showTimer: gameState.showTimer,
+    noGuess: gameState.noGuess,
     noAdjacentMinesOnFirstClick: gameState.noAdjacentMinesOnFirstClick,
     revealContiguousNumbers: gameState.revealContiguousNumbers,
     revealBoardOnLoss: gameState.revealBoardOnLoss,
@@ -139,7 +140,7 @@ export function GamePlay({
   });
 
   const handleStart = useCallback(
-    (cell: Cell) => {
+    async (cell: Cell) => {
       if (hasGeneratedMap) {
         return;
       }
@@ -152,19 +153,17 @@ export function GamePlay({
         return;
       }
 
-      setGameState((prevGameState) => {
-        const seed = prevGameState.seed;
+      const seed = gameState.seed;
 
-        let nextGameState: GameState;
+      let nextGameState: GameState;
 
-        nextGameState = seed
-          ? generateFromSeed(prevGameState)
-          : generate(prevGameState, cell);
+      nextGameState = seed
+        ? await generateFromSeed(gameState)
+        : await generate(gameState, cell);
 
-        nextGameState = dig(nextGameState, cell);
+      nextGameState = dig(nextGameState, cell);
 
-        return nextGameState;
-      });
+      setGameState(nextGameState);
       timerStart();
 
       // only two custom event properties allowed on vercel pro

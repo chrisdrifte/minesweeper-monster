@@ -3,7 +3,7 @@ import Prando from "prando";
 import { getCount } from "@/helpers/getCount";
 import { shuffle } from "@/helpers/shuffle";
 
-export function generateFromSeed(gameState: GameState) {
+export async function generateFromSeed(gameState: GameState) {
   const nextGameState = structuredClone(gameState);
   const seed = nextGameState.seed;
 
