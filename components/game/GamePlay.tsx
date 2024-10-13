@@ -19,7 +19,6 @@ import classNames from "classnames";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
 import { generate } from "@/game/actions/generate";
-import { generateFromSeed } from "@/game/actions/generateFromSeed";
 import { isFlaggableState } from "@/helpers/isFlaggableState";
 import { isInitialState } from "@/helpers/isInitialState";
 import { isLoseState } from "@/helpers/isLoseState";
@@ -153,14 +152,8 @@ export function GamePlay({
         return;
       }
 
-      const seed = gameState.seed;
-
       let nextGameState: GameState;
-
-      nextGameState = seed
-        ? await generateFromSeed(gameState)
-        : await generate(gameState, cell);
-
+      nextGameState = await generate(gameState, cell);
       nextGameState = dig(nextGameState, cell);
 
       setGameState(nextGameState);

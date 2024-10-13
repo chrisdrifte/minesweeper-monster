@@ -4,10 +4,12 @@ import { Target } from "@/types/Target";
 import { getCell } from "@/helpers/getCell";
 import { getCount } from "@/helpers/getCount";
 import { getNeighbours } from "@/helpers/getNeighbours";
-import { isNoGuess } from "@/helpers/isNoGuess";
 import { shuffle } from "@/helpers/shuffle";
 
-export async function generate(gameState: GameState, target: Target) {
+export async function generate(
+  gameState: GameState,
+  target: Target
+): Promise<GameState> {
   const nextGameState = structuredClone(gameState);
 
   const cells = nextGameState.cells;
@@ -42,8 +44,12 @@ export async function generate(gameState: GameState, target: Target) {
     cell.count = getCount(nextGameState, cell);
   }
 
-  if (gameState.noGuess && !isNoGuess(nextGameState, target)) {
-    return generate(gameState, target);
+  if (gameState.noGuess) {
+    const { isNoGuess } = await import("@/helpers/isNoGuess");
+
+    return isNoGuess(nextGameState, target)
+      ? nextGameState
+      : generate(gameState, target);
   }
 
   return nextGameState;

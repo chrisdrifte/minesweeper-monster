@@ -2,7 +2,7 @@ import { GameState } from "@/types/GameState";
 import Minefield from "mineswift";
 import { Target } from "@/types/Target";
 
-export async function isNoGuess(gameState: GameState, target: Target) {
+export function isNoGuess(gameState: GameState, target: Target) {
   const minefield = new Minefield(gameState.width, gameState.height);
 
   for (const cell of gameState.cells) {
@@ -10,5 +10,5 @@ export async function isNoGuess(gameState: GameState, target: Target) {
     minefield[cell.y][cell.x].mines = cell.count ?? 0;
   }
 
-  return minefield.isSolvableFrom([target.x, target.y]);
+  return minefield.isSolvableFrom([target.y, target.x], false);
 }
