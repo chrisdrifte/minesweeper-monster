@@ -54,6 +54,9 @@ html[data-theme="dark-oled"] {
   --annotate-info: #22c55e;
 }
 
+/**
+ * Retro monochrome
+ */
 html[data-theme="retro-monochrome"] {
   --primary: lime;
   --accent-primary: white;
@@ -82,30 +85,33 @@ html[data-theme="retro-monochrome"] {
   --annotate-mine: var(--accent-primary);
   --annotate-safe: var(--accent-primary);
   --annotate-info: var(--accent-primary);
-}
 
-html[data-theme="retro-monochrome"] body {
-  animation: crt 1.6s infinite;
-}
+  body {
+    animation: crt 1.6s infinite;
 
-html[data-theme="retro-monochrome"] body::before {
-  content: " ";
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-    linear-gradient(
-      90deg,
-      rgba(255, 0, 0, 0.06),
-      rgba(0, 255, 0, 0.02),
-      rgba(0, 0, 255, 0.06)
-    );
-  z-index: 2;
-  background-size: 100% 2px, 3px 100%;
-  pointer-events: none;
+    &::before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(
+          rgba(18, 16, 16, 0) 50%,
+          rgba(0, 0, 0, 0.25) 50%
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 0, 0, 0.06),
+          rgba(0, 255, 0, 0.02),
+          rgba(0, 0, 255, 0.06)
+        );
+      z-index: 2;
+      background-size: 100% 2px, 3px 100%;
+      pointer-events: none;
+    }
+  }
 }
 
 @keyframes crt {
@@ -192,5 +198,199 @@ html[data-theme="retro-monochrome"] body::before {
   100% {
     text-shadow: 2.6208764473832513px 0 1px rgba(0, 30, 255, 0.5),
       -2.6208764473832513px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+  }
+}
+
+/**
+ * Halloween
+ */
+
+html[data-theme="halloween"] {
+  --bg: #1e1621;
+  --bg-alt: #333333;
+  --fg-50: #6b7280;
+  --fg-100: #fafafc;
+  --fg-alt: #f97316;
+  --one: #3b82f6;
+  --two: #22c55e;
+  --three: #ff5858;
+  --four: #6366f1;
+  --five: #f97316;
+  --six: #06b6d4;
+  --seven: #8b5cf6;
+  --eight: #6b7280;
+  --hidden-bg: #fafafc;
+  --mine-bg: #ff5858;
+  --mine-fg: #1a1a1c;
+  --flag-bg: #fafafc;
+  --flag-fg: #1a1a1c;
+  --highlight-click: #f97316;
+  --highlight-dig: #ff5858;
+  --annotate-mine: #ff5858;
+  --annotate-safe: #22c55e;
+  --annotate-info: #22c55e;
+
+  .fill-mine-fg {
+    background-image: url("/halloween/mine.svg");
+    background-size: contain;
+
+    & > * {
+      opacity: 0;
+    }
+  }
+
+  html {
+    &::before {
+      content: " ";
+
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      background-color: #1e1621;
+    }
+  }
+
+  body {
+    &::before {
+      content: " ";
+
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+
+      opacity: 0.2;
+      mix-blend-mode: darken;
+
+      background-image: url("/halloween/bg.png");
+      background-size: cover;
+    }
+
+    &::after {
+      content: " ";
+
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+
+      opacity: 0.5;
+
+      animation: flash 5s linear 1;
+    }
+
+    .rain {
+      width: 50px;
+      border-color: transparent;
+      border-right-color: white;
+      border-right-width: 50px;
+      position: absolute;
+      bottom: 100%;
+      transform-origin: 100% 50%;
+      animation-name: rain;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    .fog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.3;
+      filter: brightness(0);
+      z-index: -1;
+
+      img {
+        &:nth-child(1) {
+          --i: 1;
+        }
+        &:nth-child(2) {
+          --i: 2;
+        }
+        &:nth-child(3) {
+          --i: 3;
+        }
+        &:nth-child(4) {
+          --i: 4;
+        }
+        &:nth-child(5) {
+          --i: 5;
+        }
+        &:nth-child(6) {
+          --i: 6;
+        }
+        &:nth-child(7) {
+          --i: 7;
+        }
+        &:nth-child(8) {
+          --i: 8;
+        }
+        &:nth-child(9) {
+          --i: 9;
+        }
+        &:nth-child(10) {
+          --i: 10;
+        }
+
+        position: absolute;
+        bottom: 0;
+        max-width: 100%;
+        animation: fog calc(10s * var(--i)) ease-in infinite;
+      }
+    }
+  }
+}
+
+@keyframes flash {
+  0%,
+  95%,
+  98% {
+    background-color: transparent;
+  }
+  96%,
+  99%,
+  100% {
+    background-color: #fff;
+  }
+}
+
+@keyframes fog {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  25%,
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0.3;
+  }
+}
+
+@keyframes rain {
+  from {
+    transform: rotate(105deg) translateX(0);
+  }
+  to {
+    transform: rotate(105deg) translateX(calc(100vh + 20px));
   }
 }

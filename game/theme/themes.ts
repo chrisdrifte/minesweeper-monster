@@ -5,4 +5,5 @@ export const themes: Theme[] = [
   defaultTheme,
   { id: "dark-oled", name: "Dark OLED" },
   { id: "retro-monochrome", name: "Retro Monochrome" },
+  { id: "halloween", name: "Halloween" },
 ];

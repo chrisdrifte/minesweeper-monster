@@ -27,6 +27,37 @@ export default function RootLayout({
           {children}
           <Footer />
         </main>
+
+        {currentTheme.id === "halloween" && (
+          <>
+            <div className="opacity-20">
+              {[...Array(20).keys()].map((key) => (
+                <hr
+                  key={key}
+                  className="rain"
+                  style={{
+                    left: Math.floor(Math.random() * 100) + "vw",
+                    animationDuration: 0.2 + Math.random() * 0.3 + "s",
+                    animationDelay: Math.random() * 5 + "s",
+                  }}
+                />
+              ))}
+            </div>
+            <div className="fog">
+              <img src="/halloween/fog1.png" role="presentation" />
+              <img src="/halloween/fog2.png" role="presentation" />
+              <img src="/halloween/fog3.png" role="presentation" />
+              <img src="/halloween/fog4.png" role="presentation" />
+              <img src="/halloween/fog5.png" role="presentation" />
+              <img src="/halloween/fog1.png" role="presentation" />
+              <img src="/halloween/fog2.png" role="presentation" />
+              <img src="/halloween/fog3.png" role="presentation" />
+              <img src="/halloween/fog4.png" role="presentation" />
+              <img src="/halloween/fog5.png" role="presentation" />
+            </div>
+          </>
+        )}
+
         <Analytics />
       </body>
     </html>
