@@ -1,4 +1,4 @@
-import { GameVideo } from "@/components/game/GamePlayFromReplayData";
+import { GameVideo } from "@/components/game/GameVideo";
 import { decodeReplayData } from "@/game/replay/decodeReplayData";
 import { notFound } from "next/navigation";
 

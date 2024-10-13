@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Center } from "@/components/layout/Center";
 import { ContentBlock } from "@/components/layout/ContentBlock";
-import { GameVideo } from "@/components/game/GamePlayFromReplayData";
+import { GameVideo } from "@/components/game/GameVideo";
 import { Heading } from "@/components/layout/Heading";
 import { LinkInline } from "@/components/navigation/LinkInline";
 import { Paragraph } from "@/components/layout/Paragraph";
