@@ -7,9 +7,13 @@ import { getNeighbours } from "@/helpers/getNeighbours";
 import { isNoGuess } from "@/helpers/isNoGuess";
 import { shuffle } from "@/helpers/shuffle";
 
-export function generateFromSeed(gameState: GameState, nonce = 0) {
+// limit the number of attempts to generate a no guess board
+// just to avoid any pesky infinite loops
+const MAX_ITERATIONS = 10;
+
+export function generateFromSeed(gameState: GameState, iteration = 0) {
   const nextGameState = structuredClone(gameState);
-  const seed = `${nextGameState.seed}${nonce}`;
+  const seed = `${nextGameState.seed}${iteration}`;
 
   const rng = new Prando(seed);
 
@@ -49,8 +53,8 @@ export function generateFromSeed(gameState: GameState, nonce = 0) {
     cell.count = getCount(nextGameState, cell);
   }
 
-  if (!isNoGuess(nextGameState, target)) {
-    return generateFromSeed(gameState, nonce + 1);
+  if (iteration < MAX_ITERATIONS && !isNoGuess(nextGameState, target)) {
+    return generateFromSeed(gameState, iteration + 1);
   }
 
   return dig(nextGameState, target);
