@@ -126,7 +126,7 @@ export default function CustomSettings() {
           <InputCheckbox checked={showTimer} onChange={setShowTimer} />
         </FormField>
 
-        <FormField label="No guess">
+        <FormField label="No guessing (if number of mines allows)">
           <InputCheckbox checked={noGuess} onChange={setNoGuess} />
         </FormField>
 
