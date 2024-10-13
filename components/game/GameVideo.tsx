@@ -84,22 +84,23 @@ export function GameVideo({ replayData }: GameVideoProps) {
 
   return (
     <Center>
-      <div className="grid gap-4 grid-cols-[1fr,min-content] mb-8 w-full">
-        <div className="self-center justify-between text-sm text-fg-100 font-bold flex items-center space-x-4">
+      <div className="grid gap-4 grid-cols-[1fr,min-content,1fr] mb-8 w-full items-center">
+        <div className="min-w-14 justify-self-start">
           <button onClick={togglePlay}>
             {!isPlaying && <PlayIcon className="size-8 fill-fg-100" />}
             {isPlaying && <PauseIcon className="size-8 fill-fg-100" />}
           </button>
+        </div>
 
-          <div onPointerDown={() => setIsScrubbing(true)}>
-            <Slider
-              min={MIN_TIME}
-              max={maxTime}
-              onValueChange={setCurrentTime}
-              value={currentTime}
-            />
-          </div>
-
+        <div onPointerDown={() => setIsScrubbing(true)}>
+          <Slider
+            min={MIN_TIME}
+            max={maxTime}
+            onValueChange={setCurrentTime}
+            value={currentTime}
+          />
+        </div>
+        <div className="min-w-14 justify-self-end">
           <Timer seconds={Math.max(0, currentTime / 1000)} />
         </div>
       </div>
