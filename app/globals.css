@@ -239,22 +239,6 @@ html[data-theme="halloween"] {
     }
   }
 
-  html {
-    &::before {
-      content: " ";
-
-      position: fixed;
-      z-index: -1;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-
-      background-color: #1e1621;
-    }
-  }
-
   body {
     &::before {
       content: " ";
@@ -306,6 +290,8 @@ html[data-theme="halloween"] {
     }
 
     .fog {
+      display: block !important;
+
       position: fixed;
       top: 0;
       left: 0;

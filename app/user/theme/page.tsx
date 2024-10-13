@@ -17,12 +17,6 @@ import { useCurrentTheme } from "@/game/theme/useCurrentTheme";
 export default function ThemePage() {
   const currentTheme = useCurrentTheme();
 
-  const handleUpdateTheme = (themeId: string) => {
-    currentTheme.set(themeId);
-
-    document.querySelector("html")?.setAttribute("data-theme", themeId);
-  };
-
   const cols = 4;
 
   const createCell = (i: number, cellProps: Omit<Cell, "id" | "x" | "y">) => ({
@@ -130,7 +124,7 @@ export default function ThemePage() {
               key={theme.id}
               text={theme.name}
               isActive={theme.id === currentTheme.id}
-              onClick={() => handleUpdateTheme(theme.id)}
+              onClick={() => currentTheme.set(theme.id)}
             />
           ))}
         </ButtonWrapper>

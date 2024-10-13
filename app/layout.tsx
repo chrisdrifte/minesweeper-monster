@@ -20,6 +20,8 @@ export default function RootLayout({
 }>) {
   const currentTheme = getCurrentTheme();
 
+  console.log(currentTheme);
+
   return (
     <html lang="en" data-theme={currentTheme.id}>
       <body className="antialiased bg-bg text-fg-100 flex flex-col items-center select-none sm:select-auto">
@@ -43,7 +45,7 @@ export default function RootLayout({
                 />
               ))}
             </div>
-            <div className="fog">
+            <div className="fog hidden">
               <img src="/halloween/fog1.png" role="presentation" />
               <img src="/halloween/fog2.png" role="presentation" />
               <img src="/halloween/fog3.png" role="presentation" />
