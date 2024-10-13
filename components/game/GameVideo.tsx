@@ -19,6 +19,7 @@ export type GameVideoProps = {
 
 export function GameVideo({ replayData }: GameVideoProps) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [playSpeed, setPlaySpeed] = useState(1);
 
   const [isScrubbing, setIsScrubbing] = useState(false);
   usePointerUp(() => setIsScrubbing(false));
@@ -31,6 +32,14 @@ export function GameVideo({ replayData }: GameVideoProps) {
     }
 
     setIsPlaying((isPlaying) => !isPlaying);
+  };
+
+  const togglePlaySpeed = () => {
+    const speeds = [1, 2, 3];
+
+    setPlaySpeed(
+      (playSpeed) => speeds[speeds.indexOf(playSpeed) + 1] || speeds[0]
+    );
   };
 
   const { levelDataByTime, targetsByTime } = useMemo(() => {
@@ -70,7 +79,9 @@ export function GameVideo({ replayData }: GameVideoProps) {
     }
 
     const id = requestAnimationFrame(() => {
-      setCurrentTime((currentTime) => (currentTime += 40));
+      const delta = 40 * playSpeed;
+
+      setCurrentTime((currentTime) => (currentTime += delta));
     });
 
     return () => {
@@ -85,10 +96,14 @@ export function GameVideo({ replayData }: GameVideoProps) {
   return (
     <Center>
       <div className="grid gap-4 grid-cols-[1fr,min-content,1fr] mb-8 w-full items-center">
-        <div className="min-w-14 justify-self-start">
+        <div className="min-w-14 justify-self-start items-center flex space-x-4">
           <button onClick={togglePlay}>
             {!isPlaying && <PlayIcon className="size-8 fill-fg-100" />}
             {isPlaying && <PauseIcon className="size-8 fill-fg-100" />}
+          </button>
+
+          <button className="text-fg-50 font-bold" onClick={togglePlaySpeed}>
+            {playSpeed}x
           </button>
         </div>
 
