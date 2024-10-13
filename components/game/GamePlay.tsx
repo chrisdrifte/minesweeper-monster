@@ -139,7 +139,7 @@ export function GamePlay({
   });
 
   const handleStart = useCallback(
-    async (cell: Cell) => {
+    (cell: Cell) => {
       if (hasGeneratedMap) {
         return;
       }
