@@ -63,6 +63,15 @@ export default function TermsPage() {
               </td>
               <td>The theme the player has selected.</td>
             </tr>
+            <tr>
+              <td>
+                <ControlBinding>disable-holiday-theme</ControlBinding>
+              </td>
+              <td>
+                Whether the player has chosen not to use the current holiday
+                theme.
+              </td>
+            </tr>
           </tbody>
         </table>
 
