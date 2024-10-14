@@ -313,8 +313,14 @@ html[data-theme="halloween"] {
       opacity: 0.4;
       z-index: 0;
 
-      @media screen and (max-width: 450px) {
+      @media screen and (max-width: 768px) {
         width: 400%;
+        transform: translateX(-50%);
+      }
+
+      @media screen and (min-width: 769px) and (max-width: 1600px) {
+        width: 200%;
+        transform: translateX(-50%);
       }
 
       img {
