@@ -6,7 +6,7 @@ export function ControlBinding({ children }: React.PropsWithChildren) {
     <strong
       className={classNames(
         spaceMono.className,
-        "text-xs bg-bg-alt rounded px-2 py-1"
+        "text-xs bg-bg-alt rounded px-2 py-1 whitespace-nowrap"
       )}
     >
       {children}
