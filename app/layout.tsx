@@ -20,8 +20,6 @@ export default function RootLayout({
 }>) {
   const currentTheme = getCurrentTheme();
 
-  console.log(currentTheme);
-
   return (
     <html lang="en" data-theme={currentTheme.id}>
       <body className="antialiased bg-bg text-fg-100 flex flex-col items-center select-none sm:select-auto">
