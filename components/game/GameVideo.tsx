@@ -68,7 +68,7 @@ export function GameVideo({ replayData }: GameVideoProps) {
     .map(Number)
     .sort((a, b) => a - b);
 
-  const maxTime = times.at(MIN_TIME) ?? 0;
+  const maxTime = times.at(-1) ?? 0;
 
   let keyTime = MIN_TIME;
   for (const time of times) {
@@ -104,7 +104,7 @@ export function GameVideo({ replayData }: GameVideoProps) {
       const frameDuration = now() - frameTime;
       const delta = frameDuration * replaySpeed;
 
-      setCurrentTime((currentTime) => currentTime + delta);
+      setCurrentTime((currentTime) => Math.min(currentTime + delta, maxTime));
     });
 
     return () => {
