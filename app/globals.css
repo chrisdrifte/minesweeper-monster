@@ -299,7 +299,7 @@ html[data-theme="halloween"] {
       height: 100%;
       overflow: hidden;
       pointer-events: none;
-      opacity: 0.3;
+      opacity: 0.35;
       filter: brightness(0);
       z-index: -1;
 
@@ -359,7 +359,7 @@ html[data-theme="halloween"] {
 
 @keyframes fog {
   0% {
-    opacity: 0.3;
+    opacity: 0;
     transform: scale(1);
   }
   25%,
@@ -368,7 +368,7 @@ html[data-theme="halloween"] {
   }
   100% {
     transform: scale(3);
-    opacity: 0.3;
+    opacity: 0;
   }
 }
 

@@ -3,7 +3,7 @@ export function useHoliday(): "halloween" | undefined {
   const [, mm, dd] = date.split("-");
 
   switch (`${mm}-${dd}`) {
-    case "10-13":
+    case "10-31":
       return "halloween";
   }
 }
