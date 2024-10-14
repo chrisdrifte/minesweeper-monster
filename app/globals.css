@@ -308,12 +308,11 @@ html[data-theme="halloween"] {
       min-height: 100%;
       overflow: hidden;
       pointer-events: none;
-      opacity: 0.35;
-      filter: brightness(0);
+      opacity: 0.4;
       z-index: 0;
 
       @media screen and (max-width: 450px) {
-        width: 300%;
+        width: 400%;
       }
 
       img {
