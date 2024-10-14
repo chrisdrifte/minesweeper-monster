@@ -206,7 +206,7 @@ html[data-theme="retro-monochrome"] {
  */
 
 html[data-theme="halloween"] {
-  --bg: transparent;
+  --bg: #1e1621;
   --bg-alt: #333333;
   --fg-50: #6b7280;
   --fg-100: #fafafc;

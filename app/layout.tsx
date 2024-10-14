@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "A fully customizable minesweeper game with interactive tutorials",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
