@@ -230,6 +230,10 @@ html[data-theme="halloween"] {
   --annotate-safe: #22c55e;
   --annotate-info: #22c55e;
 
+  .halloween {
+    display: block !important;
+  }
+
   .fill-mine-fg {
     background-image: url("/halloween/mine.svg");
     background-size: contain;
@@ -298,8 +302,6 @@ html[data-theme="halloween"] {
     }
 
     .fog {
-      display: block !important;
-
       position: fixed;
       top: 0;
       left: 0;
