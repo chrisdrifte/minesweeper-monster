@@ -63,7 +63,7 @@ export function decodeReplayData(replayData: string) {
   // eg. the user clicks, but no new cells were revealed
   // eg. the game reveals the mines at the end of the game in a separate frame
   const levelDataByTime: Record<number, string> = {};
-  const targetsByTime: Record<number, CellId> = {};
+  const interactionsByTime: Record<number, Target> = {};
 
   /**
    * Decode a unit of streamed data
@@ -184,7 +184,7 @@ export function decodeReplayData(replayData: string) {
       return;
     }
 
-    targetsByTime[time] = createCellId(target);
+    interactionsByTime[time] = target;
   };
 
   /**
@@ -243,5 +243,5 @@ export function decodeReplayData(replayData: string) {
   // end of stream
   readReplayDataStream();
 
-  return { levelDataByTime, targetsByTime };
+  return { levelDataByTime, interactionsByTime };
 }

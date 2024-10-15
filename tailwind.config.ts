@@ -10,7 +10,8 @@ const config: Config = {
     extend: {
       animation: {
         explode: "shake 100ms 5",
-        interact: "ping 0.75s cubic-bezier(0, 0, 0.2, 1) 1 forwards",
+        interact: "ping 500ms ease-out 1 forwards",
+        spectral: "spectral 350ms ease-out 1 forwards",
       },
       keyframes: {
         shake: {
@@ -19,6 +20,12 @@ const config: Config = {
           "50%": { transform: "translate(0, 0) rotate(0deg)" },
           "75%": { transform: "translate(-2px, 2px) rotate(-2deg)" },
           "100%": { transform: "translate(0, 0) rotate(0deg)" },
+        },
+        spectral: {
+          "0%": { opacity: "0" },
+          "10%": { opacity: "1" },
+          "99%": { opacity: "1" },
+          "100%": { opacity: "0" },
         },
       },
     },
