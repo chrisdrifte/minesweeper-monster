@@ -204,22 +204,24 @@ export function GameVideo({ replayData }: GameVideoProps) {
       <div className="relative" onClick={togglePlay}>
         <GameStatic levelData={levelData} allowInvalid />
 
-        <div
-          className="opacity-50 absolute left-0 top-0 rounded-sm size-8 transition-transform duration-200 ease-in-out"
-          style={{
-            transform: `translate(${cursor.x * 32 + 12}px, ${
-              cursor.y * 32 + 12
-            }px)`,
-          }}
-        >
+        {currentTime > 0 && (
           <div
-            key={createCellId(cursor)}
-            className={classNames(
-              { hidden: !isPlaying },
-              "animate-spectral bg-fg-alt size-full duration-300"
-            )}
-          ></div>
-        </div>
+            className="opacity-50 absolute left-0 top-0 rounded-sm size-8 duration-200 ease-in-out"
+            style={{
+              transform: `translate(${cursor.x * 32 + 12}px, ${
+                cursor.y * 32 + 12
+              }px)`,
+            }}
+          >
+            <div
+              key={createCellId(cursor)}
+              className={classNames(
+                { hidden: !isPlaying },
+                "animate-spectral bg-fg-alt size-full duration-300"
+              )}
+            ></div>
+          </div>
+        )}
 
         {!!visibleInteractions.length && (
           <div className="size-full absolute top-0 left-0">
