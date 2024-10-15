@@ -8,6 +8,7 @@ import { PauseIcon } from "@/components/icons/PauseIcon";
 import { PlayIcon } from "@/components/icons/PlayIcon";
 import { Slider } from "@/components/slider/Slider";
 import { Timer } from "@/components/game/Timer";
+import classNames from "classnames";
 import { createCellId } from "@/helpers/createCellId";
 import { decodeReplayData } from "@/game/replay/decodeReplayData";
 import { now } from "@/helpers/now";
@@ -213,7 +214,10 @@ export function GameVideo({ replayData }: GameVideoProps) {
         >
           <div
             key={createCellId(cursor)}
-            className="animate-spectral bg-fg-alt size-full duration-300"
+            className={classNames(
+              { hidden: !isPlaying },
+              "animate-spectral bg-fg-alt size-full duration-300"
+            )}
           ></div>
         </div>
 
