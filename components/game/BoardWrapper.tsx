@@ -4,12 +4,14 @@ import useWindowSize from "@/hooks/useWindowSize";
 export type BoardWrapperProps = {
   width: number;
   height: number;
+  isInteractive?: boolean;
   hasControls?: boolean;
 };
 
 export function BoardWrapper({
   width,
   height,
+  isInteractive = false,
   hasControls = false,
   children,
 }: React.PropsWithChildren<BoardWrapperProps>) {
@@ -26,6 +28,9 @@ export function BoardWrapper({
       id="#board"
       className={classNames(
         {
+          // prevents mouse events if not interactive
+          "sm:pointer-events-none": !isInteractive,
+
           // places a triangle in the bottom-left to create an outer corner without removing the inner curve
           "before:content-[''] before:block before:absolute before:-bottom-1 before:-left-1 before:border-fg-100 before:size-[0px] before:border-r-transparent before:border-t-transparent before:border-4":
             hasControls,

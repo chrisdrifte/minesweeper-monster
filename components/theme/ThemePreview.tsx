@@ -93,7 +93,7 @@ export function ThemePreview() {
           key={cell.id}
           cell={cell}
           annotation={annotations[cell.id]}
-          isHighlighted={cell.id === "2,1"}
+          highlight={cell.id === "2,1" ? "always" : "none"}
           action={cell.id === "0,0" ? "dig" : undefined}
         />
       ))}

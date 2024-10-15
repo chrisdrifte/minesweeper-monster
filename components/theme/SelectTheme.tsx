@@ -17,10 +17,11 @@ export function SelectTheme({ initialTheme }: SelectThemeProps) {
       {themes.map((theme) => (
         <FormButton
           key={theme.id}
-          text={theme.name}
           isActive={theme.id === currentTheme.id}
           onClick={() => currentTheme.set(theme.id)}
-        />
+        >
+          {theme.name}
+        </FormButton>
       ))}
     </ButtonWrapper>
   );

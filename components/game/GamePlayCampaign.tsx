@@ -44,6 +44,7 @@ export function GamePlayCampaign({
       <Heading>{campaign.levelName}</Heading>
       <GamePlayFromLevelData
         key={campaign.levelName}
+        gameModeKey="campaign"
         levelData={campaign.levelData}
         settings={{
           showTimer: false,
@@ -63,11 +64,12 @@ export function GamePlayCampaign({
       {campaign.isLevelComplete && (
         <ButtonWrapper>
           <FormButton
-            text="Next level"
             onClick={() => {
               campaign.goToNextLevel();
             }}
-          />
+          >
+            Next Level
+          </FormButton>
         </ButtonWrapper>
       )}
     </>

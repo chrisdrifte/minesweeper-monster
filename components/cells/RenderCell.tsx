@@ -10,7 +10,8 @@ import { noop } from "@/helpers/noop";
 export type RenderCellProps = {
   cell: Cell;
   action?: "dig" | "flag" | "select-dig" | "select-flag";
-  isHighlighted?: boolean;
+  highlight?: "none" | "once" | "always";
+  isInteracted?: boolean;
   isExploded?: boolean;
   annotation?: Annotation;
   onClick?: VoidFunction;
@@ -20,7 +21,7 @@ export type RenderCellProps = {
 export function RenderCell({
   cell,
   action,
-  isHighlighted = false,
+  highlight = "none",
   isExploded = false,
   annotation,
   onClick = noop,
@@ -30,7 +31,7 @@ export function RenderCell({
     case "hidden":
       return (
         <CellWrapper
-          isHighlighted={isHighlighted}
+          highlight={highlight}
           isExploded={isExploded}
           variant="hidden"
           annotation={annotation}
@@ -41,7 +42,7 @@ export function RenderCell({
             <div
               className={classNames(
                 {
-                  "bg-hightlight-dig": isHighlighted,
+                  "bg-hightlight-dig": highlight !== "none",
                 },
                 "size-full sm:hover:bg-highlight-dig active:bg-highlight-dig rounded-sm"
               )}
@@ -52,8 +53,8 @@ export function RenderCell({
               <FlagIcon
                 className={classNames(
                   {
-                    hidden: !isHighlighted,
-                    block: isHighlighted,
+                    hidden: highlight === "none",
+                    block: highlight !== "none",
                   },
                   "fill-flag-fg sm:group-hover:block group-active:block"
                 )}
@@ -66,7 +67,7 @@ export function RenderCell({
     case "flagged":
       return (
         <CellWrapper
-          isHighlighted={isHighlighted}
+          highlight={highlight}
           isExploded={isExploded}
           variant="flag"
           annotation={annotation}
@@ -81,7 +82,7 @@ export function RenderCell({
       if (cell.hasMine) {
         return (
           <CellWrapper
-            isHighlighted={isHighlighted}
+            highlight={highlight}
             isExploded={isExploded}
             variant="mine"
             annotation={annotation}
@@ -99,7 +100,7 @@ export function RenderCell({
 
       return (
         <CellWrapper
-          isHighlighted={isHighlighted}
+          highlight={highlight}
           isExploded={isExploded}
           annotation={annotation}
           onClick={onClick}

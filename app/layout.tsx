@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: "Monster Minesweeper",
   description:
     "A fully customizable minesweeper game with interactive tutorials",
+  robots: {
+    index: !process.env.IS_PREVIEW,
+    follow: !process.env.IS_PREVIEW,
+  },
 };
 
 export default function RootLayout({

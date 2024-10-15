@@ -46,6 +46,8 @@ export function MainMenu({
       </LinkButton>
 
       <LinkButton href="/play/custom#board">Custom Game</LinkButton>
+
+      <LinkButton href="/history">Game History</LinkButton>
     </ButtonWrapper>
   );
 }

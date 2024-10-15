@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { noop } from "@/helpers/noop";
 
 export type CellWrapperProps = {
-  isHighlighted?: boolean;
+  highlight?: "none" | "once" | "always";
   isExploded?: boolean;
   variant?: "none" | "hidden" | "mine" | "flag";
   annotation?: Annotation;
@@ -13,7 +13,7 @@ export type CellWrapperProps = {
 
 export function CellWrapper({
   children,
-  isHighlighted = false,
+  highlight = "none",
   isExploded = false,
   variant = "none",
   annotation,
@@ -58,8 +58,10 @@ export function CellWrapper({
       <div
         className={classNames(
           {
-            "before:bg-highlight-click before:content-[''] before:block before:absolute before:w-full before:h-full motion-safe:before:animate-ping before:rounded-sm relative":
-              isHighlighted,
+            "before:bg-highlight-click before:content-[''] before:block before:absolute before:w-full before:h-full before:rounded-sm relative":
+              highlight !== "none",
+            "before:animate-interact": highlight === "once",
+            "motion-safe:before:animate-ping": highlight === "always",
           },
           "size-full flex items-center justify-center"
         )}
