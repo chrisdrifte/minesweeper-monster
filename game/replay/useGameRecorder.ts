@@ -23,29 +23,46 @@ export function useGameRecorder(gameModeKey: string) {
     replayDataRef.current = undefined;
   }, []);
 
-  const recordInteraction = useCallback((target: Target) => {
+  const recordInteraction = useCallback(
+    (target: Target, type: "click" | "scroll") => {
+      const startTime = startTimeRef.current;
+
+      const now = new Date().getTime();
+      const time = now - (startTime ?? now);
+
+      if (!startTime) {
+        startTimeRef.current = now;
+      }
+
+      switch (type) {
+        case "click":
+          replayDataRef.current +=
+            encodeTime(time) + encodeInteraction(target, "click");
+          break;
+
+        case "scroll":
+          replayDataRef.current +=
+            encodeTime(time) + encodeInteraction(target, "scroll");
+          break;
+      }
+    },
+    []
+  );
+
+  const recordGameState = useCallback((gameState: GameState) => {
     const startTime = startTimeRef.current;
 
     const now = new Date().getTime();
     const time = now - (startTime ?? now);
 
-    if (!startTime) {
-      startTimeRef.current = now;
-    }
-
-    replayDataRef.current += encodeTime(time) + encodeInteraction(target);
-  }, []);
-
-  const recordGameState = useCallback((gameState: GameState) => {
     if (!prevGameStateRef.current) {
       replayDataRef.current = encodeBoardData(gameState);
     }
 
     if (prevGameStateRef.current) {
-      replayDataRef.current += encodeGameStateDiff(
-        prevGameStateRef.current,
-        gameState
-      );
+      replayDataRef.current +=
+        encodeTime(time) +
+        encodeGameStateDiff(prevGameStateRef.current, gameState);
     }
 
     const hasWon = isWinState(gameState);
@@ -93,7 +110,6 @@ export function useGameRecorder(gameModeKey: string) {
     const hasLost = data.endsWith(ReplayDataMode.Lose);
 
     if (!hasWon && !hasLost) {
-      console.error("Cannot save unfinished game");
       return;
     }
 

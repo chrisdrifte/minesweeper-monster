@@ -30,7 +30,7 @@ import { selectFlag } from "@/game/actions/selectFlag";
 import { toParamsString } from "@/helpers/toParams";
 import { track } from "@vercel/analytics";
 import { useCurrentTheme } from "@/game/theme/useCurrentTheme";
-import { useGameRecorder } from "@/game/replay/useReplay";
+import { useGameRecorder } from "@/game/replay/useGameRecorder";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { useRouter } from "next/navigation";
 import { useTimer } from "@/game/timer/useTimer";
@@ -204,7 +204,7 @@ export function GamePlay({
         return;
       }
 
-      recordInteraction(cell);
+      recordInteraction(cell, "click");
 
       if (!hasGeneratedMap) {
         handleStart(cell);
@@ -230,7 +230,7 @@ export function GamePlay({
         return;
       }
 
-      recordInteraction(cell);
+      recordInteraction(cell, "click");
 
       setGameState((prevGameState) => flag(prevGameState, cell));
     },
@@ -272,6 +272,13 @@ export function GamePlay({
 
     timerSet(timeLimit);
   }, [timerSet, timeLimit]);
+
+  const handleScrollEnd = useCallback(
+    (x: number, y: number) => {
+      recordInteraction({ x, y }, "scroll");
+    },
+    [recordInteraction]
+  );
 
   useKeyboardShortcuts({
     KeyD: handleSelectDig,
@@ -376,7 +383,8 @@ export function GamePlay({
             width={gameState.width}
             height={gameState.height}
             isInteractive={!hasFinished}
-            hasControls
+            hasControls={true}
+            onScrollEnd={handleScrollEnd}
           >
             {gameState.cells.map((cell) => (
               <RenderCell

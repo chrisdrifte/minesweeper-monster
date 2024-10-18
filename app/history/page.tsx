@@ -122,7 +122,7 @@ export default function ReplayHistoryPage() {
               decodeNumber(timeMatches?.at(-1)?.slice(1) ?? "0") / 1000;
 
             const numInteractionsRegex = new RegExp(
-              `${ReplayDataMode.Interaction}`,
+              `${ReplayDataMode.Click}`,
               "g"
             );
 

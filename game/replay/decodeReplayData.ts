@@ -1,14 +1,12 @@
 import { BoardData } from "@/types/BoardData";
-import { CellId } from "@/types/CellId";
 import { ChangedCell } from "@/types/ChangedCell";
 import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
 import { Target } from "@/types/Target";
 import { arrayChunks } from "@/helpers/arrayChunks";
-import { createCellId } from "@/helpers/createCellId";
 import { decodeNumber } from "./decodeNumber";
 
 const MIN_TIME = -1; // -1 represents the time before the game has begun
-const replayDataRegExp = /^V1;[0-9TZ:.-]+;[a-z-]+;[!@#$A-Za-z0-9]+$/;
+const replayDataRegExp = /^V1;[0-9TZ:.-]+;[a-z-]+;[!@#$%,A-Za-z0-9]+$/;
 
 export function decodeReplayData(replayData: string) {
   /**
@@ -49,6 +47,8 @@ export function decodeReplayData(replayData: string) {
 
   let target: Target | undefined;
 
+  let scroll: Target | undefined;
+
   let time = 0;
 
   let changedCells: ChangedCell[] = [];
@@ -63,7 +63,10 @@ export function decodeReplayData(replayData: string) {
   // eg. the user clicks, but no new cells were revealed
   // eg. the game reveals the mines at the end of the game in a separate frame
   const levelDataByTime: Record<number, string> = {};
-  const interactionsByTime: Record<number, Target> = {};
+  const interactionsByTime: Record<
+    number,
+    Target & { type: "click" | "scroll" }
+  > = {};
 
   /**
    * Decode a unit of streamed data
@@ -99,7 +102,7 @@ export function decodeReplayData(replayData: string) {
        * 0 = x position
        * 1 = y position
        */
-      case ReplayDataMode.Interaction: {
+      case ReplayDataMode.Click: {
         const [x, y] = dataUnit;
         target = { x: decodeNumber(x), y: decodeNumber(y) };
         break;
@@ -118,6 +121,19 @@ export function decodeReplayData(replayData: string) {
       }
 
       /**
+       * The scroll position is represented by 3 characters, eg. %01
+       *
+       * % = enable scroll mode
+       * 0 = x position
+       * 1 = y position
+       */
+      case ReplayDataMode.Scroll: {
+        const [x, y] = dataUnit.split(",");
+        scroll = { x: decodeNumber(x), y: decodeNumber(y) };
+        break;
+      }
+
+      /**
        * The diff between game states is represented by any number of
        * characters, eg. $M1234
        *
@@ -126,7 +142,7 @@ export function decodeReplayData(replayData: string) {
        * 0 = cell 1 x position
        * 2 = cell 1 y position
        * 3 = cell 2 x position
-       * 4 = cell 3 y position
+       * 4 = cell 2 y position
        */
       case ReplayDataMode.Cell: {
         const [value, ...cellCoords] = dataUnit;
@@ -174,17 +190,22 @@ export function decodeReplayData(replayData: string) {
     levelDataByTime[time] = levelData;
 
     prevLevelData = levelData;
+    changedCells = [];
   };
 
   /**
    * Combines current data into cell id of the a user interaction
    */
   const outputInteraction = () => {
-    if (!target) {
-      return;
+    if (target) {
+      interactionsByTime[time] = { ...target, type: "click" };
+      target = undefined;
     }
 
-    interactionsByTime[time] = target;
+    if (scroll) {
+      interactionsByTime[time] = { ...scroll, type: "scroll" };
+      scroll = undefined;
+    }
   };
 
   /**
@@ -200,9 +221,10 @@ export function decodeReplayData(replayData: string) {
       // we are switching to a new mode, so we should process the current data
       // unit and start a new data unit
       case ReplayDataMode.Board:
-      case ReplayDataMode.Interaction:
+      case ReplayDataMode.Click:
       case ReplayDataMode.Time:
       case ReplayDataMode.Cell:
+      case ReplayDataMode.Scroll:
       case ReplayDataMode.Win:
       case ReplayDataMode.Lose:
       case undefined: {
@@ -214,11 +236,6 @@ export function decodeReplayData(replayData: string) {
         // output a new frame if we have enough data to do so
         if (hasCellDiff && (hasFinishedCellDiff || hasWon || hasLost)) {
           outputLevelData();
-          outputInteraction();
-
-          target = undefined;
-          time += 1;
-          changedCells = [];
         }
 
         // process the previous unit of data if we have one
@@ -226,6 +243,10 @@ export function decodeReplayData(replayData: string) {
           processDataUnit(dataUnit, mode);
         }
 
+        // output interactions separately
+        if (mode === ReplayDataMode.Click || mode === ReplayDataMode.Scroll) {
+          outputInteraction();
+        }
         // start collecting data for the new mode
         if (head) {
           mode = head;

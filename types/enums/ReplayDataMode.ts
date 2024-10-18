@@ -1,8 +1,9 @@
 export enum ReplayDataMode {
   Board = "!",
-  Interaction = "@",
+  Click = "@",
   Time = "#",
   Cell = "$",
+  Scroll = "%",
   Win = "W",
   Lose = "L",
 }

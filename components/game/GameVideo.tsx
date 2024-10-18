@@ -2,15 +2,15 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { BoardWrapper } from "./BoardWrapper";
 import { Center } from "@/components/layout/Center";
-import { GameStatic } from "@/components/game/GameStatic";
 import { PauseIcon } from "@/components/icons/PauseIcon";
 import { PlayIcon } from "@/components/icons/PlayIcon";
+import { RenderCell } from "../cells/RenderCell";
 import { Slider } from "@/components/slider/Slider";
 import { Timer } from "@/components/game/Timer";
-import classNames from "classnames";
-import { createCellId } from "@/helpers/createCellId";
 import { decodeReplayData } from "@/game/replay/decodeReplayData";
+import { loadGameState } from "@/helpers/loadGameState";
 import { now } from "@/helpers/now";
 import { usePointerUp } from "@/hooks/usePointerUp";
 import { useReplaySpeed } from "@/game/replay/useReplaySpeed";
@@ -86,6 +86,10 @@ export function GameVideo({ replayData }: GameVideoProps) {
 
   const levelData = levelDataByTime?.[keyTime];
 
+  const gameState = useMemo(() => {
+    return loadGameState(levelData, undefined, true);
+  }, [levelData]);
+
   const setTime = useCallback(
     (time: number) => {
       setCurrentTime(time);
@@ -108,22 +112,43 @@ export function GameVideo({ replayData }: GameVideoProps) {
   // state change, so the viewer can register cause and effect more easily
   const artificialInteractionDelay = currentTime >= 0 ? 75 : 0;
 
-  const interactionTimes = Object.keys(interactionsByTime)
+  // make it feel more natural by animating the scroll just before the
+  // state change, so animation finishes instead of starts at the scroll time
+  const artificialCursorDelay = currentTime >= 0 ? 300 : 0;
+
+  // make it feel more natural by animating the scroll just before the
+  // state change, so animation finishes instead of starts at the scroll time
+  const artificialScrollDelay = currentTime >= 0 ? 100 : 0;
+
+  const clickTimes = Object.keys(interactionsByTime)
     .map(Number)
+    .filter((key) => interactionsByTime[key].type === "click")
     .sort((a, b) => a - b);
 
-  const visibleInteractions = interactionTimes
+  const scrollTimes = Object.keys(interactionsByTime)
+    .map(Number)
+    .filter((key) => interactionsByTime[key].type === "scroll")
+    .sort((a, b) => a - b);
+
+  const visibleInteractions = clickTimes
     .filter((time) => time < currentTime + artificialInteractionDelay)
     .map((time) => interactionsByTime[time])
     .slice(cutoff);
 
   const cursor =
     interactionsByTime[
-      interactionTimes.reduce((prevTime, currTime) => {
-        if (currTime - 200 < currentTime) return currTime;
+      clickTimes.reduce((prevTime, currTime) => {
+        if (currTime < currentTime + artificialCursorDelay) return currTime;
         return prevTime;
       }, -1)
     ];
+
+  const scroll = interactionsByTime[
+    scrollTimes.reduce((prevTime, currTime) => {
+      if (currTime < currentTime + artificialScrollDelay) return currTime;
+      return prevTime;
+    }, -1)
+  ] ?? { x: 0, y: 0 };
 
   useEffect(() => {
     if (!isPlaying || isScrubbing) {
@@ -154,18 +179,6 @@ export function GameVideo({ replayData }: GameVideoProps) {
       cancelAnimationFrame(id);
     };
   }, [isPlaying, isScrubbing, currentTime, maxTime, replaySpeed, setTime]);
-
-  const { width, height } = useMemo(() => {
-    const rows = levelData.split("\n");
-    const cols = rows[0].split("");
-
-    return {
-      width: cols.length,
-      height: rows.length - 1,
-    };
-  }, [levelData]);
-
-  console.log({ width, height });
 
   if (!levelData) {
     return <div>Failed to load!</div>;
@@ -201,45 +214,22 @@ export function GameVideo({ replayData }: GameVideoProps) {
         </div>
       </div>
 
-      <div className="relative" onClick={togglePlay}>
-        <GameStatic levelData={levelData} allowInvalid />
-
-        {currentTime > 0 && (
-          <div
-            className="opacity-50 absolute left-0 top-0 rounded-sm size-8 duration-200 ease-in-out"
-            style={{
-              transform: `translate(${cursor.x * 32 + 12}px, ${
-                cursor.y * 32 + 12
-              }px)`,
-            }}
-          >
-            <div
-              key={createCellId(cursor)}
-              className={classNames(
-                { hidden: !isPlaying },
-                "animate-spectral bg-fg-alt size-full duration-300"
-              )}
-            ></div>
-          </div>
-        )}
-
-        {!!visibleInteractions.length && (
-          <div className="size-full absolute top-0 left-0">
-            {visibleInteractions.map((interaction) => (
-              <div
-                key={createCellId(interaction)}
-                className="animate-interact border-4 border-highlight-click absolute rounded-sm size-7"
-                style={{
-                  left: `${interaction.x * 32 + 14}px`,
-                  top: `${interaction.y * 32 + 14}px`,
-                }}
-                onAnimationEnd={() => {
-                  setCutoff((n) => n + 1);
-                }}
-              />
-            ))}
-          </div>
-        )}
+      <div onClick={togglePlay}>
+        <BoardWrapper
+          width={gameState.width}
+          height={gameState.height}
+          scroll={scroll}
+          cursor={currentTime > 0 && isPlaying ? cursor : undefined}
+          isInteractive={false}
+          interactions={visibleInteractions}
+          onInteractionEnd={() => {
+            setCutoff((n) => n + 1);
+          }}
+        >
+          {gameState.cells.map((cell) => (
+            <RenderCell key={cell.id} cell={cell} />
+          ))}
+        </BoardWrapper>
       </div>
     </Center>
   );

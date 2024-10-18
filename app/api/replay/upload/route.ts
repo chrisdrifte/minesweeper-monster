@@ -41,7 +41,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       blob = blobs[0];
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json(
       { message: "Something went wrong during the upload, please try again." },
       { status: 500 }
@@ -57,7 +57,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         contentType: "text/plain; charset=UTF-8",
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return NextResponse.json(
         {
           message: "Something went wrong during the upload, please try again.",
