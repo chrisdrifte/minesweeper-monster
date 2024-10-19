@@ -13,12 +13,12 @@ import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
 import { loadGameState } from "@/helpers/loadGameState";
 
-export type GameReplayProps = {
+export type GameTutorialProps = {
   levelData: string;
   steps?: Action[];
 };
 
-export function GameReplay({ levelData, steps = [] }: GameReplayProps) {
+export function GameTutorial({ levelData, steps = [] }: GameTutorialProps) {
   const hasSteps = steps.length > 0;
 
   const minStep = -1;
@@ -73,7 +73,7 @@ export function GameReplay({ levelData, steps = [] }: GameReplayProps) {
                 key={cell.id}
                 cell={cell}
                 action={nextAction?.type}
-                isHighlighted={highlightedCellId === cell.id}
+                highlight={highlightedCellId === cell.id ? "always" : "none"}
               />
             ))}
           </BoardWrapper>

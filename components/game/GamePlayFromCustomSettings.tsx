@@ -15,6 +15,7 @@ export default function GamePlayFromCustomSettings({
 
   return (
     <GamePlayFromSettings
+      gameModeKey="custom"
       settings={customSettings}
       settingsHref="/play/custom/settings"
       tipText="Tip: This mode is fully customizable by editing the settings"

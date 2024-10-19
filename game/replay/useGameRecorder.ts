@@ -1,0 +1,139 @@
+import { useCallback, useRef } from "react";
+
+import { GameState } from "@/types/GameState";
+import { ReplayDataMode } from "@/types/enums/ReplayDataMode";
+import { Target } from "@/types/Target";
+import { arrayUnique } from "@/helpers/arrayUnique";
+import { encodeBoardData } from "./encodeBoardData";
+import { encodeGameStateDiff } from "./encodeGameStateDiff";
+import { encodeInteraction } from "./encodeInteraction";
+import { encodeReplayKey } from "./encodeReplayKey";
+import { encodeTime } from "./encodeTime";
+import { isLoseState } from "@/helpers/isLoseState";
+import { isWinState } from "@/helpers/isWinState";
+
+export function useGameRecorder(gameModeKey: string) {
+  const prevGameStateRef = useRef<GameState>();
+  const startTimeRef = useRef<number>();
+  const replayDataRef = useRef<string>();
+
+  const resetReplayData = useCallback(() => {
+    prevGameStateRef.current = undefined;
+    startTimeRef.current = undefined;
+    replayDataRef.current = undefined;
+  }, []);
+
+  const recordInteraction = useCallback(
+    (target: Target, type: "click" | "scroll") => {
+      const startTime = startTimeRef.current;
+
+      const now = new Date().getTime();
+      const time = now - (startTime ?? now);
+
+      if (!startTime) {
+        startTimeRef.current = now;
+      }
+
+      switch (type) {
+        case "click":
+          replayDataRef.current +=
+            encodeTime(time) + encodeInteraction(target, "click");
+          break;
+
+        case "scroll":
+          replayDataRef.current +=
+            encodeTime(time) + encodeInteraction(target, "scroll");
+          break;
+      }
+    },
+    []
+  );
+
+  const recordGameState = useCallback((gameState: GameState) => {
+    const startTime = startTimeRef.current;
+
+    const now = new Date().getTime();
+    const time = now - (startTime ?? now);
+
+    if (!prevGameStateRef.current) {
+      replayDataRef.current = encodeBoardData(gameState);
+    }
+
+    if (prevGameStateRef.current) {
+      replayDataRef.current +=
+        encodeTime(time) +
+        encodeGameStateDiff(prevGameStateRef.current, gameState);
+    }
+
+    const hasWon = isWinState(gameState);
+    const hasLost = isLoseState(gameState);
+
+    if (hasWon) {
+      replayDataRef.current += "W";
+    }
+
+    if (hasLost) {
+      replayDataRef.current += "L";
+    }
+
+    prevGameStateRef.current = gameState;
+  }, []);
+
+  const getReplayData = useCallback(() => {
+    const time = startTimeRef.current;
+    const replayData = replayDataRef.current;
+
+    if (!time || !replayData) {
+      return;
+    }
+
+    const version = "V1";
+    const date = new Date(time).toISOString();
+
+    return `${version};${date};${gameModeKey};${replayData}`;
+  }, []);
+
+  const saveReplayData = useCallback(() => {
+    if (!startTimeRef.current) {
+      return;
+    }
+
+    const indexKey = "replayDataKeys";
+    const encodedKey = encodeReplayKey(startTimeRef.current.toString());
+    const data = getReplayData();
+
+    if (!data) {
+      return;
+    }
+
+    const hasWon = data.endsWith(ReplayDataMode.Win);
+    const hasLost = data.endsWith(ReplayDataMode.Lose);
+
+    if (!hasWon && !hasLost) {
+      return;
+    }
+
+    let existingKeys = [];
+
+    try {
+      existingKeys = JSON.parse(window.localStorage.getItem(indexKey) ?? "");
+    } catch (err) {
+      // do nothing
+    }
+
+    window.localStorage.setItem(
+      indexKey,
+      JSON.stringify(arrayUnique([...existingKeys, encodedKey]))
+    );
+
+    window.localStorage.setItem(encodedKey, data);
+  }, [getReplayData]);
+
+  return {
+    recordInteraction,
+    recordGameState,
+    getReplayData,
+    saveReplayData,
+    resetReplayData,
+  };
+}

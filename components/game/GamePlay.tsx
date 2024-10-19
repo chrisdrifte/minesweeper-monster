@@ -13,9 +13,9 @@ import Link from "next/link";
 import { RenderCell } from "../cells/RenderCell";
 import { RestartIcon } from "../icons/RestartIcon";
 import { SelectActionType } from "./SelectActionType";
+import { SelectEndGameOptions } from "./SelectEndGameOptions";
 import { SettingsIcon } from "../icons/SettingsIcon";
 import { Timer } from "./Timer";
-import classNames from "classnames";
 import { dig } from "@/game/actions/dig";
 import { flag } from "@/game/actions/flag";
 import { generate } from "@/game/actions/generate";
@@ -30,23 +30,29 @@ import { selectFlag } from "@/game/actions/selectFlag";
 import { toParamsString } from "@/helpers/toParams";
 import { track } from "@vercel/analytics";
 import { useCurrentTheme } from "@/game/theme/useCurrentTheme";
+import { useGameRecorder } from "@/game/replay/useGameRecorder";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
+import { useRouter } from "next/navigation";
 import { useTimer } from "@/game/timer/useTimer";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export type GamePlayProps = {
+  gameModeKey: string;
   initialGameState: GameState;
   settingsHref?: string;
   tipText?: string;
   showRestart?: boolean;
+  showSaveReplay?: boolean;
   onWin?: (gameState: GameState) => void;
 };
 
 export function GamePlay({
+  gameModeKey,
   initialGameState,
   settingsHref,
   tipText,
   showRestart = false,
+  showSaveReplay = false,
   onWin = noop,
 }: GamePlayProps) {
   const { width: windowWidth, height: windowHeight } = useWindowSize();
@@ -64,6 +70,13 @@ export function GamePlay({
     set: timerSet,
     seconds: timerSeconds,
   } = useTimer(gameState.showTimer);
+
+  const {
+    recordInteraction,
+    recordGameState,
+    resetReplayData,
+    saveReplayData,
+  } = useGameRecorder(gameModeKey);
 
   const numMines = gameState.cells.filter((cell) => cell.hasMine).length;
 
@@ -182,13 +195,16 @@ export function GamePlay({
   const handleRestart = useCallback(() => {
     setGameState(initialGameState);
     timerReset();
-  }, [initialGameState, timerReset]);
+    resetReplayData();
+  }, [initialGameState, timerReset, resetReplayData]);
 
   const handleClickCell = useCallback(
     (cell: Cell) => {
       if (hasFinished) {
         return;
       }
+
+      recordInteraction(cell, "click");
 
       if (!hasGeneratedMap) {
         handleStart(cell);
@@ -205,7 +221,7 @@ export function GamePlay({
           return;
       }
     },
-    [hasFinished, hasGeneratedMap, handleStart, action]
+    [hasFinished, recordInteraction, hasGeneratedMap, handleStart, action]
   );
 
   const handleAltClickCell = useCallback(
@@ -214,9 +230,11 @@ export function GamePlay({
         return;
       }
 
+      recordInteraction(cell, "click");
+
       setGameState((prevGameState) => flag(prevGameState, cell));
     },
-    [isPlaying]
+    [isPlaying, recordInteraction]
   );
 
   const handleSelectDig = useCallback(() => {
@@ -254,6 +272,13 @@ export function GamePlay({
 
     timerSet(timeLimit);
   }, [timerSet, timeLimit]);
+
+  const handleScrollEnd = useCallback(
+    (x: number, y: number) => {
+      recordInteraction({ x, y }, "scroll");
+    },
+    [recordInteraction]
+  );
 
   useKeyboardShortcuts({
     KeyD: handleSelectDig,
@@ -304,12 +329,24 @@ export function GamePlay({
     };
   }, [autoRestart, hasLost, handleRestart]);
 
+  // record game
+  useEffect(() => {
+    recordGameState(gameState);
+  }, [recordGameState, gameState]);
+
   // fire event listeners
   useEffect(() => {
     if (hasWon) {
       onWin(gameState);
     }
   }, [gameState, hasWon, onWin]);
+
+  const router = useRouter();
+
+  const handleSaveReplayData = () => {
+    saveReplayData();
+    router.push("/history");
+  };
 
   return (
     <div>
@@ -341,16 +378,13 @@ export function GamePlay({
           </>
         )}
 
-        <div
-          className={classNames(
-            { "sm:pointer-events-none": hasFinished },
-            "grid grid-cols-1 justify-items-center"
-          )}
-        >
+        <div className="grid grid-cols-1 justify-items-center">
           <BoardWrapper
             width={gameState.width}
             height={gameState.height}
-            hasControls
+            isInteractive={!hasFinished}
+            hasControls={true}
+            onScrollEnd={handleScrollEnd}
           >
             {gameState.cells.map((cell) => (
               <RenderCell
@@ -364,12 +398,16 @@ export function GamePlay({
             ))}
           </BoardWrapper>
 
-          <SelectActionType
-            actionType={gameState.action}
-            isFlaggingEnabled={isFlaggableState(gameState)}
-            onSelectDig={handleSelectDig}
-            onSelectFlag={handleSelectFlag}
-          />
+          {(!hasWon && !hasLost) || !showSaveReplay ? (
+            <SelectActionType
+              actionType={gameState.action}
+              isFlaggingEnabled={isFlaggableState(gameState)}
+              onSelectDig={handleSelectDig}
+              onSelectFlag={handleSelectFlag}
+            />
+          ) : (
+            <SelectEndGameOptions onSaveReplayData={handleSaveReplayData} />
+          )}
         </div>
       </Center>
 

@@ -6,7 +6,7 @@ export function encodeCell(cell: Cell) {
   }
 
   if (cell.state === "visible") {
-    return cell.hasMine ? "M" : String(cell.count);
+    return cell.hasMine ? "E" : String(cell.count);
   }
 
   if (cell.state === "flagged") {

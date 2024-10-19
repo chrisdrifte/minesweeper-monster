@@ -2,15 +2,15 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const getTimestamp = () => performance.now();
+import { now } from "@/helpers/now";
 
 export function useTimer(isEnabled = true) {
-  const [startTimestamp, setStartTimestamp] = useState(getTimestamp);
+  const [startTimestamp, setStartTimestamp] = useState(now);
   const [isRunning, setIsRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
 
   const start = useCallback(() => {
-    setStartTimestamp(getTimestamp);
+    setStartTimestamp(now);
     setIsRunning(true);
   }, []);
 
@@ -40,7 +40,7 @@ export function useTimer(isEnabled = true) {
       return;
     }
 
-    setSeconds((getTimestamp() - startTimestamp) / 1000);
+    setSeconds((now() - startTimestamp) / 1000);
     const id = requestAnimationFrame(nextFrame);
 
     return () => {
