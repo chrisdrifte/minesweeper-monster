@@ -47,13 +47,15 @@ export function BoardWrapper({
   const scrollElementRef = useRef<HTMLDivElement>(null);
   const { x, y } = scroll;
 
+  const hasCursor = !!cursor;
+
   useEffect(() => {
     scrollElementRef.current?.scrollTo({
       top: y,
       left: x,
-      behavior: cursor ? "smooth" : "instant",
+      behavior: hasCursor ? "smooth" : "instant",
     });
-  }, [x, y]);
+  }, [x, y, hasCursor]);
 
   return (
     <div

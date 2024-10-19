@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-
 import { Annotation } from "@/types/Annotation";
 import { BoardWrapper } from "./BoardWrapper";
 import { CellId } from "@/types/CellId";
 import { RenderCell } from "../cells/RenderCell";
 import { loadGameState } from "@/helpers/loadGameState";
+import { useMemo } from "react";
 
 export type GameStaticProps = {
   levelData: string;
